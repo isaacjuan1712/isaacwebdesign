@@ -15,7 +15,7 @@ export const whatsappLink = `https://wa.me/${site.whatsappNumber}?text=${encodeU
 
 export const navLinks = [
   { href: "#about", label: "עליי" },
-  { href: "#services", label: "שירותים" },
-  { href: "#projects", label: "עבודות" },
+  { href: "#process", label: "איך זה עובד" },
+  { href: "#included", label: "מה מקבלים" },
   { href: "#contact", label: "צור קשר" },
 ];

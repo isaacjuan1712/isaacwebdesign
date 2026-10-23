@@ -3,21 +3,23 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Included from "@/components/Included";
 import Marquee from "@/components/Marquee";
-import Projects from "@/components/Projects";
-import Services from "@/components/Services";
+import Process from "@/components/Process";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      {/* overflow-x-clip: tilted bands and side-sliding headlines never cause sideways scroll,
+          and unlike overflow-hidden it keeps position: sticky working */}
+      <main className="overflow-x-clip">
         <Hero />
         <Marquee />
         <About />
-        <Services />
-        <Projects />
+        <Process />
+        <Included />
         <Contact />
       </main>
       <Footer />

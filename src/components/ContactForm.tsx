@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { whatsappLink } from "@/lib/site";
+import Magnetic from "./Magnetic";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -10,15 +11,23 @@ type Status = "idle" | "sending" | "success" | "error";
 // That's fine here: a Web3Forms access key is public by design (it can only send to your inbox).
 const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
+const ease = [0.23, 1, 0.32, 1] as const;
+
+// Fields rise in one after another, as if the form were being written out
+const rise = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+};
+
 const inputClass =
   "w-full border-0 border-b-2 border-line bg-transparent px-0 py-3 text-lg text-bone outline-none transition-colors placeholder:text-dust/50 focus:border-flare focus-visible:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <label className="block">
+    <motion.label variants={rise} className="block">
       <span className="block text-sm font-semibold text-dust">{label}</span>
       {children}
-    </label>
+    </motion.label>
   );
 }
 
@@ -58,7 +67,14 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <motion.form
+      onSubmit={handleSubmit}
+      className="space-y-8"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={{ show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } } }}
+    >
       {/* Honeypot: hidden from people, bots tick it and Web3Forms drops the submission */}
       <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
@@ -101,13 +117,17 @@ export default function ContactForm() {
         />
       </Field>
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="group inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-bone px-8 py-4 text-lg font-semibold text-ink transition-[translate,background-color] duration-200 hover:-translate-y-0.5 hover:bg-flare active:scale-95 disabled:cursor-wait disabled:opacity-50 sm:w-auto"
-      >
-        {status === "sending" ? "שולח..." : "שליחה"}
-      </button>
+      <motion.div variants={rise}>
+        <Magnetic className="flex sm:inline-flex">
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-bone px-8 py-4 text-lg font-semibold text-ink transition-[scale,background-color,opacity] duration-150 ease-out hover:bg-flare active:scale-[0.97] disabled:cursor-wait disabled:opacity-50 sm:w-auto"
+          >
+            {status === "sending" ? "שולח..." : "שליחה"}
+          </button>
+        </Magnetic>
+      </motion.div>
 
       {/* aria-live makes screen readers announce the result */}
       <div aria-live="polite" className="min-h-7">
@@ -128,6 +148,6 @@ export default function ContactForm() {
           )}
         </AnimatePresence>
       </div>
-    </form>
+    </motion.form>
   );
 }

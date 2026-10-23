@@ -1,21 +1,36 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "./icons";
+import Magnetic from "./Magnetic";
 
 // Floating button that stays on screen while scrolling.
 // `end-5` = the "end" side, which in RTL is the bottom-left corner.
 // The bottom offset respects the iPhone home-indicator safe area.
+// It pops in once the hero headline has finished printing, so it doesn't compete with it.
 export default function WhatsAppButton() {
+  const reduce = useReducedMotion();
   return (
-    <a
-      href={whatsappLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="שלחו הודעה בוואטסאפ"
+    <motion.div
       style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
-      className="group fixed end-5 z-40 flex size-15 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/40 transition-transform duration-200 hover:scale-110 active:scale-95"
+      className="fixed end-5 z-40"
+      initial={{ opacity: 0, scale: 0.6 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: reduce ? 0 : 1.6, type: "spring", duration: 0.6, bounce: 0.35 }}
     >
-      <span aria-hidden="true" className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
-      <WhatsAppIcon className="relative size-8 transition-transform duration-300 group-hover:-rotate-12" />
-    </a>
+      <Magnetic strength={0.45}>
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="שלחו הודעה בוואטסאפ"
+          className="group relative flex size-15 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/40 transition-transform duration-150 ease-out active:scale-[0.94]"
+        >
+          <span aria-hidden="true" className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
+          <WhatsAppIcon className="relative size-8 transition-transform duration-300 group-hover:-rotate-12" />
+        </a>
+      </Magnetic>
+    </motion.div>
   );
 }

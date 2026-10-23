@@ -1,22 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { navLinks, site, whatsappLink } from "@/lib/site";
+import Magnetic from "./Magnetic";
+import { getLenis } from "./Providers";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+const ease = [0.23, 1, 0.32, 1] as const;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  // Reading progress: a thin orange line along the bottom of the header
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 40, restDelta: 0.001 });
 
   // While the mobile menu is open: lock page scroll and close on Escape.
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = "hidden";
+    getLenis()?.stop();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      getLenis()?.start();
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -36,14 +43,16 @@ export default function Header() {
               <span className="absolute inset-x-0 bottom-0 h-px origin-right scale-x-0 bg-flare transition-transform duration-300 group-hover:scale-x-100" />
             </a>
           ))}
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-flare px-5 py-2.5 font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 active:scale-95"
-          >
-            בואו נדבר
-          </a>
+          <Magnetic>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-flare px-5 py-2.5 font-semibold text-ink transition-[scale,background-color] duration-150 ease-out hover:bg-bone active:scale-[0.97]"
+            >
+              בואו נדבר
+            </a>
+          </Magnetic>
         </nav>
 
         {/* Hamburger: the two bars rotate into an X */}
@@ -68,6 +77,12 @@ export default function Header() {
         </button>
       </div>
 
+      <motion.span
+        aria-hidden="true"
+        className="absolute inset-x-0 -bottom-px z-10 h-0.5 origin-right bg-flare"
+        style={{ scaleX: progress }}
+      />
+
       <AnimatePresence>
         {open && (
           <motion.nav
@@ -88,7 +103,7 @@ export default function Header() {
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.href}
-                  variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
+                  variants={{ hidden: { opacity: 0, y: 32 }, show: { opacity: 1, y: 0 } }}
                   transition={{ duration: 0.35, ease }}
                 >
                   <a

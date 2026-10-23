@@ -34,11 +34,27 @@ export function PhoneIcon({ className = "size-5" }: IconProps) {
   );
 }
 
-// Arrow pointing "forward" in RTL (toward the left).
-export function ArrowIcon({ className = "size-6" }: IconProps) {
+export function CheckIcon({ className = "size-5" }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" {...stroke} strokeWidth={2} aria-hidden="true" className={className}>
-      <path d="M19 12H5M11 6l-6 6 6 6" />
+    <svg viewBox="0 0 24 24" {...stroke} strokeWidth={2.4} aria-hidden="true" className={className}>
+      <path d="m5 12.5 4.5 4.5L19 7.5" />
+    </svg>
+  );
+}
+
+export function PinIcon({ className = "size-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
+    </svg>
+  );
+}
+
+// Four-point spark used as the separator in the ticker band.
+export function SparkIcon({ className = "size-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M12 1c.6 5.9 4.1 9.4 10 10v2c-5.9.6-9.4 4.1-10 10h-2c-.6-5.9-4.1-9.4-10-10v-2c5.9-.6 9.4-4.1 10-10h2Z" transform="translate(1 0) scale(.92)" />
     </svg>
   );
 }

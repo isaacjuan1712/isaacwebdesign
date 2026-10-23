@@ -17,13 +17,39 @@
   --font-display: var(--font-karantina), "Arial Narrow", sans-serif;
   --font-sans: var(--font-assistant), system-ui, sans-serif;
 
-  --animate-marquee: marquee 28s linear infinite;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
   --animate-spin-slow: spin 18s linear infinite;
   --animate-ping-soft: ping-soft 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
 
-  @keyframes marquee {
-    to {
-      transform: translateX(50%);
+  --animate-feed: feed 9s var(--ease-in-out-strong) infinite;
+  --animate-typing: typing 1s ease-in-out infinite;
+
+  /* A page scrolling inside the mini phone: pause, glide, pause, glide back */
+  @keyframes feed {
+    0%,
+    18% {
+      transform: translateY(0);
+    }
+    45%,
+    62% {
+      transform: translateY(-46%);
+    }
+    90%,
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes typing {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px);
     }
   }
   @keyframes ping-soft {
@@ -39,20 +65,28 @@
   }
 }
 
-/* Smooth scrolling only for people who haven't asked for reduced motion */
+/* Native smooth anchors when Lenis isn't running (touch, or JS still loading).
+   Lenis drives the scroll itself, so the CSS version must step aside. */
 @media (prefers-reduced-motion: no-preference) {
-  html {
+  html:not(.lenis) {
     scroll-behavior: smooth;
   }
 }
 
 /* Looping CSS animations are switched off entirely for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
   .animate-spin-slow,
-  .animate-ping-soft {
+  .animate-ping-soft,
+  .animate-feed,
+  .animate-typing {
     animation: none;
   }
+}
+
+/* Loops inside the "what you get" demos only run while their tile is on screen */
+[data-playing="false"] .animate-feed,
+[data-playing="false"] .animate-typing {
+  animation-play-state: paused;
 }
 
 section[id] {
@@ -62,6 +96,11 @@ section[id] {
 body {
   background: var(--color-ink);
   color: var(--color-bone);
+  caret-color: var(--color-flare);
+}
+
+html {
+  scrollbar-color: var(--color-line) var(--color-ink);
 }
 
 /* Static film-grain overlay gives the dark background a printed, tactile feel */
