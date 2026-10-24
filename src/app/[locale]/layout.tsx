@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Assistant, Karantina } from "next/font/google";
+import InlineScript from "@/components/InlineScript";
 import Providers from "@/components/Providers";
 import { I18nProvider, type ClientMessages } from "@/i18n/client";
 import { directionOf, locales } from "@/i18n/config";
@@ -66,7 +67,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
       <head>
         {/* Applies saved accessibility preferences (text size, contrast, paused motion...)
             before the first paint, so the page never flashes in the default style */}
-        <script dangerouslySetInnerHTML={{ __html: prePaintScript }} />
+        <InlineScript html={prePaintScript} />
       </head>
       <body className="min-h-dvh font-sans">
         {/* First focusable element on every page: jumps keyboard users past the header */}
