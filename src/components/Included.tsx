@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValue, useSpring } from "motion/react";
-import { site } from "@/lib/site";
+import { useI18n } from "@/i18n/client";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { CheckIcon, MailIcon, PinIcon } from "./icons";
 import { useMotionPause } from "./Providers";
@@ -115,15 +115,17 @@ function FastVisual() {
 // 2. The real pre-written message from this site. Press send and watch it go.
 function WhatsAppVisual() {
   const [sent, setSent] = useState(false);
+  const { t } = useI18n();
+  const w = t.included.whatsapp;
 
   return (
     <div className="flex h-full flex-col bg-ink">
       <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
         <span className="flex size-8 items-center justify-center rounded-full bg-flare text-sm font-bold text-ink">
-          {site.name[0]}
+          {t.site.name[0]}
         </span>
-        <span className="text-sm font-semibold">{site.name}</span>
-        <span className="ms-auto text-xs text-dust">ככה זה נראה אצל הלקוח שלכם</span>
+        <span className="text-sm font-semibold">{t.site.name}</span>
+        <span className="ms-auto text-xs text-dust">{w.preview}</span>
       </div>
 
       <div className="flex flex-1 flex-col justify-end gap-3 p-4">
@@ -135,7 +137,7 @@ function WhatsAppVisual() {
               className="max-w-[80%] self-start rounded-2xl rounded-tr-sm bg-[#1d5c3a] px-4 py-2.5 text-sm leading-relaxed"
               transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
             >
-              {site.whatsappMessage}
+              {t.site.whatsappMessage}
               <span className="mt-1 flex justify-end gap-0.5 text-[#53bdeb]">
                 <CheckIcon className="size-3.5" />
                 <CheckIcon className="-ms-2.5 size-3.5" />
@@ -149,11 +151,11 @@ function WhatsAppVisual() {
             <AnimatePresence initial={false} mode="popLayout">
               {sent ? (
                 <motion.span key="empty" className="text-dust" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  הודעה
+                  {w.placeholder}
                 </motion.span>
               ) : (
                 <motion.span key="draft" layoutId="wa-message" className="block" transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}>
-                  {site.whatsappMessage}
+                  {t.site.whatsappMessage}
                 </motion.span>
               )}
             </AnimatePresence>
@@ -161,10 +163,10 @@ function WhatsAppVisual() {
           <button
             type="button"
             onClick={() => setSent((s) => !s)}
-            aria-label={sent ? "להחזיר את ההודעה לתיבה" : "לשלוח את הודעת הדוגמה"}
+            aria-label={sent ? w.reset : w.send}
             className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-whatsapp text-ink transition-transform duration-150 ease-out active:scale-[0.92]"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={`size-5 transition-transform duration-300 ${sent ? "rotate-180" : "-scale-x-100"}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={`size-5 transition-transform duration-300 ${sent ? "rotate-180" : "-scale-x-100 ltr:scale-x-100"}`}>
               {sent ? <path d="M12 4a8 8 0 1 0 8 8h-2a6 6 0 1 1-1.76-4.24L14 10h6V4l-2.35 2.35A7.97 7.97 0 0 0 12 4Z" /> : <path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z" />}
             </svg>
           </button>
@@ -177,7 +179,8 @@ function WhatsAppVisual() {
 // 3. A form that fills itself in, sends, and lands in your inbox.
 function FormVisual({ playing }: { playing: boolean }) {
   const phase = usePhases(playing, 4, 1300);
-  const fields = ["ישראל ישראלי", "050-000-0000", "אשמח לשמוע פרטים"];
+  const { t, sign } = useI18n();
+  const fields = t.included.form.fields;
 
   return (
     <div aria-hidden="true" className="flex h-full flex-col justify-center gap-3 px-6">
@@ -188,7 +191,7 @@ function FormVisual({ playing }: { playing: boolean }) {
             dir={i === 1 ? "ltr" : undefined}
             animate={{ opacity: phase >= 1 && phase < 3 ? 1 : 0 }}
             transition={{ duration: 0.25, delay: phase === 1 ? i * 0.18 : 0 }}
-            style={{ textAlign: i === 1 ? "right" : undefined }}
+            style={{ textAlign: i === 1 ? (sign === 1 ? "right" : "left") : undefined }}
           >
             {value}
           </motion.span>
@@ -200,7 +203,7 @@ function FormVisual({ playing }: { playing: boolean }) {
           animate={{ scale: phase === 2 ? 0.94 : 1, opacity: phase === 3 ? 0 : 1 }}
           transition={{ duration: 0.15 }}
         >
-          שליחה
+          {t.included.form.send}
         </motion.span>
         <AnimatePresence>
           {phase === 2 && (
@@ -208,7 +211,7 @@ function FormVisual({ playing }: { playing: boolean }) {
               key="mail"
               className="absolute start-6 top-1 text-flare"
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: [0, 1, 1, 0], x: [0, -60, -140, -220], y: [0, -30, -50, -70], rotate: [0, -8, -14, -20] }}
+              animate={{ opacity: [0, 1, 1, 0], x: [0, -60 * sign, -140 * sign, -220 * sign], y: [0, -30, -50, -70], rotate: [0, -8, -14, -20] }}
               transition={{ duration: 1.1, ease: "easeOut", delay: 0.2 }}
             >
               <MailIcon className="size-7" />
@@ -224,7 +227,7 @@ function FormVisual({ playing }: { playing: boolean }) {
               transition={{ duration: 0.35, ease }}
             >
               <CheckIcon className="size-4" />
-              הגיע למייל שלכם
+              {t.included.form.sent}
             </motion.span>
           )}
         </AnimatePresence>
@@ -238,6 +241,7 @@ function MapVisual() {
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { once: true, amount: 0.5 });
   const [drops, setDrops] = useState(0);
+  const { t } = useI18n();
 
   return (
     <div ref={ref} className="relative h-full bg-[#1c1916]">
@@ -261,7 +265,7 @@ function MapVisual() {
       <button
         type="button"
         onClick={() => setDrops((d) => d + 1)}
-        aria-label="להפיל שוב את הסיכה על המפה"
+        aria-label={t.included.map.pin}
         className="absolute top-[44%] left-[45%] -translate-x-1/2 -translate-y-full cursor-pointer p-2"
       >
         <span className="absolute bottom-1 left-1/2 size-8 -translate-x-1/2 translate-y-1/2">
@@ -278,7 +282,7 @@ function MapVisual() {
         </motion.span>
       </button>
 
-      <span className="absolute end-4 bottom-4 rounded-full bg-ink/90 px-3 py-1.5 text-xs font-semibold">העסק שלכם כאן</span>
+      <span className="absolute end-4 bottom-4 rounded-full bg-ink/90 px-3 py-1.5 text-xs font-semibold">{t.included.map.here}</span>
     </div>
   );
 }
@@ -287,6 +291,7 @@ function MapVisual() {
 function DaysVisual({ playing }: { playing: boolean }) {
   const phase = usePhases(playing, 7, 650);
   const LIVE_DAY = 3;
+  const { t } = useI18n();
   const filled = Math.min(phase, LIVE_DAY + 1);
 
   return (
@@ -307,7 +312,7 @@ function DaysVisual({ playing }: { playing: boolean }) {
                 animate={filled > LIVE_DAY ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
                 transition={{ duration: 0.3, ease }}
               >
-                באוויר
+                {t.included.days.live}
               </motion.span>
             )}
           </div>
@@ -318,35 +323,37 @@ function DaysVisual({ playing }: { playing: boolean }) {
 }
 
 export default function Included() {
+  const { t, dir } = useI18n();
+  const i = t.included;
   return (
     <section id="included" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
       <motion.h2
         className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
-        initial={{ opacity: 0, scale: 1.12, originX: 1 }}
+        initial={{ opacity: 0, scale: 1.12, originX: dir === "rtl" ? 1 : 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, ease }}
       >
-        מה <span className="text-flare">מקבלים</span>
+        {i.title} <span className="text-flare">{i.titleAccent}</span>
       </motion.h2>
       <p className="mt-6 max-w-xl text-lg leading-relaxed text-dust sm:text-xl">
-        כל אתר שאני בונה מגיע עם מה שעסק מקומי באמת צריך. אל תאמינו לי, תנסו בעצמכם:
+        {i.intro}
       </p>
 
       <div className="mt-14 grid gap-4 md:grid-cols-6">
-        <Tile index={0} title="אתר מהיר לנייד" text="נטען מהר ונראה נכון על כל מסך, כי רוב הלקוחות שלכם מגיעים מהטלפון." className="md:col-span-2 md:row-span-2" visualClassName="h-80 md:h-auto md:flex-1">
+        <Tile index={0} title={i.fast.title} text={i.fast.text} className="md:col-span-2 md:row-span-2" visualClassName="h-80 md:h-auto md:flex-1">
           {() => <FastVisual />}
         </Tile>
-        <Tile index={1} title="כפתור וואטסאפ" text="לקוח לוחץ, וההודעה כבר כתובה בשבילו. לחצו על כפתור השליחה ותראו." className="md:col-span-4" visualClassName="h-64">
+        <Tile index={1} title={i.whatsapp.title} text={i.whatsapp.text} className="md:col-span-4" visualClassName="h-64">
           {() => <WhatsAppVisual />}
         </Tile>
-        <Tile index={2} title="טופס פניות" text="כל פנייה נוחתת ישר במייל שלכם, עם הגנה מספאם." className="md:col-span-2">
+        <Tile index={2} title={i.form.title} text={i.form.text} className="md:col-span-2">
           {(playing) => <FormVisual playing={playing} />}
         </Tile>
-        <Tile index={3} title="גוגל מפות" text="המיקום שלכם על המפה, כדי שיגיעו אליכם בלי לחפש. לחצו על הסיכה." className="md:col-span-2">
+        <Tile index={3} title={i.map.title} text={i.map.text} className="md:col-span-2">
           {() => <MapVisual />}
         </Tile>
-        <Tile index={4} title="באוויר תוך ימים" text="לא חודשים של המתנה. ברוב המקרים עוברים ימים ספורים מההודעה הראשונה ועד אתר חי, תלוי בכמה מהר מאשרים את הדמו." className="md:col-span-6" visualClassName="h-44 md:h-36">
+        <Tile index={4} title={i.days.title} text={i.days.text} className="md:col-span-6" visualClassName="h-44 md:h-36">
           {(playing) => <DaysVisual playing={playing} />}
         </Tile>
       </div>

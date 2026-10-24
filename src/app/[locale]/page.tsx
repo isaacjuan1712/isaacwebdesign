@@ -7,23 +7,27 @@ import Included from "@/components/Included";
 import Marquee from "@/components/Marquee";
 import Process from "@/components/Process";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { localizePath } from "@/i18n/config";
+import { getDictionary } from "@/i18n/server";
 import { site, siteUrl } from "@/lib/site";
 
-// Structured data so search engines understand who runs the site and what's offered
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "יצחק, בניית אתרים לעסקים",
-  description: site.description,
-  url: siteUrl,
-  telephone: "+972534281220",
-  email: site.email,
-  areaServed: { "@type": "Country", name: "Israel" },
-  inLanguage: "he",
-  founder: { "@type": "Person", name: site.name, jobTitle: site.role },
-};
+export default async function Home() {
+  const { locale, t } = await getDictionary();
 
-export default function Home() {
+  // Structured data so search engines understand who runs the site and what's offered
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: t.site.serviceName,
+    description: t.meta.description,
+    url: `${siteUrl}${localizePath(locale, "/")}`.replace(/\/$/, ""),
+    telephone: site.phoneInternational,
+    email: site.email,
+    areaServed: { "@type": "Country", name: "Israel" },
+    inLanguage: locale,
+    founder: { "@type": "Person", name: t.site.name, jobTitle: t.site.role },
+  };
+
   return (
     <>
       <script

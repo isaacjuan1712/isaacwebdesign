@@ -2,28 +2,11 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/config";
 import { Phone, StepScreen } from "./StepScreens";
 
 const ease = [0.23, 1, 0.32, 1] as const;
-
-const steps = [
-  {
-    title: "מדברים בוואטסאפ",
-    text: "שולחים לי הודעה ומספרים על העסק ועל מה שחשוב לכם. בלי טפסים ארוכים ובלי פגישות מיותרות.",
-  },
-  {
-    title: "אני בונה דמו",
-    text: "אני מכין גרסה ראשונה של האתר שלכם, כדי שתראו איך הוא ייראה באמת ולא רק תדמיינו.",
-  },
-  {
-    title: "אתם מאשרים",
-    text: "עוברים יחד על הדמו ומתקנים מה שצריך: צבעים, טקסטים, תמונות. ממשיכים רק כשאתם מרוצים.",
-  },
-  {
-    title: "האתר עולה לאוויר",
-    text: "מחברים כתובת, בודקים שהכול עובד בטלפון ובמחשב, והלקוחות שלכם יכולים למצוא אתכם.",
-  },
-];
 
 function Step({ index, reached, title, text }: { index: number; reached: boolean; title: string; text: string }) {
   const visualRef = useRef<HTMLDivElement>(null);
@@ -73,6 +56,8 @@ function Step({ index, reached, title, text }: { index: number; reached: boolean
 export default function Process() {
   const trackRef = useRef<HTMLOListElement>(null);
   const [active, setActive] = useState(0);
+  const { t } = useI18n();
+  const steps = t.process.steps;
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start 0.5", "end 0.5"] });
   const fill = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
 
@@ -91,11 +76,11 @@ export default function Process() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.8, ease }}
           >
-            איך זה עובד
+            {t.process.title}
           </motion.span>
         </h2>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-dust sm:text-xl">
-          ארבעה צעדים, מההודעה הראשונה ועד אתר חי. אתם רואים כל שלב, ושום דבר לא עולה בלי האישור שלכם.
+          {t.process.intro}
         </p>
 
         <div className="mt-16 grid gap-16 md:grid-cols-[1fr_17rem] lg:grid-cols-[1fr_19rem]">
@@ -121,7 +106,7 @@ export default function Process() {
                 </AnimatePresence>
               </Phone>
               <p className="mt-5 text-center text-sm font-semibold text-dust">
-                שלב {active + 1} מתוך {steps.length}: {steps[active].title}
+                {format(t.process.stepOf, { n: active + 1, total: steps.length, title: steps[active].title })}
               </p>
             </div>
           </div>

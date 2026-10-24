@@ -1,16 +1,18 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { useI18n } from "@/i18n/client";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "./icons";
 import Magnetic from "./Magnetic";
 
 // Floating button that stays on screen while scrolling.
-// `end-5` = the "end" side, which in RTL is the bottom-left corner.
+// `end-5` = the "end" side: bottom-left in Hebrew (RTL), bottom-right in English (LTR).
 // The bottom offset respects the iPhone home-indicator safe area.
 // It pops in once the hero headline has finished printing, so it doesn't compete with it.
 export default function WhatsAppButton() {
   const reduce = useReducedMotion();
+  const { t } = useI18n();
   return (
     <motion.div
       style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
@@ -21,10 +23,10 @@ export default function WhatsAppButton() {
     >
       <Magnetic strength={0.45}>
         <a
-          href={whatsappLink}
+          href={whatsappLink(t.site.whatsappMessage)}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="שליחת הודעה ליצחק בוואטסאפ (נפתח בחלון חדש)"
+          aria-label={`${t.whatsappFloat} ${t.a11y.newWindow}`}
           className="group relative flex size-15 items-center justify-center rounded-full bg-whatsapp-deep text-white shadow-lg shadow-black/40 transition-transform duration-150 ease-out active:scale-[0.94]"
         >
           <span aria-hidden="true" className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp-deep" />

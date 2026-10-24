@@ -3,13 +3,15 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
+import { useI18n } from "@/i18n/client";
+import { format, type Messages } from "@/i18n/config";
 import { whatsappLink } from "@/lib/site";
 import { CheckIcon } from "./icons";
 import Magnetic from "./Magnetic";
 
 type Status = "idle" | "sending" | "success" | "error";
 type FieldName = "name" | "phone" | "email" | "message";
-type Errors = Partial<Record<FieldName, string>>;
+type Errors = Partial<Record<FieldName, ErrorKey>>;
 
 // NEXT_PUBLIC_ variables are baked into the browser bundle at build time.
 // That's fine here: a Web3Forms access key is public by design (it can only send to your inbox).
@@ -20,26 +22,27 @@ const MAX = { name: 80, phone: 20, email: 120, message: 2000 } as const;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-// Checks one field and returns a Hebrew error, or undefined when it's fine
-function validate(name: FieldName, raw: string): string | undefined {
+type ErrorKey = keyof Messages["form"]["errors"];
+
+// Checks one field and returns the key of its error message, or undefined when it's fine
+function validate(name: FieldName, raw: string): ErrorKey | undefined {
   const value = raw.trim();
   switch (name) {
     case "name":
-      if (!value) return "נא למלא שם.";
-      if (value.length < 2) return "השם קצר מדי.";
+      if (!value) return "nameEmpty";
+      if (value.length < 2) return "nameShort";
       return;
     case "phone": {
-      if (!value) return "נא למלא מספר טלפון.";
+      if (!value) return "phoneEmpty";
       const digits = value.replace(/\D/g, "");
-      if (!/^[\d\s+()-]+$/.test(value) || digits.length < 9 || digits.length > 13)
-        return "מספר הטלפון לא נראה תקין. לדוגמה: 050-123-4567.";
+      if (!/^[\d\s+()-]+$/.test(value) || digits.length < 9 || digits.length > 13) return "phoneInvalid";
       return;
     }
     case "email":
-      if (value && !EMAIL_PATTERN.test(value)) return "כתובת האימייל לא נראית תקינה. לדוגמה: name@example.com.";
+      if (value && !EMAIL_PATTERN.test(value)) return "emailInvalid";
       return;
     case "message":
-      if (!value) return "נא לכתוב כמה מילים על העסק.";
+      if (!value) return "messageEmpty";
       return;
   }
 }
@@ -57,21 +60,20 @@ const inputClass =
 
 function Field({
   id,
-  label,
   required,
   error,
   children,
 }: {
   id: FieldName;
-  label: string;
   required?: boolean;
-  error?: string;
+  error?: ErrorKey;
   children: React.ReactNode;
 }) {
+  const { t } = useI18n();
   return (
     <motion.div variants={rise}>
       <label htmlFor={id} className="block text-sm font-semibold text-dust">
-        {label} {required ? <span className="font-normal">(חובה)</span> : <span className="font-normal">(לא חובה)</span>}
+        {t.form[id].label} <span className="font-normal">{required ? t.form.required : t.form.optional}</span>
       </label>
       {children}
       {error && (
@@ -79,7 +81,7 @@ function Field({
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="mt-0.5 size-4 shrink-0">
             <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z" />
           </svg>
-          {error}
+          {t.form.errors[error]}
         </p>
       )}
     </motion.div>
@@ -92,6 +94,8 @@ export default function ContactForm() {
   const [summary, setSummary] = useState("");
   // After the first submit attempt, fields re-check themselves as soon as they're fixed
   const [attempted, setAttempted] = useState(false);
+  const { t, path } = useI18n();
+  const f = t.form;
 
   // Props shared by every field: links the error text and marks the field invalid
   function fieldProps(name: FieldName) {
@@ -128,7 +132,7 @@ export default function ContactForm() {
     const invalid = Object.keys(found) as FieldName[];
     if (invalid.length) {
       setStatus("idle");
-      setSummary(invalid.length === 1 ? "יש שדה אחד שצריך לתקן." : `יש ${invalid.length} שדות שצריך לתקן.`);
+      setSummary(invalid.length === 1 ? f.summaryOne : format(f.summaryMany, { n: invalid.length }));
       form.querySelector<HTMLElement>(`#${invalid[0]}`)?.focus();
       return;
     }
@@ -144,9 +148,9 @@ export default function ContactForm() {
     // Send trimmed values only. Nothing is stored on this site: Web3Forms emails it to the owner.
     const payload = new FormData();
     payload.append("access_key", accessKey);
-    // Fixed subject and sender name, so inquiries are easy to filter in Gmail
-    payload.append("subject", "פנייה חדשה מהאתר");
-    payload.append("from_name", "האתר של יצחק");
+    // Fixed subject and sender name per language, so inquiries are easy to filter in Gmail
+    payload.append("subject", f.emailSubject);
+    payload.append("from_name", f.fromName);
     payload.append("botcheck", String(data.get("botcheck") ?? ""));
     for (const name of ["name", "phone", "email", "message"] as const) {
       payload.append(name, String(data.get(name) ?? "").trim());
@@ -174,7 +178,7 @@ export default function ContactForm() {
     <motion.form
       onSubmit={handleSubmit}
       noValidate
-      aria-label="טופס יצירת קשר"
+      aria-label={f.label}
       className="space-y-8"
       initial="hidden"
       whileInView="show"
@@ -185,10 +189,10 @@ export default function ContactForm() {
       <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
       <div className="grid gap-8 sm:grid-cols-2">
-        <Field id="name" label="שם מלא" required error={errors.name}>
-          <input {...fieldProps("name")} autoComplete="name" aria-required="true" placeholder="ישראל ישראלי" />
+        <Field id="name" required error={errors.name}>
+          <input {...fieldProps("name")} autoComplete="name" aria-required="true" placeholder={f.name.placeholder} />
         </Field>
-        <Field id="phone" label="טלפון" required error={errors.phone}>
+        <Field id="phone" required error={errors.phone}>
           {/* dir="ltr" keeps phone digits in the expected order inside an RTL page */}
           <input
             {...fieldProps("phone")}
@@ -197,40 +201,40 @@ export default function ContactForm() {
             dir="ltr"
             autoComplete="tel"
             aria-required="true"
-            placeholder="050-000-0000"
+            placeholder={f.phone.placeholder}
             className={`${fieldProps("phone").className} text-end`}
           />
         </Field>
       </div>
 
-      <Field id="email" label="אימייל" error={errors.email}>
+      <Field id="email" error={errors.email}>
         <input
           {...fieldProps("email")}
           type="email"
           dir="ltr"
           autoComplete="email"
-          placeholder="name@example.com"
+          placeholder={f.email.placeholder}
           className={`${fieldProps("email").className} text-end`}
         />
       </Field>
 
-      <Field id="message" label="ספרו לי על העסק" required error={errors.message}>
+      <Field id="message" required error={errors.message}>
         <textarea
           {...fieldProps("message")}
           rows={3}
           aria-required="true"
-          placeholder="איזה עסק יש לכם ומה הייתם רוצים באתר?"
+          placeholder={f.message.placeholder}
           className={`${fieldProps("message").className} resize-none`}
         />
       </Field>
 
       <motion.div variants={rise} className="space-y-5">
         <p className="text-sm leading-relaxed text-dust">
-          בשליחת הטופס אני מאשר/ת את{" "}
-          <Link href="/privacy" className="font-semibold text-bone underline underline-offset-4 hover:text-flare">
-            מדיניות הפרטיות
+          {f.consentBefore}{" "}
+          <Link href={path("/privacy")} className="font-semibold text-bone underline underline-offset-4 hover:text-flare">
+            {f.consentLink}
           </Link>
-          . הפרטים משמשים רק כדי לחזור אליכם לגבי הפנייה.
+          {f.consentAfter}
         </p>
         <Magnetic className="flex sm:inline-flex">
           <button
@@ -238,7 +242,7 @@ export default function ContactForm() {
             disabled={status === "sending"}
             className="inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-3 rounded-full bg-bone px-8 py-4 text-lg font-semibold text-ink transition-[scale,background-color,opacity] duration-150 ease-out hover:bg-flare active:scale-[0.97] disabled:cursor-wait disabled:opacity-50 sm:w-auto"
           >
-            {status === "sending" ? "שולח..." : "שליחה"}
+            {status === "sending" ? f.sending : f.submit}
           </button>
         </Magnetic>
       </motion.div>
@@ -250,15 +254,15 @@ export default function ContactForm() {
           {status === "success" && (
             <motion.p key="ok" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex items-center gap-2 font-semibold text-whatsapp">
               <CheckIcon className="size-5 shrink-0" />
-              תודה! קיבלתי את ההודעה ואחזור אליכם בהקדם.
+              {f.success}
             </motion.p>
           )}
           {status === "error" && (
             <motion.p key="err" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="font-semibold text-flare">
-              משהו השתבש בשליחה. נסו שוב, או{" "}
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
-                שלחו לי וואטסאפ
-                <span className="sr-only"> (נפתח בחלון חדש)</span>
+              {f.errorBefore}{" "}
+              <a href={whatsappLink(t.site.whatsappMessage)} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+                {f.errorLink}
+                <span className="sr-only"> {t.a11y.newWindow}</span>
               </a>
               .
             </motion.p>

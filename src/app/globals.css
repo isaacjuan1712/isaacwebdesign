@@ -67,6 +67,19 @@
   }
 }
 
+/* English pages: Anton replaces Karantina for headlines. Anton has a single weight, so
+   font-synthesis stops the browser from faking a bolder one, and font-size-adjust scales
+   its taller capitals down to Karantina's letter height so both languages feel the same size. */
+html[lang="en"] {
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+}
+html[lang="en"] .font-display,
+html[lang="en"] .legal h2 {
+  font-weight: 400;
+  font-synthesis: none;
+  font-size-adjust: cap-height 0.62;
+}
+
 /* Native smooth anchors when Lenis isn't running (touch, or JS still loading).
    Lenis drives the scroll itself, so the CSS version must step aside. */
 @media (prefers-reduced-motion: no-preference) {
@@ -98,6 +111,19 @@
 }
 .ink-roller {
   animation: ink-lift 0.75s var(--ease-in-out-strong) both;
+}
+/* In English the slab lifts off to the right, following the reading direction */
+@keyframes ink-lift-ltr {
+  0%,
+  25% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(101%);
+  }
+}
+[dir="ltr"] .ink-roller {
+  animation-name: ink-lift-ltr;
 }
 @media (prefers-reduced-motion: reduce) {
   .ink-roller {

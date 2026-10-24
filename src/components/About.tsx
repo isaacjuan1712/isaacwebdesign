@@ -1,22 +1,19 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useI18n } from "@/i18n/client";
+import Rich from "@/i18n/Rich";
 import ScrollWords from "./ScrollWords";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
-const facts = [
-  { title: "תשובה מהירה", text: "שולחים הודעה, ובדרך כלל מקבלים תשובה עוד באותו יום." },
-  { title: "קודם כל נייד", text: "רוב הלקוחות שלכם מגיעים מהטלפון, אז מתחילים משם." },
-  { title: "ישירות מולי", text: "בלי סוכנות ובלי מתווכים. אתם מדברים עם מי שכותב את הקוד." },
-];
-
 export default function About() {
+  const { t } = useI18n();
   return (
     <section id="about" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
       <ScrollWords
         className="max-w-4xl font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
-        parts={[{ text: "בן 17, ובונה אתרים לעסקים" }, { text: "שאני עובר לידם כל יום.", muted: true }]}
+        parts={[{ text: t.about.headline }, { text: t.about.headlineMuted, muted: true }]}
       />
 
       <motion.p
@@ -26,9 +23,7 @@ export default function About() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease }}
       >
-        אני כותב קוד בטכנולוגיות שחברות גדולות משתמשות בהן (<span lang="en">Next.js</span> ו-
-        <span lang="en">React</span>), ומביא אותן למספרה, למסעדה ולסטודיו בשכונה. התוצאה: אתר
-        שנטען מהר, נראה מצוין בכל מסך, ובנוי כך שגוגל יוכל למצוא אותו.
+        <Rich text={t.about.body} />
       </motion.p>
 
       {/* The rule draws itself across, then each fact rises out of it */}
@@ -41,10 +36,10 @@ export default function About() {
       >
         <motion.span
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-px origin-right bg-line"
+          className="absolute inset-x-0 top-0 h-px origin-right bg-line ltr:origin-left"
           variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 0.9, ease } } }}
         />
-        {facts.map((fact) => (
+        {t.about.facts.map((fact) => (
           <li key={fact.title} className="overflow-hidden border-b border-line py-7 sm:border-b-0 sm:not-last:border-e sm:px-6 sm:first:ps-0">
             <motion.div
               variants={{

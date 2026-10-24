@@ -7,7 +7,8 @@ Everything this site ships or depends on, with where it comes from and its licen
 | Font | Use | Source | License |
 |---|---|---|---|
 | Karantina (weight 700) | Headlines | [Google Fonts](https://fonts.google.com/specimen/Karantina), self-hosted at build time by `next/font` | SIL Open Font License 1.1 |
-| Assistant (variable) | Body text | [Google Fonts](https://fonts.google.com/specimen/Assistant), self-hosted at build time by `next/font` | SIL Open Font License 1.1 |
+| Anton (400) | English headlines | [Google Fonts](https://fonts.google.com/specimen/Anton), self-hosted at build time by `next/font` | SIL Open Font License 1.1 |
+| Assistant (variable) | Body text, Hebrew and English | [Google Fonts](https://fonts.google.com/specimen/Assistant), self-hosted at build time by `next/font` | SIL Open Font License 1.1 |
 
 No "free for personal use" fonts are used.
 
@@ -16,7 +17,7 @@ No "free for personal use" fonts are used.
 | Asset | Source | License |
 |---|---|---|
 | `src/app/icon.png`, `src/app/apple-icon.png` | Made for this site (the letters "יצ" set in Karantina) | Owner's own work |
-| `src/app/opengraph-image.png`, `src/app/twitter-image.png` | Made for this site (headline set in Karantina and Assistant) | Owner's own work |
+| `public/og-he.png`, `public/og-en.png` (share images) | Made for this site (headline set in Karantina / Anton and Assistant) | Owner's own work |
 | Phone mock-ups, mini websites, street map, calendar, chat bubbles | Drawn in code (HTML/CSS/SVG) for this site | Owner's own work |
 | Film-grain texture (`globals.css`) | Generated in code by an SVG `feTurbulence` filter | Owner's own work |
 

@@ -11,11 +11,10 @@ import {
   useTransform,
   useVelocity,
 } from "motion/react";
+import { useI18n } from "@/i18n/client";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { SparkIcon } from "./icons";
 import { useMotionPause } from "./Providers";
-
-const items = ["אתרים לעסקים", "חיבור לוואטסאפ", "טפסי פניות", "מותאם לנייד", "מוכן לגוגל"];
 
 // Percent of the track per second when the page is still
 const BASE_SPEED = 3.2;
@@ -28,13 +27,16 @@ export default function Marquee() {
   const moving = useMotionAllowed();
   const inView = useInView(ref);
   const { paused } = useMotionPause();
+  const { t, sign } = useI18n();
 
   const offset = useMotionValue(0);
   const direction = useRef(1);
   const { scrollY } = useScroll();
   const velocity = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 400 });
   const boost = useTransform(velocity, [-2000, 0, 2000], [-6, 0, 6], { clamp: false });
-  const x = useTransform(offset, (v) => `${((v % 50) + 50) % 50}%`);
+  // The track is anchored at the reading-start edge, so it moves toward the end side:
+  // right in Hebrew (RTL), left in English (LTR)
+  const x = useTransform(offset, (v) => `${sign * (((v % 50) + 50) % 50)}%`);
 
   useAnimationFrame((_, delta) => {
     if (!moving || !inView || paused) return;
@@ -51,7 +53,7 @@ export default function Marquee() {
         <motion.div className="flex w-max" style={{ x }}>
           {[0, 1].map((copy) => (
             <ul key={copy} className="flex shrink-0">
-              {items.map((item) => (
+              {t.marquee.map((item) => (
                 <li key={item} className="flex items-center gap-6 px-6 font-display text-4xl font-bold whitespace-nowrap sm:text-5xl">
                   {item}
                   <SparkIcon className="size-5" />

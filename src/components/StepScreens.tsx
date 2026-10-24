@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
+import { useI18n } from "@/i18n/client";
 import { CheckIcon, WhatsAppIcon } from "./icons";
 
 const ease = [0.23, 1, 0.32, 1] as const;
@@ -57,26 +58,29 @@ function MiniSite({ animated = true }: { animated?: boolean }) {
 }
 
 function ChatScreen() {
-  const mine = "self-start rounded-2xl rounded-tr-sm bg-[#1d5c3a] text-bone";
-  const theirs = "self-end rounded-2xl rounded-tl-sm bg-ink text-bone";
+  const { t } = useI18n();
+  const [first, reply, second] = t.process.screens.chat;
+  // Logical corners (ss = top-start, se = top-end) so the bubble tails mirror in English
+  const mine = "self-start rounded-2xl rounded-ss-sm bg-[#1d5c3a] text-bone";
+  const theirs = "self-end rounded-2xl rounded-se-sm bg-ink text-bone";
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2.5 bg-ink px-3 pt-9 pb-3">
-        <span className="flex size-8 items-center justify-center rounded-full bg-flare text-sm font-bold text-ink">י</span>
+        <span className="flex size-8 items-center justify-center rounded-full bg-flare text-sm font-bold text-ink">{t.site.name[0]}</span>
         <span>
-          <span className="block text-sm font-semibold">יצחק</span>
-          <span className="block text-[11px] text-whatsapp">מחובר</span>
+          <span className="block text-sm font-semibold">{t.site.name}</span>
+          <span className="block text-[11px] text-whatsapp">{t.process.screens.online}</span>
         </span>
       </div>
       <motion.div className="flex flex-1 flex-col justify-end gap-2 p-3 pb-5 text-[13px] leading-snug" variants={list(0.55, 0.2)}>
         <motion.p variants={pop} className={`${mine} max-w-[85%] px-3 py-2`}>
-          היי, יש לי עסק קטן ואני צריך אתר
+          {first}
         </motion.p>
         <motion.p variants={pop} className={`${theirs} max-w-[85%] px-3 py-2`}>
-          היי! בשמחה. ספרו לי על העסק
+          {reply}
         </motion.p>
         <motion.p variants={pop} className={`${mine} max-w-[85%] px-3 py-2`}>
-          חשוב לי וואטסאפ, מפה ושעות פתיחה
+          {second}
         </motion.p>
         <motion.p variants={pop} className={`${theirs} flex gap-1 px-3.5 py-3`}>
           {[0, 1, 2].map((i) => (
@@ -89,10 +93,11 @@ function ChatScreen() {
 }
 
 function DemoScreen() {
+  const { t } = useI18n();
   return (
     <div className="pt-8">
       <motion.p variants={pop} className="px-3 text-[11px] font-semibold text-mustard">
-        דמו · גרסה ראשונה
+        {t.process.screens.demoLabel}
       </motion.p>
       <MiniSite />
     </div>
@@ -100,13 +105,14 @@ function DemoScreen() {
 }
 
 function ApproveScreen() {
+  const { t } = useI18n();
   return (
     <div className="relative h-full pt-8">
       <div className="opacity-50">
         <MiniSite animated={false} />
       </div>
       <motion.ul className="absolute inset-x-3 bottom-4 space-y-1.5" variants={list(0.18, 0.15)}>
-        {["הצבעים", "הטקסטים", "התמונות"].map((item) => (
+        {t.process.screens.approveItems.map((item) => (
           <motion.li key={item} variants={pop} className="flex items-center gap-2 rounded-lg bg-ink px-3 py-2 text-xs font-semibold">
             <CheckIcon className="size-4 text-whatsapp" />
             {item}
@@ -121,13 +127,14 @@ function ApproveScreen() {
           show: { opacity: 1, scale: 1, rotate: -12, transition: { delay: 0.75, type: "spring", duration: 0.45, bounce: 0.35 } },
         }}
       >
-        מאושר
+        {t.process.screens.approved}
       </motion.span>
     </div>
   );
 }
 
 function LiveScreen() {
+  const { t } = useI18n();
   return (
     <div className="relative h-full pt-8">
       <motion.div variants={pop} className="mx-3 flex items-center gap-2 rounded-full bg-ink px-3 py-1.5 text-[11px]">
@@ -135,12 +142,12 @@ function LiveScreen() {
           <span className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
           <span className="relative size-2 rounded-full bg-whatsapp" />
         </span>
-        <span className="font-semibold text-whatsapp">באוויר</span>
-        <span dir="ltr" className="ms-auto text-dust">your-business.co.il</span>
+        <span className="font-semibold text-whatsapp">{t.process.screens.live}</span>
+        <span dir="ltr" className="ms-auto text-dust">{t.process.screens.liveUrl}</span>
       </motion.div>
       <MiniSite animated={false} />
       <motion.span
-        className="absolute bottom-4 left-4 flex size-11 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/40"
+        className="absolute end-4 bottom-4 flex size-11 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/40"
         variants={{
           hidden: { opacity: 0, scale: 0.6 },
           show: { opacity: 1, scale: 1, transition: { delay: 0.45, type: "spring", duration: 0.5, bounce: 0.4 } },
