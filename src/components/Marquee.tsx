@@ -13,8 +13,9 @@ import {
 } from "motion/react";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { SparkIcon } from "./icons";
+import { useMotionPause } from "./Providers";
 
-const items = ["אתרים לעסקים", "חיבור לוואטסאפ", "טפסי פניות", "מותאם לנייד", "מהיר בגוגל"];
+const items = ["אתרים לעסקים", "חיבור לוואטסאפ", "טפסי פניות", "מותאם לנייד", "מוכן לגוגל"];
 
 // Percent of the track per second when the page is still
 const BASE_SPEED = 3.2;
@@ -26,6 +27,7 @@ export default function Marquee() {
   const ref = useRef<HTMLDivElement>(null);
   const moving = useMotionAllowed();
   const inView = useInView(ref);
+  const { paused } = useMotionPause();
 
   const offset = useMotionValue(0);
   const direction = useRef(1);
@@ -35,7 +37,7 @@ export default function Marquee() {
   const x = useTransform(offset, (v) => `${((v % 50) + 50) % 50}%`);
 
   useAnimationFrame((_, delta) => {
-    if (!moving || !inView) return;
+    if (!moving || !inView || paused) return;
     const b = boost.get();
     if (b < -0.05) direction.current = -1;
     else if (b > 0.05) direction.current = 1;

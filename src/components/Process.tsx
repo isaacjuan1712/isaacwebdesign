@@ -49,14 +49,16 @@ function Step({ index, reached, title, text }: { index: number; reached: boolean
         </motion.span>
       </span>
 
-      <motion.div
+      {/* Only the large heading dims (still above 3:1); the body text always stays full strength */}
+      <motion.h3
+        className="font-display text-5xl leading-none font-bold sm:text-6xl"
         initial={false}
-        animate={{ opacity: reached ? 1 : 0.35 }}
+        animate={{ opacity: reached ? 1 : 0.45 }}
         transition={{ duration: 0.3, ease }}
       >
-        <h3 className="font-display text-5xl leading-none font-bold sm:text-6xl">{title}</h3>
-        <p className="mt-3 max-w-md text-lg leading-relaxed text-dust">{text}</p>
-      </motion.div>
+        {title}
+      </motion.h3>
+      <p className="mt-3 max-w-md text-lg leading-relaxed text-dust">{text}</p>
 
       {/* Phones get the illustration inline, under each step */}
       <div ref={visualRef} className="mt-8 md:hidden">

@@ -5,18 +5,21 @@ import { AnimatePresence, motion, useInView, useMotionValue, useSpring } from "m
 import { site } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { CheckIcon, MailIcon, PinIcon } from "./icons";
+import { useMotionPause } from "./Providers";
 import { Phone } from "./StepScreens";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
 // Steps a demo through `count` phases every `ms` while it's on screen, then loops.
+// Holds still when the visitor pauses animations.
 function usePhases(active: boolean, count: number, ms: number) {
   const [phase, setPhase] = useState(0);
+  const { paused } = useMotionPause();
   useEffect(() => {
-    if (!active) return;
+    if (!active || paused) return;
     const id = window.setInterval(() => setPhase((p) => (p + 1) % count), ms);
     return () => window.clearInterval(id);
-  }, [active, count, ms]);
+  }, [active, paused, count, ms]);
   return phase;
 }
 
@@ -145,7 +148,7 @@ function WhatsAppVisual() {
           <div className="min-h-11 flex-1 rounded-3xl border border-line bg-ink-2 px-4 py-2.5 text-sm leading-relaxed">
             <AnimatePresence initial={false} mode="popLayout">
               {sent ? (
-                <motion.span key="empty" className="text-dust/60" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <motion.span key="empty" className="text-dust" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   הודעה
                 </motion.span>
               ) : (
@@ -177,7 +180,7 @@ function FormVisual({ playing }: { playing: boolean }) {
   const fields = ["ישראל ישראלי", "050-000-0000", "אשמח לשמוע פרטים"];
 
   return (
-    <div className="flex h-full flex-col justify-center gap-3 px-6">
+    <div aria-hidden="true" className="flex h-full flex-col justify-center gap-3 px-6">
       {fields.map((value, i) => (
         <div key={value} className="border-b-2 border-line pb-1.5">
           <motion.span
@@ -287,7 +290,7 @@ function DaysVisual({ playing }: { playing: boolean }) {
   const filled = Math.min(phase, LIVE_DAY + 1);
 
   return (
-    <div className="flex h-full items-center px-6">
+    <div aria-hidden="true" className="flex h-full items-center px-6">
       <div className="grid w-full grid-cols-7 gap-1.5 sm:gap-2 md:grid-cols-14">
         {Array.from({ length: 14 }, (_, day) => (
           <div key={day} className="relative aspect-square rounded-md border border-line">
@@ -343,7 +346,7 @@ export default function Included() {
         <Tile index={3} title="גוגל מפות" text="המיקום שלכם על המפה, כדי שיגיעו אליכם בלי לחפש. לחצו על הסיכה." className="md:col-span-2">
           {() => <MapVisual />}
         </Tile>
-        <Tile index={4} title="באוויר תוך ימים" text="לא חודשים של המתנה. מההודעה הראשונה ועד אתר חי עוברים ימים." className="md:col-span-6" visualClassName="h-44 md:h-36">
+        <Tile index={4} title="באוויר תוך ימים" text="לא חודשים של המתנה. ברוב המקרים עוברים ימים ספורים מההודעה הראשונה ועד אתר חי, תלוי בכמה מהר מאשרים את הדמו." className="md:col-span-6" visualClassName="h-44 md:h-36">
           {(playing) => <DaysVisual playing={playing} />}
         </Tile>
       </div>

@@ -6,8 +6,10 @@ import { useMotionAllowed } from "@/lib/useMediaQuery";
 
 type Part = { text: string; muted?: boolean };
 
+// The dim starting state still clears 3:1 for large text (bone 0.4, dust 0.6 on ink),
+// so the sentence is readable before the scroll effect has run.
 function Word({ children, range, progress, muted }: { children: string; range: [number, number]; progress: MotionValue<number>; muted?: boolean }) {
-  const opacity = useTransform(progress, range, [0.16, 1]);
+  const opacity = useTransform(progress, range, [muted ? 0.6 : 0.4, 1]);
   return (
     <motion.span className={`inline-block ${muted ? "text-dust" : ""}`} style={{ opacity }}>
       {children}

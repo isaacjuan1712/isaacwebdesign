@@ -7,21 +7,20 @@ import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { WhatsAppIcon } from "./icons";
 import Magnetic from "./Magnetic";
 
-const ease = [0.23, 1, 0.32, 1] as const;
-
 const lines = [
   { text: "אני בונה אתרים" },
   { text: "שעושים לעסק" },
   { text: "רעש.", accent: true },
 ];
 
-// How long one "pass of the ink roller" takes, and the gap before the next line starts
-const PASS = 0.8;
-const STAGGER = 0.22;
+// When each line's roller lifts off, and how long the whole headline takes to print
+const STAGGER = 0.14;
+const PRINTED = 0.1 + (lines.length - 1) * STAGGER + 0.75;
 
-// Signature moment, borrowed from a print shop: an ink roller sweeps across each line
-// and leaves the words printed behind it. The roller is a block that slides right to
-// left through a clipped line (transform only); the text switches on while it's covered.
+// Signature moment, borrowed from a print shop: each line starts as a solid slab of ink,
+// then the slab lifts off right to left and leaves the words printed underneath.
+// It runs in CSS (.ink-roller in globals.css), so it starts on first paint without
+// waiting for JavaScript, and the text itself is there from the very first frame.
 function InkLine({
   text,
   accent,
@@ -34,67 +33,48 @@ function InkLine({
   progress: MotionValue<number>;
 }) {
   const moving = useMotionAllowed();
-  // Reduced motion: no roller to wait for, so the words simply fade in together
-  const reduce = useReducedMotion();
-  const delay = reduce ? 0 : 0.15 + index * STAGGER;
   // On scroll-out the lines drift apart in alternating directions, like loose type
   const x = useTransform(progress, [0, 1], ["0%", index % 2 ? "-14%" : "14%"]);
 
   return (
     <motion.span className="block" style={moving ? { x } : undefined}>
       <span className="relative inline-block overflow-hidden pb-[0.06em] align-bottom">
-        <motion.span
-          className={`inline-block ${accent ? "text-flare" : ""}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={reduce ? { duration: 0.4 } : { duration: 0.01, delay: delay + PASS * 0.45 }}
-        >
-          {text}
-        </motion.span>
-        <motion.span
+        <span className={accent ? "text-flare" : undefined}>{text}</span>
+        <span
           aria-hidden="true"
-          className={`absolute inset-0 motion-reduce:hidden ${accent ? "bg-bone" : "bg-flare"}`}
-          initial={{ transform: "translateX(101%)" }}
-          animate={{ transform: ["translateX(101%)", "translateX(0%)", "translateX(0%)", "translateX(-101%)"] }}
-          transition={{ duration: PASS, delay, times: [0, 0.42, 0.52, 1], ease: "easeInOut" }}
+          className={`ink-roller absolute inset-0 ${accent ? "bg-bone" : "bg-flare"}`}
+          style={{ animationDelay: `${0.1 + index * STAGGER}s` }}
         />
       </span>
     </motion.span>
   );
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
-};
-
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const moving = useMotionAllowed();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.1]);
+  // Never below 0.4, so the headline stays above 3:1 while it is still on screen
+  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.4]);
   const stampTurn = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const stampLift = useTransform(scrollYProgress, [0, 1], ["0%", "-35%"]);
 
-  // Everything below the headline waits until the roller has printed the last line
+  // Everything below the headline waits until the last line is printed
   const reduce = useReducedMotion();
-  const afterInk = reduce ? 0.1 : 0.15 + (lines.length - 1) * STAGGER + PASS * 0.6;
+  const afterInk = reduce ? 0.1 : PRINTED - 0.3;
 
   return (
     <section id="top" ref={ref} className="relative">
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24">
-        <motion.p
-          initial="hidden"
-          animate="show"
-          variants={fadeUp}
-          className="mb-6 flex items-center gap-3 text-sm font-semibold text-dust"
-        >
+        {/* The small text around the headline rises in with CSS (.rise-in), so it shows on
+            first paint instead of waiting for JavaScript; that keeps the page's LCP fast */}
+        <p className="rise-in mb-6 flex items-center gap-3 text-sm font-semibold text-dust">
           <span className="relative flex size-2.5">
             <span className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
             <span className="relative size-2.5 rounded-full bg-whatsapp" />
           </span>
           בן 17 · בונה אתרים לעסקים מקומיים
-        </motion.p>
+        </p>
 
         <motion.h1
           className="font-display text-[clamp(4.75rem,19vw,12.5rem)] leading-[0.86] font-bold"
@@ -112,12 +92,12 @@ export default function Hero() {
           variants={{ show: { transition: { staggerChildren: 0.08, delayChildren: afterInk } } }}
         >
           <div>
-            <motion.p variants={fadeUp} className="max-w-md text-lg leading-relaxed text-dust sm:text-xl">
+            <p className="rise-in max-w-md text-lg leading-relaxed text-dust sm:text-xl" style={{ animationDelay: `${PRINTED - 0.45}s` }}>
               אתרים מהירים ומותאמים לנייד לעסקים בשכונה: עם כפתור וואטסאפ, טופס פניות, ועיצוב
               שלא נראה כמו כל אתר אחר.
-            </motion.p>
+            </p>
 
-            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="rise-in mt-8 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: `${PRINTED - 0.35}s` }}>
               <Magnetic className="flex">
                 <a
                   href={whatsappLink}
@@ -127,17 +107,18 @@ export default function Hero() {
                 >
                   <WhatsAppIcon className="size-5 transition-transform duration-300 group-hover:-rotate-12" />
                   דברו איתי בוואטסאפ
+                  <span className="sr-only"> (נפתח בחלון חדש)</span>
                 </a>
               </Magnetic>
               <Magnetic className="flex">
                 <a
                   href="#process"
-                  className="inline-flex w-full items-center justify-center rounded-full border border-line px-7 py-4 text-lg font-semibold transition-[scale,border-color] duration-150 ease-out hover:border-bone active:scale-[0.97]"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-edge px-7 py-4 text-lg font-semibold transition-[scale,border-color] duration-150 ease-out hover:border-bone active:scale-[0.97]"
                 >
                   איך זה עובד
                 </a>
               </Magnetic>
-            </motion.div>
+            </div>
           </div>
 
           {/* The rotating stamp: spins on its own, and turns faster as you scroll past */}
@@ -147,9 +128,10 @@ export default function Hero() {
               hidden: { opacity: 0, scale: 0.7, rotate: -40 },
               show: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", duration: 0.8, bounce: 0.25 } },
             }}
-            aria-label="פנוי לפרויקטים חדשים, מעבר לטופס יצירת קשר"
             className="group relative mx-auto size-36 sm:size-44 md:mx-0"
           >
+            {/* The ring text is decorative (aria-hidden); this is the link's name */}
+            <span className="sr-only">פנוי לפרויקטים חדשים, מעבר לטופס יצירת קשר</span>
             <motion.span className="block size-full" style={moving ? { rotate: stampTurn, y: stampLift } : undefined}>
               <svg viewBox="0 0 200 200" aria-hidden="true" className="size-full animate-spin-slow">
                 <defs>

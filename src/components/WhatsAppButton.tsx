@@ -24,10 +24,10 @@ export default function WhatsAppButton() {
           href={whatsappLink}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="שלחו הודעה בוואטסאפ"
-          className="group relative flex size-15 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-black/40 transition-transform duration-150 ease-out active:scale-[0.94]"
+          aria-label="שליחת הודעה ליצחק בוואטסאפ (נפתח בחלון חדש)"
+          className="group relative flex size-15 items-center justify-center rounded-full bg-whatsapp-deep text-white shadow-lg shadow-black/40 transition-transform duration-150 ease-out active:scale-[0.94]"
         >
-          <span aria-hidden="true" className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
+          <span aria-hidden="true" className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp-deep" />
           <WhatsAppIcon className="relative size-8 transition-transform duration-300 group-hover:-rotate-12" />
         </a>
       </Magnetic>

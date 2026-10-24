@@ -1,21 +1,21 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useMotionAllowed } from "@/lib/useMediaQuery";
+import { motion } from "motion/react";
 
-// The footer content trails behind the page as it scrolls up, so it seems to be
-// uncovered from underneath the contact section rather than scrolled in.
+const ease = [0.23, 1, 0.32, 1] as const;
+
+// The footer content rises into place once it comes into view. It's triggered by
+// visibility rather than tied to scroll position, so it also completes on short pages
+// (like the 404) where there's nothing to scroll. Movement only: the text is never faded.
 export default function FooterReveal({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const moving = useMotionAllowed();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-60%", "0%"]);
-  const opacity = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
-
   return (
-    <div ref={ref} className="overflow-hidden">
-      <motion.div style={moving ? { y, opacity } : undefined}>{children}</motion.div>
-    </div>
+    <motion.div
+      initial={{ y: 40 }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.9, ease }}
+    >
+      {children}
+    </motion.div>
   );
 }

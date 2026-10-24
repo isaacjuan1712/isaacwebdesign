@@ -19,9 +19,9 @@ export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const moving = useMotionAllowed();
   // The headline slides in from the side, tied to how far the section has entered the screen
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.3"] });
-  const headlineX = useTransform(scrollYProgress, [0, 1], ["30%", "0%"]);
-  const accentX = useTransform(scrollYProgress, [0, 1], ["-45%", "0%"]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.55"] });
+  const headlineX = useTransform(scrollYProgress, [0, 1], ["14%", "0%"]);
+  const accentX = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
 
   return (
     <section id="contact" ref={ref} className="border-t border-line bg-ink-2">
@@ -46,7 +46,7 @@ export default function Contact() {
               className="text-lg leading-relaxed text-dust"
               variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.6 } } }}
             >
-              ספרו לי על העסק ואחזור אליכם תוך יום. שיחת ההיכרות בחינם, בלי התחייבות.
+              ספרו לי על העסק ואחזור אליכם בהקדם, בדרך כלל עוד באותו יום. שיחת ההיכרות בחינם, בלי התחייבות.
             </motion.p>
             <ul className="mt-8 border-t border-line">
               {channels.map(({ href, label, value, icon: Icon, external, ltr }) => (
@@ -68,6 +68,7 @@ export default function Contact() {
                       <span dir={ltr ? "ltr" : undefined} className="block text-lg font-semibold break-all transition-colors duration-200 group-hover:text-flare">
                         {value}
                       </span>
+                      {external && <span className="sr-only"> (נפתח בחלון חדש)</span>}
                     </span>
                   </a>
                 </motion.li>

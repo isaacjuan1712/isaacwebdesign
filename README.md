@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# יצחק – בניית אתרים לעסקים
 
-## Getting Started
+The portfolio and service site of Yitzhak, a web developer building sites for local businesses. It's in Hebrew, right-to-left, built with Next.js 16 (App Router), Tailwind CSS 4, Motion and Lenis.
 
-First, run the development server:
+## Run it locally
+
+Requires Node.js 20 or newer.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in the values (see below)
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+|---|---|
+| `npm run build` | Production build (also type-checks) |
+| `npm start` | Serves the production build |
+| `npm run lint` | ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment variables
 
-## Learn More
+| Variable | Required | What it's for |
+|---|---|---|
+| `NEXT_PUBLIC_WEB3FORMS_KEY` | Yes | Delivers the contact form to your email through [Web3Forms](https://web3forms.com). Public by design. |
+| `NEXT_PUBLIC_SITE_URL` | Once you have a domain | The site's public address, for canonical links, `sitemap.xml`, `robots.txt` and share previews. On Vercel it falls back to the production URL automatically. |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`.env*` files are git-ignored, except `.env.example`.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push the repository to GitHub.
+2. On [vercel.com](https://vercel.com), choose **Add New → Project** and import the repository. Vercel detects Next.js; keep the default settings.
+3. Under **Settings → Environment Variables**, add `NEXT_PUBLIC_WEB3FORMS_KEY`, and `NEXT_PUBLIC_SITE_URL` once you have a domain.
+4. Deploy. After connecting your own domain, set `NEXT_PUBLIC_SITE_URL` to it and redeploy so the sitemap and canonical links use it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Security headers (CSP, `X-Frame-Options`, `Referrer-Policy` and more) are set in `next.config.ts` and apply on Vercel automatically. If you ever add a new outside service (analytics, maps, embeds), add its domain to the CSP there, or the browser will block it.
+
+## Where things are
+
+| What | Where |
+|---|---|
+| Name, phone, email, WhatsApp message | `src/lib/site.ts` |
+| Home page sections | `src/components/` (`Hero`, `About`, `Process`, `Included`, `Contact`) |
+| Privacy policy (מדיניות פרטיות) | `src/app/privacy/page.tsx` → `/privacy` |
+| Accessibility statement (הצהרת נגישות) | `src/app/accessibility/page.tsx` → `/accessibility` |
+| "Last updated" dates on the legal pages | `legalDates` in `src/lib/site.ts` |
+| 404 page | `src/app/not-found.tsx` |
+| SEO: `robots.txt`, `sitemap.xml`, icons, share image | `src/app/robots.ts`, `src/app/sitemap.ts`, `src/app/*.png` |
+| Security headers | `next.config.ts` |
+| Launch audit and its status | `AUDIT.md` |
+| Fonts, images, packages and their licenses | `LICENSES.md` |
+
+The privacy policy and accessibility statement are drafts. Have a lawyer review them before taking on paying clients.
