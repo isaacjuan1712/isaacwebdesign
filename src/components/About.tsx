@@ -50,36 +50,29 @@ export default function About() {
         </ul>
       </motion.div>
 
-      {/* The rule draws itself across, then each point rises out of it */}
+      {/* Four roomy blocks that rise in one after another: one column on phones, two from
+          768px. Paragraphs are capped at ~60 characters with a 1.7 line height. */}
       <motion.ul
-        className="relative mt-16 grid sm:grid-cols-2"
+        className="mt-16 grid gap-6 sm:gap-8 md:mt-20 md:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:gap-x-16 lg:gap-y-12"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        variants={{ show: { transition: { staggerChildren: 0.09, delayChildren: 0.25 } } }}
+        variants={{ show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } } }}
       >
-        <motion.span
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-px origin-right bg-line ltr:origin-left"
-          variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 0.9, ease } } }}
-        />
         {a.points.map((point) => (
-          <li
+          <motion.li
             key={point.title}
-            className="overflow-hidden border-b border-line py-7 sm:px-6 sm:odd:border-e sm:odd:ps-0 sm:even:pe-0"
+            className="rounded-sm border border-line bg-ink-2 p-7 sm:p-9 lg:p-10"
+            variants={{
+              hidden: { opacity: 0, y: 28 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+            }}
           >
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: "40%" },
-                show: { opacity: 1, y: "0%", transition: { duration: 0.7, ease } },
-              }}
-            >
-              <h3 className="font-display text-4xl font-bold">{point.title}</h3>
-              <p className="mt-2 leading-relaxed text-dust">
-                <Rich text={point.text} />
-              </p>
-            </motion.div>
-          </li>
+            <h3 className="font-display text-4xl leading-none font-bold sm:text-5xl">{point.title}</h3>
+            <p className="mt-5 max-w-[60ch] text-lg leading-[1.7] text-dust sm:mt-6">
+              <Rich text={point.text} />
+            </p>
+          </motion.li>
         ))}
       </motion.ul>
     </section>

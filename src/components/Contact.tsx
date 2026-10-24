@@ -28,7 +28,7 @@ export default function Contact() {
   return (
     <section id="contact" ref={ref} className="border-t border-line bg-ink-2">
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
-        <h2 className="text-center font-display text-[clamp(3.5rem,16vw,10rem)] leading-[0.85] font-bold">
+        <h2 className="text-center font-display text-[clamp(2.5rem,16vw,10rem)] leading-[0.85] font-bold">
           <motion.span className="inline-block" style={moving ? { x: headlineX } : undefined}>
             {t.contact.title}
           </motion.span>{" "}

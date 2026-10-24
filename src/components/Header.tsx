@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useI18n } from "@/i18n/client";
@@ -30,7 +30,7 @@ function PauseButton() {
         onClick={toggle}
         aria-pressed={paused}
         aria-label={label}
-        className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-edge text-bone transition-[background-color,color,scale] duration-150 ease-out hover:bg-bone hover:text-ink active:scale-[0.94]"
+        className="flex size-[44px] cursor-pointer items-center justify-center rounded-full border border-edge text-bone transition-[background-color,color,scale] duration-150 ease-out hover:bg-bone hover:text-ink active:scale-[0.94]"
       >
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4">
           {paused ? <path d="M8 5.5v13l10-6.5z" /> : <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />}
@@ -50,7 +50,7 @@ function PauseButton() {
 // so the language switcher can link to the same page in the other language.
 export default function Header({ path = "/" }: { path?: string }) {
   const [open, setOpen] = useState(false);
-  const { t, path: localized } = useI18n();
+  const { t, dir, path: localized } = useI18n();
   const home = localized("/");
   const navLinks = sections.map((id) => ({ href: `${home}#${id}`, label: t.nav[id] }));
   const whatsapp = whatsappLink(t.site.whatsappMessage);
@@ -96,69 +96,93 @@ export default function Header({ path = "/" }: { path?: string }) {
     };
   }, [open]);
 
+  const logo = (
+    <Link
+      href={home}
+      dir={dir}
+      aria-label={format(t.site.homeLabel, { name: t.site.name })}
+      className="col-start-3 row-start-1 flex min-h-[44px] items-center justify-self-end font-display text-[clamp(1.5rem,7vw,1.875rem)] leading-none font-bold"
+      onClick={() => setOpen(false)}
+    >
+      {t.site.name}
+      <span className="text-flare">.</span>
+    </Link>
+  );
+
+  const nav = (
+    <nav dir={dir} aria-label={t.nav.mainLabel} className="col-start-2 row-start-1 hidden items-center gap-6 lg:flex">
+      {navLinks.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          className="group relative flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap text-dust transition-colors hover:text-bone"
+        >
+          {link.label}
+          <span className="absolute inset-x-0 bottom-2 h-px origin-right scale-x-0 bg-flare ltr:origin-left transition-transform duration-300 group-hover:scale-x-100" />
+        </a>
+      ))}
+    </nav>
+  );
+
+  const hamburger = (
+    // The two bars rotate into an X
+    <button
+      key="menu"
+      ref={menuButtonRef}
+      type="button"
+      onClick={() => setOpen((v) => !v)}
+      aria-expanded={open}
+      aria-controls="mobile-menu"
+      aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+      className="flex size-[44px] cursor-pointer flex-col items-center justify-center gap-1.5 lg:hidden"
+    >
+      <motion.span
+        className="block h-0.5 w-7 bg-bone"
+        animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.25, ease }}
+      />
+      <motion.span
+        className="block h-0.5 w-7 bg-bone"
+        animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.25, ease }}
+      />
+    </button>
+  );
+  const cta = (
+    <Magnetic key="cta" className="hidden xl:inline-flex">
+      <a
+        dir={dir}
+        href={whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex min-h-11 items-center rounded-full bg-flare px-5 font-semibold whitespace-nowrap text-ink transition-[scale,background-color] duration-150 ease-out hover:bg-bone active:scale-[0.97]"
+      >
+        {t.nav.cta}
+        <span className="sr-only"> {t.nav.ctaHint}</span>
+      </a>
+    </Magnetic>
+  );
+  // Left to right on screen: menu (phones) · pause · language · "Let's talk" (wide screens).
+  // In Hebrew the DOM order is reversed and flex-row-reverse puts them back in place.
+  const controlItems = [hamburger, <PauseButton key="pause" />, <LanguageSwitcher key="lang" path={path} />, cta];
+  const controls = (
+    <div
+      className={`col-start-1 row-start-1 flex items-center gap-1 justify-self-start sm:gap-3 ${dir === "rtl" ? "flex-row-reverse" : ""}`}
+    >
+      {dir === "rtl" ? [...controlItems].reverse() : controlItems}
+    </div>
+  );
+
   return (
     <header ref={headerRef} className="sticky top-0 z-50 border-b border-line bg-ink/95">
-      <div className="relative z-10 mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link
-          href={home}
-          aria-label={format(t.site.homeLabel, { name: t.site.name })}
-          className="flex min-h-11 items-center font-display text-3xl leading-none font-bold"
-          onClick={() => setOpen(false)}
-        >
-          {t.site.name}
-          <span className="text-flare">.</span>
-        </Link>
-
-        <div className="flex items-center gap-1 sm:gap-3 lg:gap-5">
-          <nav aria-label={t.nav.mainLabel} className="hidden items-center gap-6 lg:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="group relative flex min-h-11 min-w-11 items-center justify-center text-dust transition-colors hover:text-bone"
-              >
-                {link.label}
-                <span className="absolute inset-x-0 bottom-2 h-px origin-right scale-x-0 bg-flare ltr:origin-left transition-transform duration-300 group-hover:scale-x-100" />
-              </a>
-            ))}
-            <Magnetic>
-              <a
-                href={whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-11 items-center rounded-full bg-flare px-5 font-semibold text-ink transition-[scale,background-color] duration-150 ease-out hover:bg-bone active:scale-[0.97]"
-              >
-                {t.nav.cta}
-                <span className="sr-only"> {t.nav.ctaHint}</span>
-              </a>
-            </Magnetic>
-          </nav>
-
-          <LanguageSwitcher path={path} />
-          <PauseButton />
-
-          {/* Hamburger: the two bars rotate into an X */}
-          <button
-            ref={menuButtonRef}
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
-            className="flex size-11 cursor-pointer flex-col items-center justify-center gap-1.5 lg:hidden"
-          >
-            <motion.span
-              className="block h-0.5 w-7 bg-bone"
-              animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25, ease }}
-            />
-            <motion.span
-              className="block h-0.5 w-7 bg-bone"
-              animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25, ease }}
-            />
-          </button>
-        </div>
+      {/* Three fixed columns, identical in both languages: controls on the left, the nav
+          exactly centered, the logo on the right. The row is forced to LTR so nothing
+          mirrors when the language changes; only the DOM order follows the language, so
+          Tab moves right-to-left in Hebrew and left-to-right in English. */}
+      <div dir="ltr" className="relative z-10 mx-auto grid min-h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 sm:gap-4 sm:px-6">
+        {(dir === "rtl" ? [logo, nav, controls] : [controls, nav, logo]).map((part, i) => (
+          <Fragment key={i}>{part}</Fragment>
+        ))}
       </div>
 
       <motion.span

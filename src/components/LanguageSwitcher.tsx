@@ -22,7 +22,7 @@ export default function LanguageSwitcher({ path, className = "" }: { path: strin
         <span key={l} className="flex items-center">
           {i > 0 && <span aria-hidden="true" className="px-0.5 text-edge">/</span>}
           {l === locale ? (
-            <span aria-current="true" lang={l} className="flex min-h-11 min-w-11 items-center justify-center text-bone">
+            <span aria-current="true" lang={l} className="flex min-h-[44px] min-w-[44px] items-center justify-center text-bone">
               {t.language[l]}
             </span>
           ) : (
@@ -32,7 +32,7 @@ export default function LanguageSwitcher({ path, className = "" }: { path: strin
               lang={t.language.switchToLang}
               aria-label={t.language.switchTo}
               onClick={() => remember(l)}
-              className="flex min-h-11 min-w-11 items-center justify-center rounded-full text-dust transition-colors hover:text-flare"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-dust transition-colors hover:text-flare"
             >
               {t.language[l]}
             </a>
