@@ -23,6 +23,6 @@ export const whatsappLink = (message: string) =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 // Section anchors on the home page, in page order. Labels come from the "nav" texts.
-export const sections = ["about", "process", "included", "contact"] as const;
+export const sections = ["about", "process", "included", "faq", "contact"] as const;
 
 export const legalPages = ["accessibility", "privacy"] as const;

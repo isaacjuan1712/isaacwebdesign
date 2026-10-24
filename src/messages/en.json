@@ -47,22 +47,41 @@
   },
   "hero": {
     "badge": "17 years old · building websites for local businesses",
-    "lines": ["I build websites", "that make", "noise."],
+    "lines": [
+      "I build websites",
+      "that make",
+      "noise."
+    ],
     "lead": "Fast, mobile-friendly websites for local businesses. With a WhatsApp button, a contact form, and a design that doesn't look like every other site.",
     "ctaWhatsapp": "Message me on WhatsApp",
     "ctaProcess": "How it works",
     "stampRing": "OPEN FOR NEW WORK • OPEN FOR NEW WORK •",
     "stampLabel": "Open for new projects, go to the contact form"
   },
-  "marquee": ["Websites for businesses", "WhatsApp built in", "Contact forms", "Mobile-first", "Ready for Google"],
+  "marquee": [
+    "Websites for businesses",
+    "WhatsApp built in",
+    "Contact forms",
+    "Mobile-first",
+    "Ready for Google"
+  ],
   "about": {
     "headline": "17, and building websites for the businesses",
     "headlineMuted": "I walk past every day.",
     "body": "I write code with the same tech big companies use (Next.js and React) and bring it to the barbershop, the restaurant and the studio around the corner. The result: a site that loads fast, looks great on every screen, and is built so Google can find it.",
     "facts": [
-      { "title": "Quick replies", "text": "Send a message and you'll usually hear back the same day." },
-      { "title": "Mobile first", "text": "Most of your customers find you on their phone, so that's where I start." },
-      { "title": "Straight to me", "text": "No agency, no middlemen. You talk to the person who writes the code." }
+      {
+        "title": "Quick replies",
+        "text": "Send a message and you'll usually hear back the same day."
+      },
+      {
+        "title": "Mobile first",
+        "text": "Most of your customers find you on their phone, so that's where I start."
+      },
+      {
+        "title": "Straight to me",
+        "text": "No agency, no middlemen. You talk to the person who writes the code."
+      }
     ]
   },
   "process": {
@@ -70,16 +89,36 @@
     "intro": "Four steps from the first message to a live site. You see every stage, and nothing goes live without your OK.",
     "stepOf": "Step {n} of {total}: {title}",
     "steps": [
-      { "title": "We talk on WhatsApp", "text": "Send me a message and tell me about your business and what matters to you. No long forms, no pointless meetings." },
-      { "title": "I build a demo", "text": "I put together a first version of your site, so you can see how it'll actually look instead of imagining it." },
-      { "title": "You approve it", "text": "We go through the demo together and fix whatever needs fixing: colors, text, photos. We only move on when you're happy." },
-      { "title": "Your site goes live", "text": "I connect your domain, check that everything works on phones and computers, and your customers can find you." }
+      {
+        "title": "We talk on WhatsApp",
+        "text": "Send me a message and tell me about your business and what matters to you. No long forms, no pointless meetings."
+      },
+      {
+        "title": "I build a demo",
+        "text": "I put together a first version of your site, so you can see how it'll actually look instead of imagining it."
+      },
+      {
+        "title": "You approve it",
+        "text": "We go through the demo together and fix whatever needs fixing: colors, text, photos. We only move on when you're happy."
+      },
+      {
+        "title": "Your site goes live",
+        "text": "I connect your domain, check that everything works on phones and computers, and your customers can find you."
+      }
     ],
     "screens": {
       "online": "online",
-      "chat": ["Hi! I have a small business and I need a website", "Hey! Happy to help. Tell me about the business", "I want WhatsApp, a map and opening hours"],
+      "chat": [
+        "Hi! I have a small business and I need a website",
+        "Hey! Happy to help. Tell me about the business",
+        "I want WhatsApp, a map and opening hours"
+      ],
       "demoLabel": "Demo · first draft",
-      "approveItems": ["Colors", "Text", "Photos"],
+      "approveItems": [
+        "Colors",
+        "Text",
+        "Photos"
+      ],
       "approved": "APPROVED",
       "live": "Live",
       "liveUrl": "your-business.com"
@@ -104,7 +143,11 @@
     "form": {
       "title": "Contact form",
       "text": "Every inquiry lands straight in your inbox, with spam protection.",
-      "fields": ["Jane Cohen", "050-000-0000", "I'd love to hear more"],
+      "fields": [
+        "Jane Cohen",
+        "050-000-0000",
+        "I'd love to hear more"
+      ],
       "send": "Send",
       "sent": "Landed in your inbox"
     },
@@ -120,6 +163,40 @@
       "live": "Live"
     }
   },
+  "faq": {
+    "title": "Questions I get asked",
+    "intro": "Didn't find your answer? Send me a message, I'm happy to answer anything.",
+    "items": [
+      {
+        "q": "How long does it take to build a website?",
+        "a": "Usually somewhere between a few days and two weeks. A one-page site is ready faster; a site with several pages and more content takes longer. A lot also depends on how quickly I get your content and approvals. On our first call I'll give you an estimate for your site."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "It depends on the site: how many pages, which features and how much content it needs. There's no fixed price list, so the easiest thing is to tell me what you need and I'll get back to you with a quote. The call and the quote are free, no strings attached."
+      },
+      {
+        "q": "What do I need to prepare?",
+        "a": "Your logo, if you have one. Some text about your business and services, photos (of the place, your products or your team), opening hours and contact details. No text ready? That's fine, I can help you write it."
+      },
+      {
+        "q": "Will the site work well on phones?",
+        "a": "Yes. I build every site for phones first and only then adapt it for computers, because most of your customers will come from their phone. Before the site goes live, I test it on screens of different sizes."
+      },
+      {
+        "q": "Is the site accessible, as Israeli law requires?",
+        "a": "I build sites to the Israeli accessibility standard IS 5568 and the WCAG 2.1 Level AA guidelines: keyboard navigation, color contrast, descriptions for screen readers and more. Accessibility is built into the code itself, not added with a plugin, and every site comes with an accessibility statement."
+      },
+      {
+        "q": "What happens after the site goes live?",
+        "a": "Your site is live and working. If you'd like, you can add monthly maintenance: updates, small changes like prices or opening hours, and keeping an eye on the site to make sure it's up and running. It's optional; you can also just reach out whenever you need something."
+      },
+      {
+        "q": "Do I own the site?",
+        "a": "Yes. Once it's paid in full, the site and its content belong to you."
+      }
+    ]
+  },
   "contact": {
     "title": "Let's build",
     "titleAccent": "something.",
@@ -133,10 +210,22 @@
     "label": "Contact form",
     "required": "(required)",
     "optional": "(optional)",
-    "name": { "label": "Full name", "placeholder": "Jane Cohen" },
-    "phone": { "label": "Phone", "placeholder": "050-000-0000" },
-    "email": { "label": "Email", "placeholder": "name@example.com" },
-    "message": { "label": "Tell me about your business", "placeholder": "What's your business, and what would you like on your site?" },
+    "name": {
+      "label": "Full name",
+      "placeholder": "Jane Cohen"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "050-000-0000"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "name@example.com"
+    },
+    "message": {
+      "label": "Tell me about your business",
+      "placeholder": "What's your business, and what would you like on your site?"
+    },
     "errors": {
       "nameEmpty": "Please enter your name.",
       "nameShort": "That name looks too short.",
@@ -174,31 +263,90 @@
     "description": "What information Isaac's website collects, why, where it goes, and how to see, correct or delete it.",
     "updated": "Last updated: October 24, 2026",
     "blocks": [
-      { "p": "Your privacy matters to me. This page explains, in plain language, what information is collected when you contact me through this site, what I do with it, and what your rights are." },
-      { "h2": "Who runs this site" },
-      { "p": "This site is run by {name}, an independent web developer. For any privacy question, email me at {email} or call {phone}." },
-      { "h2": "What's collected" },
-      { "p": "The site only collects what you choose to fill in on the contact form:" },
-      { "ul": ["Full name", "Phone number", "Email address (optional)", "The message you write"] },
-      { "p": "You're not legally required to give these details, but without a name and a way to reach you, I can't get back to you. Please don't include sensitive information the inquiry doesn't need." },
-      { "h2": "What it's used for" },
-      { "p": "<b>Only to get back to you about your inquiry.</b> It isn't used for marketing or newsletters, it isn't sold, and it isn't shared with anyone except the service that delivers the message to me (details below)." },
-      { "h2": "Where it goes and where it's stored" },
-      { "p": "When you send the form, your details go through Web3Forms, an outside form-delivery service, to my email inbox. The servers of that service and of my email provider (Gmail) may be located outside Israel." },
-      { "p": "<b>The site itself doesn't store your details</b>: there's no database, no files are saved, and no logs with personal information are kept. The message is kept only in my inbox, for as long as it's needed to handle your inquiry." },
-      { "p": "If you contact me on WhatsApp, by phone or by email instead, the information passes through those services and their privacy policies apply too." },
-      { "h2": "Cookies, analytics and tracking" },
-      { "p": "The site <b>doesn't use analytics tools or tracking pixels</b>, and doesn't load content from third-party sites while you browse. Fonts are served from this site." },
-      { "p": "The site saves only two preferences in your browser so they stick for your next visit: the language you picked (in a cookie called locale) and whether you paused animations (in localStorage). They're never sent to me and aren't used for tracking." },
-      { "p": "Like any website, the hosting provider (Vercel) may log basic technical data, such as your IP address and browser type, for security and to run the server." },
-      { "h2": "Your rights" },
-      { "p": "Under Israel's Privacy Protection Law, you can at any time:" },
-      { "ul": ["Ask to see the information stored about you", "Ask to correct information that's wrong", "Ask to delete the information"] },
-      { "p": "To do any of these, email {email} or call {phone}. I'll handle your request within 30 days at most." },
-      { "h2": "Security" },
-      { "p": "The site uses an encrypted connection (HTTPS), and the form is protected against spam. Still, no way of sending data over the internet is 100% secure, so please don't send sensitive information through the form." },
-      { "h2": "Changes to this policy" },
-      { "p": "If this policy changes, the updated version will be posted on this page with a new date." }
+      {
+        "p": "Your privacy matters to me. This page explains, in plain language, what information is collected when you contact me through this site, what I do with it, and what your rights are."
+      },
+      {
+        "h2": "Who runs this site"
+      },
+      {
+        "p": "This site is run by {name}, an independent web developer. For any privacy question, email me at {email} or call {phone}."
+      },
+      {
+        "h2": "What's collected"
+      },
+      {
+        "p": "The site only collects what you choose to fill in on the contact form:"
+      },
+      {
+        "ul": [
+          "Full name",
+          "Phone number",
+          "Email address (optional)",
+          "The message you write"
+        ]
+      },
+      {
+        "p": "You're not legally required to give these details, but without a name and a way to reach you, I can't get back to you. Please don't include sensitive information the inquiry doesn't need."
+      },
+      {
+        "h2": "What it's used for"
+      },
+      {
+        "p": "<b>Only to get back to you about your inquiry.</b> It isn't used for marketing or newsletters, it isn't sold, and it isn't shared with anyone except the service that delivers the message to me (details below)."
+      },
+      {
+        "h2": "Where it goes and where it's stored"
+      },
+      {
+        "p": "When you send the form, your details go through Web3Forms, an outside form-delivery service, to my email inbox. The servers of that service and of my email provider (Gmail) may be located outside Israel."
+      },
+      {
+        "p": "<b>The site itself doesn't store your details</b>: there's no database, no files are saved, and no logs with personal information are kept. The message is kept only in my inbox, for as long as it's needed to handle your inquiry."
+      },
+      {
+        "p": "If you contact me on WhatsApp, by phone or by email instead, the information passes through those services and their privacy policies apply too."
+      },
+      {
+        "h2": "Cookies, analytics and tracking"
+      },
+      {
+        "p": "The site <b>doesn't use analytics tools or tracking pixels</b>, and doesn't load content from third-party sites while you browse. Fonts are served from this site."
+      },
+      {
+        "p": "The site saves only two preferences in your browser so they stick for your next visit: the language you picked (in a cookie called locale) and whether you paused animations (in localStorage). They're never sent to me and aren't used for tracking."
+      },
+      {
+        "p": "Like any website, the hosting provider (Vercel) may log basic technical data, such as your IP address and browser type, for security and to run the server."
+      },
+      {
+        "h2": "Your rights"
+      },
+      {
+        "p": "Under Israel's Privacy Protection Law, you can at any time:"
+      },
+      {
+        "ul": [
+          "Ask to see the information stored about you",
+          "Ask to correct information that's wrong",
+          "Ask to delete the information"
+        ]
+      },
+      {
+        "p": "To do any of these, email {email} or call {phone}. I'll handle your request within 30 days at most."
+      },
+      {
+        "h2": "Security"
+      },
+      {
+        "p": "The site uses an encrypted connection (HTTPS), and the form is protected against spam. Still, no way of sending data over the internet is 100% secure, so please don't send sensitive information through the form."
+      },
+      {
+        "h2": "Changes to this policy"
+      },
+      {
+        "p": "If this policy changes, the updated version will be posted on this page with a new date."
+      }
     ]
   },
   "accessibility": {
@@ -206,36 +354,65 @@
     "description": "The accessibility statement for Isaac's website: the standard it follows, what was made accessible, known limitations, and how to report an accessibility issue.",
     "updated": "Last checked: October 24, 2026",
     "blocks": [
-      { "p": "I want everyone to be able to use this site, including people with disabilities. Accessibility was planned in from the start and is built into the code itself, with no add-on or \"accessibility widget\"." },
-      { "h2": "The standard this site follows" },
-      { "p": "The site was built to the Israeli Standard <b><he>ת״י 5568</he> (IS 5568)</b> and the <b>WCAG 2.1 Level AA</b> guidelines, as required by Israel's Equal Rights for Persons with Disabilities regulations (accessibility adjustments for services)." },
-      { "h2": "What was made accessible" },
-      { "ul": [
-        "Full keyboard navigation (Tab, Shift+Tab, Enter, Space and Esc), in an order that follows the reading direction.",
-        "A \"Skip to content\" link at the start of every page, and a clear focus outline on everything you can interact with.",
-        "A heading and landmark structure (header, navigation, main content, footer) that screen readers recognize.",
-        "Color contrast of at least 4.5:1 for regular text and 3:1 for large text, form fields and icons.",
-        "The mobile menu moves focus inside, closes with Esc, and returns focus to the button that opened it.",
-        "A \"Pause animations\" button at the top of every page that stops all motion that plays on its own.",
-        "Respect for your system's \"reduce motion\" setting: movement is replaced with gentle fades.",
-        "In the contact form: a visible label for every field, \"(required)\" written out in words, and clear error messages that screen readers announce.",
-        "Frequently asked questions in an accessible accordion that opens and closes with the keyboard.",
-        "The site is available in Hebrew and English, with the right language and reading direction set for each.",
-        "Icon-only buttons and links have a text description, and links that open in a new window say so.",
-        "The site works at 200% zoom and at a screen width of 320 pixels with no sideways scrolling.",
-        "Touch targets are at least 44×44 pixels."
-      ] },
-      { "h2": "How accessibility was tested" },
-      { "p": "The site was tested with the automated checker axe, a manual keyboard-only pass, in \"reduce motion\" mode, and on screens 1440, 768, 390 and 320 pixels wide, in Chrome." },
-      { "h2": "Known limitations" },
-      { "ul": [
-        "The phone-screen illustrations are for show only, so they're hidden from screen readers. Everything they show is also written in the text next to them.",
-        "A full test with screen readers (like NVDA or VoiceOver) hasn't been done yet. If you run into a problem, I'd like to hear about it and fix it."
-      ] },
-      { "h2": "Found a problem? Let me know" },
-      { "p": "If something on the site isn't accessible to you, or you have a suggestion, contact the accessibility coordinator, {name}:" },
-      { "ul": ["Email: {email}", "Phone: {phone}"] },
-      { "p": "To help me fix it, tell me which page the problem was on, what you were trying to do, and which browser or assistive technology you used. I'll get back to you soon." }
+      {
+        "p": "I want everyone to be able to use this site, including people with disabilities. Accessibility was planned in from the start and is built into the code itself, with no add-on or \"accessibility widget\"."
+      },
+      {
+        "h2": "The standard this site follows"
+      },
+      {
+        "p": "The site was built to the Israeli Standard <b><he>ת״י 5568</he> (IS 5568)</b> and the <b>WCAG 2.1 Level AA</b> guidelines, as required by Israel's Equal Rights for Persons with Disabilities regulations (accessibility adjustments for services)."
+      },
+      {
+        "h2": "What was made accessible"
+      },
+      {
+        "ul": [
+          "Full keyboard navigation (Tab, Shift+Tab, Enter, Space and Esc), in an order that follows the reading direction.",
+          "A \"Skip to content\" link at the start of every page, and a clear focus outline on everything you can interact with.",
+          "A heading and landmark structure (header, navigation, main content, footer) that screen readers recognize.",
+          "Color contrast of at least 4.5:1 for regular text and 3:1 for large text, form fields and icons.",
+          "The mobile menu moves focus inside, closes with Esc, and returns focus to the button that opened it.",
+          "A \"Pause animations\" button at the top of every page that stops all motion that plays on its own.",
+          "Respect for your system's \"reduce motion\" setting: movement is replaced with gentle fades.",
+          "In the contact form: a visible label for every field, \"(required)\" written out in words, and clear error messages that screen readers announce.",
+          "Frequently asked questions in an accessible accordion that opens and closes with the keyboard.",
+          "The site is available in Hebrew and English, with the right language and reading direction set for each.",
+          "Icon-only buttons and links have a text description, and links that open in a new window say so.",
+          "The site works at 200% zoom and at a screen width of 320 pixels with no sideways scrolling.",
+          "Touch targets are at least 44×44 pixels."
+        ]
+      },
+      {
+        "h2": "How accessibility was tested"
+      },
+      {
+        "p": "The site was tested with the automated checker axe, a manual keyboard-only pass, in \"reduce motion\" mode, and on screens 1440, 768, 390 and 320 pixels wide, in Chrome."
+      },
+      {
+        "h2": "Known limitations"
+      },
+      {
+        "ul": [
+          "The phone-screen illustrations are for show only, so they're hidden from screen readers. Everything they show is also written in the text next to them.",
+          "A full test with screen readers (like NVDA or VoiceOver) hasn't been done yet. If you run into a problem, I'd like to hear about it and fix it."
+        ]
+      },
+      {
+        "h2": "Found a problem? Let me know"
+      },
+      {
+        "p": "If something on the site isn't accessible to you, or you have a suggestion, contact the accessibility coordinator, {name}:"
+      },
+      {
+        "ul": [
+          "Email: {email}",
+          "Phone: {phone}"
+        ]
+      },
+      {
+        "p": "To help me fix it, tell me which page the problem was on, what you were trying to do, and which browser or assistive technology you used. I'll get back to you soon."
+      }
     ]
   }
 }

@@ -240,3 +240,45 @@ body::before {
 .legal a[dir="ltr"] {
   white-space: nowrap;
 }
+
+/* FAQ accordion: rows open by animating the grid track from 0fr to 1fr, so the panel
+   grows to its natural height without measuring it. When closed, visibility:hidden (after
+   the close animation) keeps the answer out of the tab order and away from screen readers. */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 320ms var(--ease-out-strong),
+    visibility 0s linear 320ms;
+}
+.faq-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 380ms var(--ease-out-strong),
+    visibility 0s;
+}
+.faq-answer {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 200ms ease,
+    transform 300ms var(--ease-out-strong);
+}
+.faq-panel[data-open="true"] .faq-answer {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 300ms ease 80ms,
+    transform 380ms var(--ease-out-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-panel,
+  .faq-panel[data-open="true"],
+  .faq-answer,
+  .faq-panel[data-open="true"] .faq-answer {
+    transition: none;
+    transform: none;
+  }
+}

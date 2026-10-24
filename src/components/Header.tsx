@@ -99,8 +99,8 @@ export default function Header({ path = "/" }: { path?: string }) {
           <span className="text-flare">.</span>
         </Link>
 
-        <div className="flex items-center gap-2 md:gap-5">
-          <nav aria-label={t.nav.mainLabel} className="hidden items-center gap-6 md:flex">
+        <div className="flex items-center gap-1 sm:gap-3 lg:gap-5">
+          <nav aria-label={t.nav.mainLabel} className="hidden items-center gap-6 lg:flex">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -124,7 +124,7 @@ export default function Header({ path = "/" }: { path?: string }) {
             </Magnetic>
           </nav>
 
-          <LanguageSwitcher path={path} className="hidden md:flex" />
+          <LanguageSwitcher path={path} />
           <PauseButton />
 
           {/* Hamburger: the two bars rotate into an X */}
@@ -135,7 +135,7 @@ export default function Header({ path = "/" }: { path?: string }) {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
-            className="flex size-11 cursor-pointer flex-col items-center justify-center gap-1.5 md:hidden"
+            className="flex size-11 cursor-pointer flex-col items-center justify-center gap-1.5 lg:hidden"
           >
             <motion.span
               className="block h-0.5 w-7 bg-bone"
@@ -162,7 +162,7 @@ export default function Header({ path = "/" }: { path?: string }) {
           <motion.nav
             id="mobile-menu"
             aria-label={t.nav.mobileLabel}
-            className="fixed inset-0 z-0 flex flex-col justify-between overflow-y-auto bg-ink px-6 pt-24 pb-10 md:hidden"
+            className="fixed inset-0 z-0 flex flex-col justify-between overflow-y-auto bg-ink px-6 pt-24 pb-10 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.15 } }}

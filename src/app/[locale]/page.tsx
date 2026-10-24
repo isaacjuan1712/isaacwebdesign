@@ -1,5 +1,6 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
+import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -28,12 +29,28 @@ export default async function Home() {
     founder: { "@type": "Person", name: t.site.name, jobTitle: t.site.role },
   };
 
+  // The FAQ as structured data, so search engines can show the questions and answers
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: t.faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         // Escaping "<" keeps the JSON from ever closing the script tag early
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }}
       />
       <Header />
       {/* overflow-x-clip: tilted bands and side-sliding headlines never cause sideways scroll,
@@ -44,6 +61,7 @@ export default async function Home() {
         <About />
         <Process />
         <Included />
+        <Faq />
         <Contact />
       </main>
       <Footer />
