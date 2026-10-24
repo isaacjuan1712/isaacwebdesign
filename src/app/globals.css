@@ -80,22 +80,15 @@ html[lang="en"] .legal h2 {
   font-size-adjust: cap-height 0.62;
 }
 
+/* Motion has ONE switch: html[data-motion="playing" | "paused"]. It is set before the
+   first paint (src/lib/a11y.ts) from the visitor's "Stop animations" choice, or from the
+   OS reduced-motion setting when they haven't chosen. Every rule below reads it, so the
+   menu choice always wins, in both directions. */
+
 /* Native smooth anchors when Lenis isn't running (touch, or JS still loading).
    Lenis drives the scroll itself, so the CSS version must step aside. */
-@media (prefers-reduced-motion: no-preference) {
-  html:not(.lenis) {
-    scroll-behavior: smooth;
-  }
-}
-
-/* Looping CSS animations are switched off entirely for reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .animate-spin-slow,
-  .animate-ping-soft,
-  .animate-feed,
-  .animate-typing {
-    animation: none;
-  }
+html[data-motion="playing"]:not(.lenis) {
+  scroll-behavior: smooth;
 }
 
 /* Hero headline: each line starts covered by a slab of ink that lifts off to the left.
@@ -125,10 +118,8 @@ html[lang="en"] .legal h2 {
 [dir="ltr"] .ink-roller {
   animation-name: ink-lift-ltr;
 }
-@media (prefers-reduced-motion: reduce) {
-  .ink-roller {
-    display: none;
-  }
+html[data-motion="paused"] .ink-roller {
+  display: none;
 }
 
 /* Hero supporting text: a short rise that runs from first paint (no JS needed).
@@ -143,13 +134,12 @@ html[lang="en"] .legal h2 {
 .rise-in {
   animation: rise-in 0.6s var(--ease-out-strong) both;
 }
-@media (prefers-reduced-motion: reduce) {
-  .rise-in {
-    animation: none;
-  }
+html[data-motion="paused"] .rise-in {
+  animation: none;
 }
 
-/* The header's pause button stops every looping CSS animation on the page */
+/* "Stop animations" freezes every looping CSS animation where it is (ticker, stamp,
+   glows, phone loops) */
 /* (The one-off hero entrances are excluded: freezing them could leave text hidden.) */
 html[data-motion="paused"] *:not(.ink-roller, .rise-in),
 html[data-motion="paused"] *::before,
@@ -275,14 +265,12 @@ body::before {
     opacity 300ms ease 80ms,
     transform 380ms var(--ease-out-strong);
 }
-@media (prefers-reduced-motion: reduce) {
-  .faq-panel,
-  .faq-panel[data-open="true"],
-  .faq-answer,
-  .faq-panel[data-open="true"] .faq-answer {
-    transition: none;
-    transform: none;
-  }
+html[data-motion="paused"] .faq-panel,
+html[data-motion="paused"] .faq-panel[data-open="true"],
+html[data-motion="paused"] .faq-answer,
+html[data-motion="paused"] .faq-panel[data-open="true"] .faq-answer {
+  transition: none;
+  transform: none;
 }
 
 /* "How it works", step 4: the web address types itself in, one letter per step */
@@ -365,7 +353,7 @@ html[data-font="readable"] .legal h2 {
 /* ── Depth without photos: soft orange glows and a faint grid (CSS only) ──────────
    Each section that uses them holds a .depth layer behind its content. The glows are
    radial gradients (no images, no blur filter) that drift very slowly with transform
-   only; they freeze with "stop animations" (the global pause rule) and reduced motion.
+   only; they freeze with "Stop animations" (the global pause rule above).
    Peak glow strength is capped so all text keeps 4.5:1 (see AUDIT.md). */
 .depth {
   position: absolute;
@@ -402,11 +390,26 @@ html[data-font="readable"] .legal h2 {
   background-position: center top;
   mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 85%);
 }
-@media (prefers-reduced-motion: reduce) {
-  .glow {
-    animation: none;
-  }
-}
 html[data-contrast="high"] .depth {
   display: none;
+}
+
+/* Ticker band: the track holds two copies of the text and slides by one copy (50%),
+   toward the end of the reading direction, then repeats seamlessly. The duration is set
+   from JS (--ticker-duration = one copy's width / 55px per second). */
+@keyframes ticker-rtl {
+  to {
+    transform: translateX(50%);
+  }
+}
+@keyframes ticker-ltr {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker {
+  animation: ticker-rtl var(--ticker-duration, 24s) linear infinite;
+}
+[dir="ltr"] .ticker {
+  animation-name: ticker-ltr;
 }

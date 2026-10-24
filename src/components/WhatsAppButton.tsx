@@ -1,17 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "./icons";
 import Magnetic from "./Magnetic";
+import { useMotionPause } from "./Providers";
 
 // Floating button that stays on screen while scrolling.
 // `end-5` = the "end" side: bottom-left in Hebrew (RTL), bottom-right in English (LTR).
 // The bottom offset respects the iPhone home-indicator safe area.
 // It pops in once the hero headline has finished printing, so it doesn't compete with it.
 export default function WhatsAppButton() {
-  const reduce = useReducedMotion();
+  const { paused: reduce } = useMotionPause();
   const { t } = useI18n();
   return (
     <motion.div

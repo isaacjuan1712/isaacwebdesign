@@ -15,12 +15,25 @@ export type Prefs = {
 
 export const TEXT_SIZES = [100, 115, 130] as const;
 const KEY = "a11y-prefs";
+// Version 2: "paused" only comes from the accessibility menu. Older saves (from the removed
+// header/ticker pause buttons) keep their other options but drop "paused".
+const VERSION = 2;
+const OLD_KEYS = ["motion-paused"];
 export const defaultPrefs: Prefs = { textSize: 0, contrast: false, links: false, readable: false, paused: null };
 
 function read(): Prefs {
   try {
+    OLD_KEYS.forEach((k) => localStorage.removeItem(k));
     const stored = JSON.parse(localStorage.getItem(KEY) ?? "null");
-    if (stored && typeof stored === "object") return { ...defaultPrefs, ...stored };
+    if (stored && typeof stored === "object") {
+      if (stored.v !== VERSION) {
+        // Migrate: drop the old pause choice and save the cleaned-up preferences
+        delete stored.paused;
+        localStorage.setItem(KEY, JSON.stringify({ ...defaultPrefs, ...stored, v: VERSION }));
+      }
+      delete stored.v;
+      return { ...defaultPrefs, ...stored };
+    }
   } catch {
     // Storage blocked or corrupted: use the defaults
   }
@@ -60,7 +73,7 @@ export const getServerPrefs = () => defaultPrefs;
 export function setPrefs(update: Partial<Prefs>) {
   current = { ...getPrefs(), ...update };
   try {
-    localStorage.setItem(KEY, JSON.stringify(current));
+    localStorage.setItem(KEY, JSON.stringify({ ...current, v: VERSION }));
   } catch {}
   apply(current);
   listeners.forEach((notify) => notify());
@@ -82,7 +95,7 @@ export function subscribePrefs(notify: () => void) {
 
 // Inlined in <head> by the root layout. Same logic as read() + apply(), as plain ES5,
 // because it runs before React and before any bundle has loaded.
-export const prePaintScript = `(function(){try{var p={};try{p=JSON.parse(localStorage.getItem("${KEY}"))||{}}catch(e){}
+export const prePaintScript = `(function(){try{var p={};try{${JSON.stringify(OLD_KEYS)}.forEach(function(k){localStorage.removeItem(k)});p=JSON.parse(localStorage.getItem("${KEY}"))||{};if(p.v!==${VERSION})delete p.paused}catch(e){}
 var r=false;try{r=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
 var d=document.documentElement.dataset;
 d.motion=(p.paused===true||(p.paused==null&&r))?"paused":"playing";

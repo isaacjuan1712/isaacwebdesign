@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { whatsappLink } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
@@ -60,7 +60,7 @@ export default function Hero() {
   const stampLift = useTransform(scrollYProgress, [0, 1], ["0%", "-35%"]);
 
   // Everything below the headline waits until the last line is printed
-  const reduce = useReducedMotion();
+  const reduce = !moving;
   const afterInk = reduce ? 0.1 : PRINTED - 0.3;
 
   return (

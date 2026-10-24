@@ -24,16 +24,16 @@ export const usePrefs = () => useSyncExternalStore(subscribePrefs, getPrefs, get
 
 const getPausedSnapshot = () => isPaused(getPrefs());
 
-// reducedMotion="user": when the OS asks for reduced motion, motion skips
-// transform animations (movement) and keeps only gentle opacity fades.
+// While motion is stopped (by the visitor, or by the OS setting when they haven't chosen),
+// the motion library skips movement and keeps only gentle opacity fades.
 export default function Providers({ children }: { children: React.ReactNode }) {
   const paused = useSyncExternalStore(subscribePrefs, getPausedSnapshot, () => false);
   const toggle = useCallback(() => setPrefs({ paused: !isPaused(getPrefs()) }), []);
 
   // Inertial smooth scroll for mouse wheels. Touch keeps native scrolling (Lenis'
-  // default); paused motion or reduced motion keeps the browser's plain scroll.
+  // default); with motion stopped the browser's plain scroll is used.
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (paused) return;
     lenis = new Lenis({ autoRaf: true, lerp: 0.11, anchors: { offset: -72 } });
     return () => {
       lenis?.destroy();
@@ -43,7 +43,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <PauseContext.Provider value={{ paused, toggle }}>
-      <MotionConfig reducedMotion="user">
+      <MotionConfig reducedMotion={paused ? "always" : "never"}>
         {children}
         <A11yMenu />
         <CursorFollower />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion, type Transition } from "motion/react";
+import { AnimatePresence, motion, type Transition } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { CheckIcon } from "./icons";
 import { useMotionPause } from "./Providers";
@@ -24,9 +24,8 @@ export function Phone({ children, className = "" }: { children: React.ReactNode;
 // on screen. When motion is paused or reduced, it jumps to the last phase: the finished
 // picture of that step, shown without animating.
 function useSequence(durations: readonly number[], active: boolean) {
-  const { paused } = useMotionPause();
-  const reduce = useReducedMotion();
-  const still = paused || !!reduce;
+  // "paused" already includes the OS reduced-motion setting when the visitor hasn't chosen
+  const { paused: still } = useMotionPause();
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
