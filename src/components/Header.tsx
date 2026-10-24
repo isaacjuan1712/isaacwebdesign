@@ -8,43 +8,13 @@ import { format } from "@/i18n/config";
 import { sections, whatsappLink } from "@/lib/site";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Magnetic from "./Magnetic";
-import { getLenis, useMotionPause } from "./Providers";
+import { getLenis } from "./Providers";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
 // Everything a keyboard user can reach, limited to what is actually on screen
 const focusable = (root: HTMLElement) =>
   [...root.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")].filter((el) => el.getClientRects().length > 0);
-
-// Pauses and resumes all automatic motion: the ticker, the stamp, the phone animations
-// and every looping effect (WCAG 2.2.2). Shares its state with the accessibility menu.
-// The tooltip repeats the label visibly on hover and on keyboard focus.
-function PauseButton() {
-  const { paused, toggle } = useMotionPause();
-  const { t } = useI18n();
-  const label = paused ? t.nav.play : t.nav.pause;
-  return (
-    <div className="group relative">
-      <button
-        type="button"
-        onClick={toggle}
-        aria-pressed={paused}
-        aria-label={label}
-        className="flex size-[44px] cursor-pointer items-center justify-center rounded-full border border-edge text-bone transition-[background-color,color,scale] duration-150 ease-out hover:bg-bone hover:text-ink active:scale-[0.94]"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4">
-          {paused ? <path d="M8 5.5v13l10-6.5z" /> : <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />}
-        </svg>
-      </button>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 translate-y-1 rounded-md border border-edge bg-ink px-2.5 py-1.5 text-xs font-semibold whitespace-nowrap text-bone opacity-0 shadow-[0_8px_20px_-6px_rgb(0_0_0/0.6)] transition-[opacity,translate] duration-150 ease-out group-has-[:focus-visible]:translate-y-0 group-has-[:focus-visible]:opacity-100 group-hover:translate-y-0 group-hover:opacity-100"
-      >
-        {label}
-      </span>
-    </div>
-  );
-}
 
 // `path` is the current page without the language prefix ("/" or "/privacy"),
 // so the language switcher can link to the same page in the other language.
@@ -162,9 +132,9 @@ export default function Header({ path = "/" }: { path?: string }) {
       </a>
     </Magnetic>
   );
-  // Left to right on screen: menu (phones) · pause · language · "Let's talk" (wide screens).
+  // Left to right on screen: menu (phones) · language · "Let's talk" (wide screens).
   // In Hebrew the DOM order is reversed and flex-row-reverse puts them back in place.
-  const controlItems = [hamburger, <PauseButton key="pause" />, <LanguageSwitcher key="lang" path={path} />, cta];
+  const controlItems = [hamburger, <LanguageSwitcher key="lang" path={path} />, cta];
   const controls = (
     <div
       className={`col-start-1 row-start-1 flex items-center gap-1 justify-self-start sm:gap-3 ${dir === "rtl" ? "flex-row-reverse" : ""}`}

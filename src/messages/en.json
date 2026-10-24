@@ -33,15 +33,15 @@
     "cta": "Let's talk",
     "ctaHint": "(WhatsApp, opens in a new window)",
     "mobileCta": "Message me on WhatsApp",
-    "pause": "Pause animations",
-    "play": "Play animations"
+    "pause": "Pause: pause all animations on the site",
+    "play": "Play: play all animations on the site",
+    "pauseShort": "Pause",
+    "playShort": "Play"
   },
   "language": {
-    "groupLabel": "Site language",
     "he": "עב",
     "en": "EN",
-    "switchTo": "עב, מעבר לעברית",
-    "switchToLang": "he"
+    "switchTo": "עב, מעבר לעברית"
   },
   "hero": {
     "lines": [
@@ -400,7 +400,7 @@
           "A heading and landmark structure (header, navigation, main content, footer) that screen readers recognize.",
           "Color contrast of at least 4.5:1 for regular text and 3:1 for large text, form fields and icons.",
           "The mobile menu moves focus inside, closes with Esc, and returns focus to the button that opened it.",
-          "A \"Pause animations\" button at the top of every page that stops all motion that plays on its own.",
+          "A pause/play button (⏸/▶) on the moving orange band on the home page, and a \"Stop animations\" option in the accessibility menu on every page. Both stop all motion that plays on its own, and your choice is saved for your next visit.",
           "Respect for your system's \"reduce motion\" setting: movement is replaced with gentle fades.",
           "In the contact form: a visible label for every field, \"(required)\" written out in words, and clear error messages that screen readers announce.",
           "Frequently asked questions in an accessible accordion that opens and closes with the keyboard.",
