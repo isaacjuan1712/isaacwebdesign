@@ -53,8 +53,9 @@ export default function Hero() {
   const whatsapp = whatsappLink(t.site.whatsappMessage);
   const moving = useMotionAllowed();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // Never below 0.4, so the headline stays above 3:1 while it is still on screen
-  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.4]);
+  // Never below 0.7, so even the orange accent word stays above 3:1 (it needs 0.65;
+  // the cream lines only need 0.37) while the headline is still on screen
+  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.7]);
   const stampTurn = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const stampLift = useTransform(scrollYProgress, [0, 1], ["0%", "-35%"]);
 

@@ -88,3 +88,20 @@ The site has no newsletter or mailing list, and the contact form is for inquirie
 | `npm audit` | 0 vulnerabilities |
 
 Known exemption: the "מדיניות הפרטיות" link inside the sentence under the form is shorter than 44 px. Inline text links are exempt from the target-size rule.
+
+## Bilingual verification (2026-10-24, after adding English and the FAQ)
+
+| Check | Hebrew (`/`) | English (`/en`) |
+|---|---|---|
+| `lang` / `dir`, one `h1`, unique title, meta description, `og:locale`, hreflang (he, en, x-default) | ✅ on all 4 pages | ✅ on all 4 pages |
+| axe (WCAG 2.0/2.1 A + AA), 4 pages × 1440 px + 390 px | 0 violations | 0 violations |
+| Screenshots 390 px and 320 px, all pages | No sideways scroll, no console errors | No sideways scroll, no console errors |
+| Keyboard pass (home, 40 stops) | Visible focus on every stop, order follows RTL | Visible focus on every stop, order follows LTR |
+| FAQ accordion | Enter/Space toggle `aria-expanded`; ↑ ↓ Home End move focus; closed answers hidden from Tab and screen readers | Same |
+| Language switcher | Reached by Tab, 44×44, `aria-label` in the target language, Enter goes to the same page in English and sets the `locale` cookie | Same, to Hebrew |
+| Mobile menu | Focus moves in, trapped, includes the switcher, Esc returns focus | Same |
+| Form validation (not submitted) | Hebrew errors linked with `aria-describedby`, count announced, focus on first error | English errors, same behaviour |
+| `prefers-reduced-motion` | No loops, no dimmed text, no ink slab, FAQ opens instantly | Same |
+| Lighthouse mobile (2 runs) | Perf 89–90, A11y 100, BP 100, SEO 100 | Perf 89–90, A11y 100, BP 100, SEO 100 |
+
+Fixed during this pass: the hero headline's scroll-out fade floor was raised from 0.4 to 0.7, because the orange accent word needs 0.65 to stay above 3:1 (axe flagged it mid-scroll).
