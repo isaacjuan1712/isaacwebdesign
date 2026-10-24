@@ -7,6 +7,7 @@ import { format } from "@/i18n/config";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import LazyMount from "./LazyMount";
 import { Phone, StepScreen } from "./StepScreens";
+import Depth from "./Depth";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -75,10 +76,8 @@ export default function Process() {
 
   return (
     <section id="process" className="relative isolate border-t border-line bg-ink-2">
-      {/* Depth: a slow orange glow behind the heading */}
-      <div aria-hidden="true" className="depth">
-        <div className="glow" style={{ top: "14rem", left: "50%", ["--glow-strength" as string]: 0.1, ["--glow-speed" as string]: "32s" }} />
-      </div>
+      {/* Depth: a warm glow behind the heading, thin diagonal lines on the phone's side */}
+      <Depth lines="end" glows={[{ top: "13rem", left: "50%", strength: 0.2 }]} />
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
         <h2 className="overflow-hidden pb-[0.06em] text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">
           <motion.span

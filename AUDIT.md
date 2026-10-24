@@ -314,3 +314,14 @@ The background photos were removed. Depth now comes from CSS only: the site-wide
 | Contact (two glows, 10% + 6%) | 10% / 6% | 5.68 | 12.79 | 4.53 | 3.21 |
 
 The same values hold in Hebrew and English at 1440px and 390px. The glows don't move under reduced motion, freeze when "Stop animations" is on, and are hidden in high-contrast mode, along with the grain.
+
+## Depth on every section: per-text contrast (2026-10-24)
+
+The depth layer is now on every section: the hero grid plus a glow, glows behind each heading, dots in About, What you get and the footer, and diagonal lines in How it works and the FAQ. Every visible text run was measured against the brightest point of the real background under it. The page was rendered with text made transparent, at three points of each glow's drift, with a 2px blur so single grain specks average out.
+
+| Width | Lowest small text (needs 4.5) | Lowest large text (needs 3) |
+|---|---|---|
+| Hebrew 1440 / 390 | 5.04 / 4.86 | 3.81 / 3.71 |
+| English 1440 / 390 | 5.06 / 5.11 | 3.76 / 3.77 |
+
+The hero headline's scroll-out fade floor was raised from 0.7 to 0.9, because the orange accent word over the warmer glow needs at least 0.85. "Stop animations" freezes the glows and the ticker. High-contrast mode hides all 7 depth layers and the grain.

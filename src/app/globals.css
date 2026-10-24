@@ -362,12 +362,26 @@ html[data-font="readable"] .legal h2 {
   overflow: hidden;
   pointer-events: none;
 }
+/* Stretch the layer to the full screen width when the section itself is a
+   max-width container (About, What you get) */
+.depth-full {
+  inset: 0 auto;
+  left: 50%;
+  width: 100vw;
+  translate: -50% 0;
+}
+/* Warm orange glow: a slightly yellower core fading to brand orange, then nothing */
 .glow {
   position: absolute;
-  width: min(80vw, 56rem);
+  width: min(95vw, 72rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(255 77 28 / var(--glow-strength, 0.12)), rgb(255 77 28 / 0));
+  background: radial-gradient(
+    closest-side,
+    rgb(255 105 40 / var(--glow-strength, 0.12)),
+    rgb(255 77 28 / calc(var(--glow-strength, 0.12) * 0.55)) 45%,
+    rgb(255 77 28 / 0)
+  );
   translate: -50% -50%;
   animation: glow-drift var(--glow-speed, 28s) ease-in-out infinite alternate;
 }
@@ -379,16 +393,52 @@ html[data-font="readable"] .legal h2 {
     transform: translate(6%, 5%) scale(1.1);
   }
 }
-/* Thin grid lines in the hero, fading out toward the bottom */
+/* Grid lines in the hero: clear at the top, gone before the orange accent line */
 .hero-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, rgb(242 236 225 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(242 236 225 / 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(242 236 225 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 236 225 / 0.07) 1px, transparent 1px);
   background-size: 4rem 4rem;
   background-position: center top;
-  mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 85%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 22%, transparent 62%);
+}
+/* Dot pattern */
+.depth-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(242 236 225 / 0.16) 1.2px, transparent 1.6px);
+  background-size: 1.375rem 1.375rem;
+}
+/* Thin diagonal lines */
+.depth-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(242 236 225 / 0.07) 0 1px,
+    transparent 1px 1.25rem
+  );
+}
+/* Where a pattern is visible: it fades out toward the rest of the section */
+.depth-fade-top {
+  mask-image: radial-gradient(ellipse 70% 45% at 50% 0%, #000 0%, transparent 100%);
+}
+.depth-fade-bottom {
+  mask-image: radial-gradient(ellipse 70% 45% at 50% 100%, #000 0%, transparent 100%);
+}
+.depth-fade-start {
+  mask-image: linear-gradient(to left, #000 0%, transparent 38%);
+}
+.depth-fade-end {
+  mask-image: linear-gradient(to right, #000 0%, transparent 38%);
+}
+[dir="ltr"] .depth-fade-start {
+  mask-image: linear-gradient(to right, #000 0%, transparent 38%);
+}
+[dir="ltr"] .depth-fade-end {
+  mask-image: linear-gradient(to left, #000 0%, transparent 38%);
 }
 html[data-contrast="high"] .depth {
   display: none;

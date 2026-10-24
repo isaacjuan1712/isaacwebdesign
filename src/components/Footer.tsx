@@ -4,6 +4,7 @@ import { format, localizePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/server";
 import { legalPages, sections } from "@/lib/site";
 import FooterReveal from "./FooterReveal";
+import Depth from "./Depth";
 
 // With cacheComponents on, a bare `new Date()` fails the build: Next.js can't tell
 // whether the page should be static. "use cache" + cacheLife("days") says
@@ -21,7 +22,9 @@ export default async function Footer() {
   const home = localizePath(locale, "/");
 
   return (
-    <footer className="border-t border-line">
+    <footer className="relative isolate border-t border-line">
+      {/* Depth: a faint dot pattern */}
+      <Depth dots="bottom" />
       <FooterReveal>
         <div className="mx-auto max-w-6xl px-4 pt-10 pb-28 sm:px-6">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { useI18n } from "@/i18n/client";
+import Depth from "./Depth";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -28,7 +29,9 @@ export default function Faq() {
   }
 
   return (
-    <section id="faq" className="border-t border-line bg-ink">
+    <section id="faq" className="relative isolate border-t border-line bg-ink">
+      {/* Depth: thin diagonal lines on the start side, a glow behind the heading */}
+      <Depth lines="start" glows={[{ top: "9rem", left: "50%", strength: 0.18, size: "min(90vw, 56rem)" }]} />
       <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 md:py-32">
         <div className="mb-14 text-center">
           <h2 className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">{t.faq.title}</h2>

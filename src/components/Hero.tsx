@@ -7,6 +7,7 @@ import { whatsappLink } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { WhatsAppIcon } from "./icons";
 import Magnetic from "./Magnetic";
+import Depth from "./Depth";
 
 // The headline has three lines (hero.lines in the texts); the last one is the orange accent.
 // When each line's roller lifts off, and how long the whole headline takes to print:
@@ -53,9 +54,9 @@ export default function Hero() {
   const whatsapp = whatsappLink(t.site.whatsappMessage);
   const moving = useMotionAllowed();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // Never below 0.7, so even the orange accent word stays above 3:1 (it needs 0.65;
-  // the cream lines only need 0.37) while the headline is still on screen
-  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.7]);
+  // Never below 0.9: over the hero's orange glow and grid, the orange accent word needs
+  // 0.85 to keep 3:1 (measured; see AUDIT.md), the cream lines far less
+  const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.9]);
   const stampTurn = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const stampLift = useTransform(scrollYProgress, [0, 1], ["0%", "-35%"]);
 
@@ -65,11 +66,8 @@ export default function Hero() {
 
   return (
     <section id="top" ref={ref} className="relative isolate">
-      {/* Depth: a faint grid fading toward the bottom, and a slow orange glow behind the headline */}
-      <div aria-hidden="true" className="depth">
-        <div className="hero-grid" />
-        <div className="glow" style={{ top: "38%", left: "50%", ["--glow-strength" as string]: 0.14, ["--glow-speed" as string]: "26s" }} />
-      </div>
+      {/* Depth: grid lines fading toward the bottom, a big warm glow behind the headline */}
+      <Depth grid glows={[{ top: "32%", left: "50%", strength: 0.18 }]} />
       <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-16 text-center sm:px-6 md:pt-24 md:pb-24">
         <motion.h1
           className="font-display text-[clamp(3.25rem,19vw,12.5rem)] leading-[0.86] font-bold"

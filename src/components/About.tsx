@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import Rich from "@/i18n/Rich";
 import ScrollWords from "./ScrollWords";
+import Depth from "./Depth";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -12,7 +13,9 @@ export default function About() {
   const { t } = useI18n();
   const a = t.about;
   return (
-    <section id="about" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
+    <section id="about" className="relative isolate mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
+      {/* Depth: a dot pattern fading down from the top, a glow behind the headline */}
+      <Depth fullWidth dots="top" glows={[{ top: "10rem", left: "50%", strength: 0.2 }]} />
       <ScrollWords
         className="mx-auto max-w-4xl text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
         parts={[{ text: a.headline }, { text: a.headlineMuted, muted: true }]}

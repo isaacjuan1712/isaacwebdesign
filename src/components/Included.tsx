@@ -8,6 +8,7 @@ import { CheckIcon, MailIcon, PinIcon } from "./icons";
 import { useMotionPause } from "./Providers";
 import LazyMount from "./LazyMount";
 import { Phone } from "./StepScreens";
+import Depth from "./Depth";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -330,7 +331,9 @@ export default function Included() {
   const { t } = useI18n();
   const i = t.included;
   return (
-    <section id="included" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
+    <section id="included" className="relative isolate mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
+      {/* Depth: dots rising from the bottom behind the cards, a glow behind the heading */}
+      <Depth fullWidth dots="bottom" glows={[{ top: "8rem", left: "50%", strength: 0.18 }]} />
       <motion.h2
         className="text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
         initial={{ opacity: 0, scale: 1.12 }}
