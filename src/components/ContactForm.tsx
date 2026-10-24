@@ -144,7 +144,9 @@ export default function ContactForm() {
     // Send trimmed values only. Nothing is stored on this site: Web3Forms emails it to the owner.
     const payload = new FormData();
     payload.append("access_key", accessKey);
+    // Fixed subject and sender name, so inquiries are easy to filter in Gmail
     payload.append("subject", "פנייה חדשה מהאתר");
+    payload.append("from_name", "האתר של יצחק");
     payload.append("botcheck", String(data.get("botcheck") ?? ""));
     for (const name of ["name", "phone", "email", "message"] as const) {
       payload.append(name, String(data.get(name) ?? "").trim());
