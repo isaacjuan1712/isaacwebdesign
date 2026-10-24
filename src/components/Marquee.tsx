@@ -14,17 +14,17 @@ import {
 import { useI18n } from "@/i18n/client";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { SparkIcon } from "./icons";
-import PauseButton from "./PauseButton";
 import { useMotionPause } from "./Providers";
 
-// Pixels per second when the page is still: a calm, steady drift. Measured in pixels
+// Pixels per second when the page is still: calm but alive. Measured in pixels
 // (not % of the text), so Hebrew and English move at exactly the same speed.
-const BASE_SPEED = 28;
+const BASE_SPEED = 55;
 
 // A tilted ticker band between the hero and the rest of the page. It drifts on its own,
 // picks up a little speed while you scroll, and turns around when you scroll back up.
 // The list is rendered twice and wraps after exactly one copy's width, so the loop
-// never jumps. The pause pill sits in its own space at the end of the band.
+// never jumps. It stops with the accessibility menu's "stop animations" option and
+// under the system's reduced-motion setting.
 export default function Marquee() {
   const ref = useRef<HTMLDivElement>(null);
   const copyRef = useRef<HTMLUListElement>(null);
@@ -69,9 +69,7 @@ export default function Marquee() {
 
   return (
     <div ref={ref} className="relative z-10 py-8">
-      {/* The band is 110% wide (5% past each screen edge) so its tilted ends never show.
-          me-[4.55%] = 5% of the screen, measured against the 110% band: it keeps the pause
-          pill flush with the visible edge of the screen. */}
+      {/* The band is 110% wide (5% past each screen edge) so its tilted ends never show */}
       <div className="-mx-[5%] flex -rotate-2 border-y border-ink bg-flare text-ink shadow-[0_18px_40px_-12px_rgb(0_0_0/0.6)]">
         <div aria-hidden="true" className="min-w-0 flex-1 overflow-hidden py-3">
           <motion.div className="flex w-max" style={{ x }}>
@@ -87,7 +85,6 @@ export default function Marquee() {
             ))}
           </motion.div>
         </div>
-        <PauseButton className="me-[4.55%]" />
       </div>
     </div>
   );
