@@ -6,7 +6,7 @@
   --color-ink: #0f0d0b;
   --color-ink-2: #1a1714;
   --color-line: #2e2924; /* decorative dividers only */
-  --color-edge: #6a645b; /* borders of inputs and controls: 3:1 on ink and ink-2 */
+  --color-edge: #7a7369; /* borders of inputs and controls: 3.5:1+ on ink and ink-2 */
   --color-bone: #f2ece1;
   --color-dust: #a69e92;
   --color-flare: #ff4d1c;
@@ -281,4 +281,81 @@ body::before {
     transition: none;
     transform: none;
   }
+}
+
+/* "How it works", step 4: the web address types itself in, one letter per step */
+.url-type {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+}
+.url-type[data-phase="typing"] {
+  animation: url-type 1.4s steps(18, end) forwards;
+}
+.url-type[data-phase="done"] {
+  clip-path: none;
+}
+@keyframes url-type {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Long words never push past the screen edge, whatever the text size */
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
+/* ── Accessibility menu modes (data-* set on <html> by src/lib/a11y.ts) ──────── */
+
+/* Text size: everything is sized in rem, so the whole layout scales with it */
+html[data-text-size="1"] {
+  font-size: 115%;
+}
+html[data-text-size="2"] {
+  font-size: 130%;
+}
+
+/* High contrast: pure black backgrounds, near-white secondary text, stronger
+   borders and dividers, no film grain, and a thicker focus ring */
+html[data-contrast="high"] {
+  --color-ink: #000000;
+  --color-ink-2: #000000;
+  --color-line: #8f887e;
+  --color-edge: #d9d2c7;
+  --color-bone: #ffffff;
+  --color-dust: #ece7de;
+}
+html[data-contrast="high"] body::before {
+  display: none;
+}
+html[data-contrast="high"] :focus-visible {
+  outline-width: 3px;
+}
+
+/* Highlight links: every link is underlined and outlined */
+html[data-links="highlight"] a {
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 4px;
+  outline: 2px dashed var(--color-mustard);
+  outline-offset: 2px;
+}
+html[data-links="highlight"] a:focus-visible {
+  outline: 3px solid var(--color-flare);
+}
+
+/* Readable font: headlines switch from the condensed poster faces to the plain body
+   sans. font-size-adjust shrinks it so the much wider letters still fit the layout. */
+html[data-font="readable"] {
+  --font-display: var(--font-assistant), system-ui, sans-serif;
+}
+html[data-font="readable"] .font-display,
+html[data-font="readable"] .legal h2 {
+  font-weight: 800;
+  font-synthesis: none;
+  font-size-adjust: ex-height 0.3;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
 }

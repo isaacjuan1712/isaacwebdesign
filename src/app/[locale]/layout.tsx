@@ -5,6 +5,7 @@ import { I18nProvider, type ClientMessages } from "@/i18n/client";
 import { directionOf, locales } from "@/i18n/config";
 import { pageMetadata, metadataBase } from "@/i18n/metadata";
 import { getDictionary } from "@/i18n/server";
+import { prePaintScript } from "@/lib/a11y";
 import "../globals.css";
 
 // Karantina: tall condensed Hebrew poster face for headlines. Only the bold weight is used.
@@ -59,7 +60,14 @@ export default async function RootLayout({ children }: LayoutProps<"/[locale]">)
       lang={locale}
       dir={directionOf(locale)}
       className={`${karantina.variable} ${anton.variable} ${assistant.variable} antialiased`}
+      // The pre-paint script below adds data-* attributes before React hydrates
+      suppressHydrationWarning
     >
+      <head>
+        {/* Applies saved accessibility preferences (text size, contrast, paused motion...)
+            before the first paint, so the page never flashes in the default style */}
+        <script dangerouslySetInnerHTML={{ __html: prePaintScript }} />
+      </head>
       <body className="min-h-dvh font-sans">
         {/* First focusable element on every page: jumps keyboard users past the header */}
         <a

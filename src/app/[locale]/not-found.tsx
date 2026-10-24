@@ -17,7 +17,7 @@ export default async function NotFound() {
     <>
       <Header />
       <main id="main" tabIndex={-1} className="focus:outline-none">
-        <section className="mx-auto max-w-6xl px-4 pt-20 pb-32 sm:px-6 md:pt-28">
+        <section className="mx-auto flex max-w-6xl flex-col items-center px-4 pt-20 pb-32 text-center sm:px-6 md:pt-28">
           <p className="font-display text-[clamp(6rem,30vw,16rem)] leading-[0.8] font-bold text-flare" aria-hidden="true">
             404
           </p>

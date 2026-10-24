@@ -105,3 +105,199 @@ Known exemption: the "מדיניות הפרטיות" link inside the sentence un
 | Lighthouse mobile (2 runs) | Perf 89–90, A11y 100, BP 100, SEO 100 | Perf 89–90, A11y 100, BP 100, SEO 100 |
 
 Fixed during this pass: the hero headline's scroll-out fade floor was raised from 0.4 to 0.7, because the orange accent word needs 0.65 to stay above 3:1 (axe flagged it mid-scroll).
+
+## Color contrast audit (2026-10-24)
+
+Every text and UI color pair the site uses, measured against its real background (transparency blended in), in normal and high-contrast mode. Requirements: 4.5:1 for normal text; 3:1 for large text (24px+, or 18.5px+ bold) and for UI components, borders, icons and focus rings. The same results apply to both languages: Hebrew and English use identical colors. axe-core confirmed them on the rendered pages in both languages and in every accessibility-menu mode.
+
+Changes made over the passes so far:
+
+- Input and control borders: `#2e2924` (1.24:1) → `#6a645b` → now `#7a7369` (3.81:1 on dark grey, 4.14:1 on black)
+- Placeholders: `dust` at 50% (2.64:1) → 80% (4.7:1)
+- Floating WhatsApp button: white icon on `#25d366` (1.98:1) → on `#1da851` (3.10:1)
+- Scroll-dimmed headline words: 16% → 40% (cream) / 60% (grey); unreached step headings 35% → 45%; hero scroll-out floor 10% → 70%
+- Text on the orange accent is dark (`#0f0d0b`, 5.85:1); no white text on orange is used anywhere
+
+### Normal
+
+| Element | Colors (fg on bg) | Ratio | Needs | Result |
+|---|---|---|---|---|
+| Body text, intros | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| Body text on dark-grey sections | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Headings | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| Headings on dark-grey sections | #f2ece1 on #1a1714 | 15.18:1 | 3:1 | ✅ |
+| Header nav links | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| Header nav links: hover | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Language switcher: current | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Language switcher: other / hover | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| Language switcher: hover | #ff4d1c on #0f0d0b | 5.85:1 | 4.5:1 | ✅ |
+| Header CTA "Let's talk" (text on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 4.5:1 | ✅ |
+| Header CTA: hover | #0f0d0b on #f2ece1 | 16.50:1 | 4.5:1 | ✅ |
+| Pause button: icon | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| Pause button: border | #7a7369 on #0f0d0b | 4.14:1 | 3:1 | ✅ |
+| Pause button: hover (icon on cream) | #0f0d0b on #f2ece1 | 16.50:1 | 3:1 | ✅ |
+| Pause tooltip text | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Hero accent word (orange) | #ff4d1c on #0f0d0b | 5.85:1 | 3:1 | ✅ |
+| Hero headline at scroll-out floor (0.7) | #f2ece1 @70% on #0f0d0b | 8.31:1 | 3:1 | ✅ |
+| Hero accent at scroll-out floor (0.7) | #ff4d1c @70% on #0f0d0b | 3.35:1 | 3:1 | ✅ |
+| Hero WhatsApp button (text on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 4.5:1 | ✅ |
+| Hero WhatsApp button: hover | #0f0d0b on #f2ece1 | 16.50:1 | 4.5:1 | ✅ |
+| Hero outline button: text | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Hero outline button: border | #7a7369 on #0f0d0b | 4.14:1 | 3:1 | ✅ |
+| Stamp ring text | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Stamp arrow (on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 3:1 | ✅ |
+| Ticker band text (on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 3:1 | ✅ |
+| About headline: dim words (0.4) | #f2ece1 @40% on #0f0d0b | 3.41:1 | 3:1 | ✅ |
+| About headline: dim grey words (0.6) | #a69e92 @60% on #0f0d0b | 3.31:1 | 3:1 | ✅ |
+| About tool chips: text | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| About tool chips: border | #7a7369 on #0f0d0b | 4.14:1 | 3:1 | ✅ |
+| Process: step heading not yet reached (0.45) | #f2ece1 @45% on #1a1714 | 4.00:1 | 3:1 | ✅ |
+| Process: step number (outline) | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Process: step number (reached, on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 4.5:1 | ✅ |
+| Process: "Step 2 of 4" caption | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Tile titles / text | #f2ece1 on #1a1714 | 15.18:1 | 3:1 | ✅ |
+| Tile body text | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| WhatsApp demo: message bubble text | #f2ece1 on #1d5c3a | 6.75:1 | 4.5:1 | ✅ |
+| WhatsApp demo: "what your customer sees" caption | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| WhatsApp demo: empty field placeholder | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| WhatsApp demo: send button icon | #0f0d0b on #25d366 | 9.78:1 | 3:1 | ✅ |
+| Map: "your business is here" label | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Map: pin button (orange on map) | #ff4d1c on #1c1916 | 5.28:1 | 3:1 | ✅ |
+| FAQ question | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| FAQ question: hover | #ff4d1c on #0f0d0b | 5.85:1 | 3:1 | ✅ |
+| FAQ answer | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| FAQ +/− icon border (closed) | #7a7369 on #0f0d0b | 4.14:1 | 3:1 | ✅ |
+| FAQ +/− icon (closed) | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| FAQ −  icon (open, on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 3:1 | ✅ |
+| Contact: channel label | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Contact: channel value | #f2ece1 on #1a1714 | 15.18:1 | 4.5:1 | ✅ |
+| Contact: channel value hover | #ff4d1c on #1a1714 | 5.38:1 | 4.5:1 | ✅ |
+| Contact: channel icon | #f2ece1 on #1a1714 | 15.18:1 | 3:1 | ✅ |
+| Contact: channel icon hover (on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 3:1 | ✅ |
+| Form labels and "(required)" | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Form input text | #f2ece1 on #1a1714 | 15.18:1 | 4.5:1 | ✅ |
+| Form placeholders (dust at 80%) | #a69e92 @80% on #1a1714 | 4.76:1 | 4.5:1 | ✅ |
+| Form field border (underline) | #7a7369 on #1a1714 | 3.81:1 | 3:1 | ✅ |
+| Form field border: focus / error | #ff4d1c on #1a1714 | 5.38:1 | 3:1 | ✅ |
+| Form error messages + icon | #ff4d1c on #1a1714 | 5.38:1 | 4.5:1 | ✅ |
+| Form success message | #25d366 on #1a1714 | 9.00:1 | 4.5:1 | ✅ |
+| Consent text | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Consent link | #f2ece1 on #1a1714 | 15.18:1 | 4.5:1 | ✅ |
+| Submit button (text on cream) | #0f0d0b on #f2ece1 | 16.50:1 | 4.5:1 | ✅ |
+| Submit button: hover (text on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 4.5:1 | ✅ |
+| Submit button: disabled (50%) | #0f0d0b on #f2ece1 | 16.50:1 | — | ✅ (Disabled controls are exempt (WCAG 1.4.3)) |
+| Footer text and links | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| Footer links: hover | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Legal pages: body | #a69e92 on #0f0d0b | 7.32:1 | 4.5:1 | ✅ |
+| Legal pages: links | #f2ece1 on #0f0d0b | 16.50:1 | 4.5:1 | ✅ |
+| Legal pages: link hover | #ff4d1c on #0f0d0b | 5.85:1 | 4.5:1 | ✅ |
+| Skip link (on cream) | #0f0d0b on #f2ece1 | 16.50:1 | 4.5:1 | ✅ |
+| Focus ring on dark page | #ff4d1c on #0f0d0b | 5.85:1 | 3:1 | ✅ |
+| Focus ring on dark-grey sections | #ff4d1c on #1a1714 | 5.38:1 | 3:1 | ✅ |
+| Floating WhatsApp: icon (white on green) | #ffffff on #1da851 | 3.10:1 | 3:1 | ✅ |
+| Floating WhatsApp: button vs page | #1da851 on #0f0d0b | 6.25:1 | 3:1 | ✅ |
+| Accessibility button: icon (on cream) | #0f0d0b on #f2ece1 | 16.50:1 | 3:1 | ✅ |
+| Accessibility button vs page | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| Accessibility menu: text | #f2ece1 on #1a1714 | 15.18:1 | 4.5:1 | ✅ |
+| Accessibility menu: small note | #a69e92 on #1a1714 | 6.74:1 | 4.5:1 | ✅ |
+| Accessibility menu: switch off (border) | #7a7369 on #1a1714 | 3.81:1 | 3:1 | ✅ |
+| Accessibility menu: switch on (orange track) | #ff4d1c on #1a1714 | 5.38:1 | 3:1 | ✅ |
+| Accessibility menu: chosen text size (on orange) | #0f0d0b on #ff4d1c | 5.85:1 | 4.5:1 | ✅ |
+| Highlight-links outline (mustard) | #e8b931 on #0f0d0b | 10.54:1 | 3:1 | ✅ |
+| Mobile menu links | #f2ece1 on #0f0d0b | 16.50:1 | 3:1 | ✅ |
+| Phone illustrations: small green status text (decorative) | #25d366 on #0f0d0b | 9.78:1 | 4.5:1 | ✅ |
+| Phone illustrations: mustard labels (decorative) | #e8b931 on #1a1714 | 9.70:1 | 4.5:1 | ✅ |
+
+Normal: 0 failing of 85
+
+### High contrast
+
+| Element | Colors (fg on bg) | Ratio | Needs | Result |
+|---|---|---|---|---|
+| Body text, intros | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Body text on dark-grey sections | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Headings | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Headings on dark-grey sections | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Header nav links | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Header nav links: hover | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Language switcher: current | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Language switcher: other / hover | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Language switcher: hover | #ff4d1c on #000000 | 6.33:1 | 4.5:1 | ✅ |
+| Header CTA "Let's talk" (text on orange) | #000000 on #ff4d1c | 6.33:1 | 4.5:1 | ✅ |
+| Header CTA: hover | #000000 on #ffffff | 21.00:1 | 4.5:1 | ✅ |
+| Pause button: icon | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Pause button: border | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| Pause button: hover (icon on cream) | #000000 on #ffffff | 21.00:1 | 3:1 | ✅ |
+| Pause tooltip text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Hero accent word (orange) | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| Hero headline at scroll-out floor (0.7) | #ffffff @70% on #000000 | 9.96:1 | 3:1 | ✅ |
+| Hero accent at scroll-out floor (0.7) | #ff4d1c @70% on #000000 | 3.44:1 | 3:1 | ✅ |
+| Hero WhatsApp button (text on orange) | #000000 on #ff4d1c | 6.33:1 | 4.5:1 | ✅ |
+| Hero WhatsApp button: hover | #000000 on #ffffff | 21.00:1 | 4.5:1 | ✅ |
+| Hero outline button: text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Hero outline button: border | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| Stamp ring text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Stamp arrow (on orange) | #000000 on #ff4d1c | 6.33:1 | 3:1 | ✅ |
+| Ticker band text (on orange) | #000000 on #ff4d1c | 6.33:1 | 3:1 | ✅ |
+| About headline: dim words (0.4) | #ffffff @40% on #000000 | 3.66:1 | 3:1 | ✅ |
+| About headline: dim grey words (0.6) | #ece7de @60% on #000000 | 6.15:1 | 3:1 | ✅ |
+| About tool chips: text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| About tool chips: border | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| Process: step heading not yet reached (0.45) | #ffffff @45% on #000000 | 4.41:1 | 3:1 | ✅ |
+| Process: step number (outline) | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Process: step number (reached, on orange) | #000000 on #ff4d1c | 6.33:1 | 4.5:1 | ✅ |
+| Process: "Step 2 of 4" caption | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Tile titles / text | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Tile body text | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| WhatsApp demo: message bubble text | #ffffff on #1d5c3a | 7.94:1 | 4.5:1 | ✅ |
+| WhatsApp demo: "what your customer sees" caption | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| WhatsApp demo: empty field placeholder | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| WhatsApp demo: send button icon | #000000 on #25d366 | 10.59:1 | 3:1 | ✅ |
+| Map: "your business is here" label | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Map: pin button (orange on map) | #ff4d1c on #1c1916 | 5.28:1 | 3:1 | ✅ |
+| FAQ question | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| FAQ question: hover | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| FAQ answer | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| FAQ +/− icon border (closed) | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| FAQ +/− icon (closed) | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| FAQ −  icon (open, on orange) | #000000 on #ff4d1c | 6.33:1 | 3:1 | ✅ |
+| Contact: channel label | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Contact: channel value | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Contact: channel value hover | #ff4d1c on #000000 | 6.33:1 | 4.5:1 | ✅ |
+| Contact: channel icon | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Contact: channel icon hover (on orange) | #000000 on #ff4d1c | 6.33:1 | 3:1 | ✅ |
+| Form labels and "(required)" | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Form input text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Form placeholders (dust at 80%) | #ece7de @80% on #000000 | 10.72:1 | 4.5:1 | ✅ |
+| Form field border (underline) | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| Form field border: focus / error | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| Form error messages + icon | #ff4d1c on #000000 | 6.33:1 | 4.5:1 | ✅ |
+| Form success message | #25d366 on #000000 | 10.59:1 | 4.5:1 | ✅ |
+| Consent text | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Consent link | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Submit button (text on cream) | #000000 on #ffffff | 21.00:1 | 4.5:1 | ✅ |
+| Submit button: hover (text on orange) | #000000 on #ff4d1c | 6.33:1 | 4.5:1 | ✅ |
+| Submit button: disabled (50%) | #000000 on #ffffff | 21.00:1 | — | ✅ (Disabled controls are exempt (WCAG 1.4.3)) |
+| Footer text and links | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Footer links: hover | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Legal pages: body | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Legal pages: links | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Legal pages: link hover | #ff4d1c on #000000 | 6.33:1 | 4.5:1 | ✅ |
+| Skip link (on cream) | #000000 on #ffffff | 21.00:1 | 4.5:1 | ✅ |
+| Focus ring on dark page | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| Focus ring on dark-grey sections | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| Floating WhatsApp: icon (white on green) | #ffffff on #1da851 | 3.10:1 | 3:1 | ✅ |
+| Floating WhatsApp: button vs page | #1da851 on #000000 | 6.77:1 | 3:1 | ✅ |
+| Accessibility button: icon (on cream) | #000000 on #ffffff | 21.00:1 | 3:1 | ✅ |
+| Accessibility button vs page | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Accessibility menu: text | #ffffff on #000000 | 21.00:1 | 4.5:1 | ✅ |
+| Accessibility menu: small note | #ece7de on #000000 | 17.05:1 | 4.5:1 | ✅ |
+| Accessibility menu: switch off (border) | #d9d2c7 on #000000 | 13.99:1 | 3:1 | ✅ |
+| Accessibility menu: switch on (orange track) | #ff4d1c on #000000 | 6.33:1 | 3:1 | ✅ |
+| Accessibility menu: chosen text size (on orange) | #000000 on #ff4d1c | 6.33:1 | 4.5:1 | ✅ |
+| Highlight-links outline (mustard) | #e8b931 on #000000 | 11.42:1 | 3:1 | ✅ |
+| Mobile menu links | #ffffff on #000000 | 21.00:1 | 3:1 | ✅ |
+| Phone illustrations: small green status text (decorative) | #25d366 on #000000 | 10.59:1 | 4.5:1 | ✅ |
+| Phone illustrations: mustard labels (decorative) | #e8b931 on #000000 | 11.42:1 | 4.5:1 | ✅ |
+
+High contrast: 0 failing of 85

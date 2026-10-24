@@ -61,6 +61,9 @@ Security headers (CSP, `X-Frame-Options`, `Referrer-Policy` and more) are set in
 | 404 page | `src/app/[locale]/not-found.tsx` |
 | SEO: `robots.txt`, `sitemap.xml` (both languages, with hreflang), icons | `src/app/robots.ts`, `src/app/sitemap.ts`, `src/app/*.png` |
 | Share images | `public/og-he.png`, `public/og-en.png` |
+| Accessibility menu and header pause button | `src/components/A11yMenu.tsx`, `src/components/Header.tsx` |
+| Saved visitor preferences (text size, contrast, paused motion...) | `src/lib/a11y.ts`, styles at the end of `src/app/globals.css` |
+| "How it works" phone animations | `src/components/StepScreens.tsx` |
 | Security headers | `next.config.ts` |
 | Launch audit and its status | `AUDIT.md` |
 | Fonts, images, packages and their licenses | `LICENSES.md` |

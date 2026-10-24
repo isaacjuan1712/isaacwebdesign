@@ -29,11 +29,10 @@ export default function Faq() {
 
   return (
     <section id="faq" className="border-t border-line bg-ink">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-24 sm:px-6 md:grid-cols-[1fr_1.6fr] md:py-32">
-        {/* On wide screens the title stays in view while you read through the questions */}
-        <div className="md:sticky md:top-28 md:self-start">
-          <h2 className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl">{t.faq.title}</h2>
-          <p className="mt-6 max-w-sm text-lg leading-relaxed text-dust">{t.faq.intro}</p>
+      <div className="mx-auto max-w-3xl px-4 py-24 sm:px-6 md:py-32">
+        <div className="mb-14 text-center">
+          <h2 className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">{t.faq.title}</h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-dust sm:text-xl">{t.faq.intro}</p>
         </div>
 
         {/* Each row's rule draws itself in, then the question slides up after it */}

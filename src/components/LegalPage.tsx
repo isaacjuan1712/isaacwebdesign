@@ -35,8 +35,8 @@ export default async function LegalPage({ page }: { page: "privacy" | "accessibi
       <Header path={`/${page}`} />
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <article className="mx-auto max-w-3xl px-4 pt-16 pb-24 sm:px-6 md:pt-24">
-          <h1 className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">{content.title}</h1>
-          <p className="mt-4 text-sm text-dust">{content.updated}</p>
+          <h1 className="text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">{content.title}</h1>
+          <p className="mt-4 text-center text-sm text-dust">{content.updated}</p>
           <div className="legal mt-12">
             {blocks.map((block, i) => {
               if (block.h2) return <h2 key={i}>{block.h2}</h2>;

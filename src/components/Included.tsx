@@ -323,20 +323,20 @@ function DaysVisual({ playing }: { playing: boolean }) {
 }
 
 export default function Included() {
-  const { t, dir } = useI18n();
+  const { t } = useI18n();
   const i = t.included;
   return (
     <section id="included" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
       <motion.h2
-        className="font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
-        initial={{ opacity: 0, scale: 1.12, originX: dir === "rtl" ? 1 : 0 }}
+        className="text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl"
+        initial={{ opacity: 0, scale: 1.12 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, ease }}
       >
         {i.title} <span className="text-flare">{i.titleAccent}</span>
       </motion.h2>
-      <p className="mt-6 max-w-xl text-lg leading-relaxed text-dust sm:text-xl">
+      <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-dust sm:text-xl">
         {i.intro}
       </p>
 

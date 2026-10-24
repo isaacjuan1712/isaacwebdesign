@@ -10,10 +10,11 @@ const ease = [0.23, 1, 0.32, 1] as const;
 
 function Step({ index, reached, title, text }: { index: number; reached: boolean; title: string; text: string }) {
   const visualRef = useRef<HTMLDivElement>(null);
-  const visualInView = useInView(visualRef, { once: true, amount: 0.55 });
+  // Only animates while it is on screen, so off-screen phones don't loop in the background
+  const visualInView = useInView(visualRef, { amount: 0.4 });
 
   return (
-    <li className="relative pb-16 ps-16 last:pb-0 sm:ps-20 md:flex md:min-h-[62vh] md:flex-col md:justify-center md:pb-0">
+    <li className="relative min-w-0 pb-16 ps-14 last:pb-0 sm:ps-20 md:flex md:min-h-[62vh] md:flex-col md:justify-center md:pb-0">
       {/* Step badge: an outline that gets "stamped" orange when the scroll line reaches it */}
       <span className="absolute start-0 top-0 flex size-11 items-center justify-center rounded-full border border-line bg-ink-2 text-lg font-bold text-dust md:top-1/2 md:-mt-[1.375rem]">
         {index + 1}
@@ -34,7 +35,7 @@ function Step({ index, reached, title, text }: { index: number; reached: boolean
 
       {/* Only the large heading dims (still above 3:1); the body text always stays full strength */}
       <motion.h3
-        className="font-display text-5xl leading-none font-bold sm:text-6xl"
+        className="font-display text-[clamp(2.25rem,11vw,3rem)] leading-none font-bold sm:text-6xl"
         initial={false}
         animate={{ opacity: reached ? 1 : 0.45 }}
         transition={{ duration: 0.3, ease }}
@@ -45,7 +46,7 @@ function Step({ index, reached, title, text }: { index: number; reached: boolean
 
       {/* Phones get the illustration inline, under each step */}
       <div ref={visualRef} className="mt-8 md:hidden">
-        <Phone className="w-52">
+        <Phone className="w-full max-w-52">
           <StepScreen step={index} play={visualInView} />
         </Phone>
       </div>
@@ -68,7 +69,7 @@ export default function Process() {
   return (
     <section id="process" className="border-t border-line bg-ink-2">
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
-        <h2 className="overflow-hidden pb-[0.06em] font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">
+        <h2 className="overflow-hidden pb-[0.06em] text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">
           <motion.span
             className="inline-block"
             initial={{ y: "105%" }}
@@ -79,7 +80,7 @@ export default function Process() {
             {t.process.title}
           </motion.span>
         </h2>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-dust sm:text-xl">
+        <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-dust sm:text-xl">
           {t.process.intro}
         </p>
 

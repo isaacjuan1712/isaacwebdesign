@@ -3,7 +3,7 @@
     "title": "Isaac | Websites for local businesses",
     "titleTemplate": "%s | Isaac, web developer",
     "siteName": "Isaac, web developer",
-    "description": "Isaac is a 17-year-old developer building fast, mobile-friendly websites for local businesses, with a WhatsApp button and a contact form.",
+    "description": "Isaac builds fast, accessible, mobile-friendly websites for local businesses, with a WhatsApp button and a contact form.",
     "ogImageAlt": "Isaac builds websites for local businesses: I build websites that make noise.",
     "ogLocale": "en_US"
   },
@@ -33,10 +33,8 @@
     "cta": "Let's talk",
     "ctaHint": "(WhatsApp, opens in a new window)",
     "mobileCta": "Message me on WhatsApp",
-    "pause": "Pause animations on the site",
-    "play": "Play animations on the site",
-    "pauseTitle": "Pause animations",
-    "playTitle": "Play animations"
+    "pause": "Pause animations",
+    "play": "Play animations"
   },
   "language": {
     "groupLabel": "Site language",
@@ -46,7 +44,6 @@
     "switchToLang": "he"
   },
   "hero": {
-    "badge": "17 years old · building websites for local businesses",
     "lines": [
       "I build websites",
       "that make",
@@ -66,21 +63,32 @@
     "Ready for Google"
   ],
   "about": {
-    "headline": "17, and building websites for the businesses",
-    "headlineMuted": "I walk past every day.",
-    "body": "I write code with the same tech big companies use (Next.js and React) and bring it to the barbershop, the restaurant and the studio around the corner. The result: a site that loads fast, looks great on every screen, and is built so Google can find it.",
-    "facts": [
+    "headline": "Websites built properly,",
+    "headlineMuted": "from the code to the first WhatsApp message.",
+    "body": "I build websites for local businesses: the barbershop, the restaurant and the studio down the street. Every site is written in code and designed for that business, no templates, so it's fast, looks great on every screen and brings you inquiries.",
+    "toolsLabel": "Built with",
+    "tools": [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "AI-assisted development"
+    ],
+    "points": [
       {
-        "title": "Quick replies",
-        "text": "Send a message and you'll usually hear back the same day."
+        "title": "What I build",
+        "text": "Business websites and landing pages for local businesses: a page that shows off your business, services, opening hours and location, with a WhatsApp button and a contact form."
       },
       {
-        "title": "Mobile first",
-        "text": "Most of your customers find you on their phone, so that's where I start."
+        "title": "My tools",
+        "text": "Next.js, React and Tailwind CSS, the same tech big companies use. I also use AI tools to build faster, and every line of code goes through me and gets tested before it goes live."
       },
       {
-        "title": "Straight to me",
-        "text": "No agency, no middlemen. You talk to the person who writes the code."
+        "title": "How I work",
+        "text": "Directly with you on WhatsApp, no middlemen. Mobile-first, built to the Israeli accessibility standard, with the privacy policy and accessibility statement the law asks for."
+      },
+      {
+        "title": "What you get",
+        "text": "A fast site that's ready for Google, looks great on every screen and makes it easy for customers to reach you. Once it's paid in full, the site and its content are yours."
       }
     ]
   },
@@ -111,7 +119,8 @@
       "chat": [
         "Hi! I have a small business and I need a website",
         "Hey! Happy to help. Tell me about the business",
-        "I want WhatsApp, a map and opening hours"
+        "I want WhatsApp, a map and opening hours",
+        "Great! I'll start on a demo for you"
       ],
       "demoLabel": "Demo · first draft",
       "approveItems": [
@@ -121,7 +130,12 @@
       ],
       "approved": "APPROVED",
       "live": "Live",
-      "liveUrl": "your-business.com"
+      "liveUrl": "your-business.com",
+      "typing": "typing…",
+      "palettes": "Picking colors",
+      "notifyApp": "Your website",
+      "notifyTitle": "New inquiry!",
+      "notifyText": "Someone just filled in your contact form"
     }
   },
   "included": {
@@ -250,6 +264,19 @@
   "footer": {
     "accessibility": "Accessibility statement",
     "privacy": "Privacy policy"
+  },
+  "a11yMenu": {
+    "open": "Accessibility menu",
+    "title": "Accessibility menu",
+    "close": "Close the accessibility menu",
+    "textSize": "Text size",
+    "contrast": "High contrast",
+    "links": "Highlight links",
+    "readable": "Readable font",
+    "motion": "Stop animations",
+    "reset": "Reset all",
+    "statement": "Accessibility statement",
+    "note": "These are extra tools. The site is built to be accessible without them."
   },
   "whatsappFloat": "Message Isaac on WhatsApp",
   "notFound": {
@@ -382,6 +409,15 @@
           "The site works at 200% zoom and at a screen width of 320 pixels with no sideways scrolling.",
           "Touch targets are at least 44×44 pixels."
         ]
+      },
+      {
+        "h2": "The accessibility menu"
+      },
+      {
+        "p": "In the corner of the screen there's a small accessibility menu, built into the site rather than added by a third-party plugin. It lets you make the text bigger (100%, 115% or 130%), turn on high contrast, highlight links, switch to a more readable font and stop animations. Your choices are saved in your browser for your next visit."
+      },
+      {
+        "p": "The menu is a supplementary tool only. The site's accessibility is built into the code itself, and the site meets the requirements without using the menu."
       },
       {
         "h2": "How accessibility was tested"

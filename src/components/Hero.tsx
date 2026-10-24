@@ -65,19 +65,9 @@ export default function Hero() {
 
   return (
     <section id="top" ref={ref} className="relative">
-      <div className="mx-auto max-w-6xl px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24">
-        {/* The small text around the headline rises in with CSS (.rise-in), so it shows on
-            first paint instead of waiting for JavaScript; that keeps the page's LCP fast */}
-        <p className="rise-in mb-6 flex items-center gap-3 text-sm font-semibold text-dust">
-          <span className="relative flex size-2.5">
-            <span className="absolute inset-0 animate-ping-soft rounded-full bg-whatsapp" />
-            <span className="relative size-2.5 rounded-full bg-whatsapp" />
-          </span>
-          {t.hero.badge}
-        </p>
-
+      <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-16 text-center sm:px-6 md:pt-24 md:pb-24">
         <motion.h1
-          className="font-display text-[clamp(4.75rem,19vw,12.5rem)] leading-[0.86] font-bold"
+          className="font-display text-[clamp(3.25rem,19vw,12.5rem)] leading-[0.86] font-bold"
           style={moving ? { opacity: fade } : undefined}
         >
           {t.hero.lines.map((line, i) => (
@@ -86,17 +76,19 @@ export default function Hero() {
         </motion.h1>
 
         <motion.div
-          className="mt-10 grid gap-10 md:grid-cols-[1fr_auto] md:items-end"
+          className="mt-10 flex flex-col items-center gap-10"
           initial="hidden"
           animate="show"
           variants={{ show: { transition: { staggerChildren: 0.08, delayChildren: afterInk } } }}
         >
-          <div>
-            <p className="rise-in max-w-md text-lg leading-relaxed text-dust sm:text-xl" style={{ animationDelay: `${PRINTED - 0.45}s` }}>
+          {/* The text around the headline rises in with CSS (.rise-in), so it shows on first
+              paint instead of waiting for JavaScript; that keeps the page's LCP fast */}
+          <div className="flex w-full flex-col items-center">
+            <p className="rise-in mx-auto max-w-xl text-lg leading-relaxed text-dust sm:text-xl" style={{ animationDelay: `${PRINTED - 0.45}s` }}>
               {t.hero.lead}
             </p>
 
-            <div className="rise-in mt-8 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: `${PRINTED - 0.35}s` }}>
+            <div className="rise-in mt-8 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row" style={{ animationDelay: `${PRINTED - 0.35}s` }}>
               <Magnetic className="flex">
                 <a
                   href={whatsapp}
@@ -120,14 +112,15 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* The rotating stamp: spins on its own, and turns faster as you scroll past */}
+          {/* The rotating stamp: spins on its own, and turns faster as you scroll past.
+              Centered under the buttons; on wide screens it sits at the end side instead. */}
           <motion.a
             href="#contact"
             variants={{
               hidden: { opacity: 0, scale: 0.7, rotate: -40 },
               show: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", duration: 0.8, bounce: 0.25 } },
             }}
-            className="group relative mx-auto size-36 sm:size-44 md:mx-0"
+            className="group relative size-36 sm:size-44 lg:absolute lg:end-6 lg:bottom-20"
           >
             {/* The ring text is decorative (aria-hidden); this is the link's name */}
             <span className="sr-only">{t.hero.stampLabel}</span>
