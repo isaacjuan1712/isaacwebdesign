@@ -4,7 +4,11 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { format } from "@/i18n/config";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+import LazyMount from "./LazyMount";
+import SectionPhoto from "./SectionPhoto";
 import { Phone, StepScreen } from "./StepScreens";
+import processPhoto from "@/assets/bg/process.webp";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -47,7 +51,10 @@ function Step({ index, reached, title, text }: { index: number; reached: boolean
       {/* Phones get the illustration inline, under each step */}
       <div ref={visualRef} className="mt-8 md:hidden">
         <Phone className="w-full max-w-52">
-          <StepScreen step={index} play={visualInView} />
+          {/* Mounted only near the screen: the phone frame keeps its size meanwhile */}
+          <LazyMount>
+            <StepScreen step={index} play={visualInView} />
+          </LazyMount>
         </Phone>
       </div>
     </li>
@@ -59,6 +66,8 @@ export default function Process() {
   const [active, setActive] = useState(0);
   const { t } = useI18n();
   const steps = t.process.steps;
+  // The pinned phone is desktop-only; phones never mount it (they use the inline ones)
+  const wide = useMediaQuery("(min-width: 768px)");
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start 0.5", "end 0.5"] });
   const fill = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
 
@@ -67,7 +76,8 @@ export default function Process() {
   });
 
   return (
-    <section id="process" className="border-t border-line bg-ink-2">
+    <section id="process" className="relative isolate border-t border-line bg-ink-2">
+      <SectionPhoto src={processPhoto} fade="from-ink-2" />
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
         <h2 className="overflow-hidden pb-[0.06em] text-center font-display text-6xl leading-[0.95] font-bold sm:text-7xl md:text-8xl">
           <motion.span
@@ -102,9 +112,13 @@ export default function Process() {
           <div className="hidden md:block">
             <div className="sticky top-[calc(50vh-17rem)]">
               <Phone className="w-full">
-                <AnimatePresence mode="wait" initial={false}>
-                  <StepScreen key={active} step={active} />
-                </AnimatePresence>
+                {wide && (
+                  <LazyMount>
+                    <AnimatePresence mode="wait" initial={false}>
+                      <StepScreen key={active} step={active} />
+                    </AnimatePresence>
+                  </LazyMount>
+                )}
               </Phone>
               <p className="mt-5 text-center text-sm font-semibold text-dust">
                 {format(t.process.stepOf, { n: active + 1, total: steps.length, title: steps[active].title })}

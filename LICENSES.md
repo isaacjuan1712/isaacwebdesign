@@ -21,7 +21,19 @@ No "free for personal use" fonts are used.
 | Phone mock-ups, mini websites, street map, calendar, chat bubbles | Drawn in code (HTML/CSS/SVG) for this site | Owner's own work |
 | Film-grain texture (`globals.css`) | Generated in code by an SVG `feTurbulence` filter | Owner's own work |
 
-The site has no photos, stock images or videos.
+### Background photos
+
+Decorative background textures for three sections. Each was downloaded into the project (not hotlinked), converted to grayscale, toned to the brand's near-black-to-orange duotone, softened, and saved as WebP in `src/assets/bg/`. Next.js serves them as AVIF/WebP. The site-wide film-grain overlay sits on top.
+
+| File | Section | Photo | Photographer | Source | License |
+|---|---|---|---|---|---|
+| `src/assets/bg/hero.webp` | Hero | Close-up of a hand typing on a keyboard | Alicia Christin Gerald | https://unsplash.com/photos/close-up-of-a-hand-typing-on-a-computer-keyboard-Qh1degtlisQ | [Unsplash License](https://unsplash.com/license) (free, commercial use allowed, no attribution required) |
+| `src/assets/bg/process.webp` | How it works | A phone screen glowing in the dark | Andras Vas | https://unsplash.com/photos/a-close-up-of-a-cell-phone-in-the-dark-PPXG_aN4IOo | [Unsplash License](https://unsplash.com/license) |
+| `src/assets/bg/contact.webp` | Contact | A laptop in a dark room | Sean (@paus_d_) | https://unsplash.com/photos/a-close-up-of-a-laptop-in-a-dark-room-AYrHnfpFa24 | [Unsplash License](https://unsplash.com/license) |
+
+All three are under the free Unsplash License, not Unsplash+. Checked on 2026-10-24. No faces and no brand logos are visible.
+
+The site has no other photos, stock images or videos.
 
 ## Icons
 

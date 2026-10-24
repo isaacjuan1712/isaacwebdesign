@@ -6,6 +6,7 @@ import { useI18n } from "@/i18n/client";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { CheckIcon, MailIcon, PinIcon } from "./icons";
 import { useMotionPause } from "./Providers";
+import LazyMount from "./LazyMount";
 import { Phone } from "./StepScreens";
 
 const ease = [0.23, 1, 0.32, 1] as const;
@@ -54,7 +55,10 @@ function Tile({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, delay: (index % 3) * 0.08, ease }}
     >
-      <div className={`relative overflow-hidden border-b border-line ${visualClassName}`}>{children(playing)}</div>
+      {/* The demo mounts only near the screen; the area keeps its size meanwhile */}
+      <div className={`relative overflow-hidden border-b border-line ${visualClassName}`}>
+        <LazyMount className="h-full">{children(playing)}</LazyMount>
+      </div>
       <div className="p-6">
         <h3 className="font-display text-4xl leading-none font-bold">{title}</h3>
         <p className="mt-2 max-w-md leading-relaxed text-dust">{text}</p>

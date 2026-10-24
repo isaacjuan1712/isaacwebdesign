@@ -301,3 +301,15 @@ Normal: 0 failing of 85
 | Phone illustrations: mustard labels (decorative) | #e8b931 on #000000 | 11.42:1 | 4.5:1 | ✅ |
 
 High contrast: 0 failing of 85
+
+## Background photos: contrast over the images (2026-10-24)
+
+The photos sit behind text in the hero, "How it works" and contact. The worst case is calculated from each image's brightest pixel, blended at the section's opacity over the section color. The top and bottom fades only darken it further.
+
+| Section | Opacity | Worst-case background | Grey body text (needs 4.5) | Cream text | Orange text (small, needs 4.5) | Borders (needs 3) |
+|---|---|---|---|---|---|---|
+| Hero (on #0f0d0b) | 16% | rgb(53,25,15) | 6.12 | 13.79 | 4.89 | 3.46 |
+| How it works (on #1a1714) | 13% | rgb(55,30,21) | 5.82 | ≥12 | 4.65 | 3.29 |
+| Contact (on #1a1714) | 13% | rgb(55,30,21) | 5.82 | ≥12 | 4.65 | 3.29 |
+
+The photos are hidden in high-contrast mode.

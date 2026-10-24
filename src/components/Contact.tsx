@@ -6,6 +6,8 @@ import { useI18n } from "@/i18n/client";
 import { site, whatsappLink } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import ContactForm from "./ContactForm";
+import SectionPhoto from "./SectionPhoto";
+import contactPhoto from "@/assets/bg/contact.webp";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "./icons";
 
 const ease = [0.23, 1, 0.32, 1] as const;
@@ -26,7 +28,8 @@ export default function Contact() {
   const accentX = useTransform(scrollYProgress, [0, 1], [`${-20 * sign}%`, "0%"]);
 
   return (
-    <section id="contact" ref={ref} className="border-t border-line bg-ink-2">
+    <section id="contact" ref={ref} className="relative isolate border-t border-line bg-ink-2">
+      <SectionPhoto src={contactPhoto} fade="from-ink-2" position="70% center" />
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
         <h2 className="text-center font-display text-[clamp(2.5rem,16vw,10rem)] leading-[0.85] font-bold">
           <motion.span className="inline-block" style={moving ? { x: headlineX } : undefined}>

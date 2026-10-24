@@ -42,6 +42,9 @@ const nextConfig: NextConfig = {
   // Explicit, even though it's the default: never ship source maps to browsers
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
+  // Background photos are served as AVIF (or WebP), resized per screen width.
+  // Next 16 requires the allowed quality values to be listed.
+  images: { formats: ["image/avif", "image/webp"], qualities: [55, 75] },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
