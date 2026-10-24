@@ -6,8 +6,6 @@ import { useI18n } from "@/i18n/client";
 import { site, whatsappLink } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import ContactForm from "./ContactForm";
-import SectionPhoto from "./SectionPhoto";
-import contactPhoto from "@/assets/bg/contact.webp";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "./icons";
 
 const ease = [0.23, 1, 0.32, 1] as const;
@@ -29,7 +27,11 @@ export default function Contact() {
 
   return (
     <section id="contact" ref={ref} className="relative isolate border-t border-line bg-ink-2">
-      <SectionPhoto src={contactPhoto} fade="from-ink-2" position="70% center" />
+      {/* Depth: two slow orange glows behind the contact section */}
+      <div aria-hidden="true" className="depth">
+        <div className="glow" style={{ top: "30%", left: "70%", ["--glow-strength" as string]: 0.1, ["--glow-speed" as string]: "30s" }} />
+        <div className="glow" style={{ top: "80%", left: "20%", ["--glow-strength" as string]: 0.06, ["--glow-speed" as string]: "36s" }} />
+      </div>
       <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 md:py-32">
         <h2 className="text-center font-display text-[clamp(2.5rem,16vw,10rem)] leading-[0.85] font-bold">
           <motion.span className="inline-block" style={moving ? { x: headlineX } : undefined}>

@@ -7,8 +7,6 @@ import { whatsappLink } from "@/lib/site";
 import { useMotionAllowed } from "@/lib/useMediaQuery";
 import { WhatsAppIcon } from "./icons";
 import Magnetic from "./Magnetic";
-import SectionPhoto from "./SectionPhoto";
-import heroPhoto from "@/assets/bg/hero.webp";
 
 // The headline has three lines (hero.lines in the texts); the last one is the orange accent.
 // When each line's roller lifts off, and how long the whole headline takes to print:
@@ -67,7 +65,11 @@ export default function Hero() {
 
   return (
     <section id="top" ref={ref} className="relative isolate">
-      <SectionPhoto src={heroPhoto} fade="from-ink" priority position="center 40%" opacity={0.16} />
+      {/* Depth: a faint grid fading toward the bottom, and a slow orange glow behind the headline */}
+      <div aria-hidden="true" className="depth">
+        <div className="hero-grid" />
+        <div className="glow" style={{ top: "38%", left: "50%", ["--glow-strength" as string]: 0.14, ["--glow-speed" as string]: "26s" }} />
+      </div>
       <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-16 text-center sm:px-6 md:pt-24 md:pb-24">
         <motion.h1
           className="font-display text-[clamp(3.25rem,19vw,12.5rem)] leading-[0.86] font-bold"

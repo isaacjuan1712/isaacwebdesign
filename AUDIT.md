@@ -302,14 +302,15 @@ Normal: 0 failing of 85
 
 High contrast: 0 failing of 85
 
-## Background photos: contrast over the images (2026-10-24)
 
-The photos sit behind text in the hero, "How it works" and contact. The worst case is calculated from each image's brightest pixel, blended at the section's opacity over the section color. The top and bottom fades only darken it further.
+## Depth layer: contrast over the glows (2026-10-24)
 
-| Section | Opacity | Worst-case background | Grey body text (needs 4.5) | Cream text | Orange text (small, needs 4.5) | Borders (needs 3) |
-|---|---|---|---|---|---|---|
-| Hero (on #0f0d0b) | 16% | rgb(53,25,15) | 6.12 | 13.79 | 4.89 | 3.46 |
-| How it works (on #1a1714) | 13% | rgb(55,30,21) | 5.82 | ≥12 | 4.65 | 3.29 |
-| Contact (on #1a1714) | 13% | rgb(55,30,21) | 5.82 | ≥12 | 4.65 | 3.29 |
+The background photos were removed. Depth now comes from CSS only: the site-wide film grain, slow orange radial glows behind the hero headline, the "How it works" heading and the contact section, and faint grid lines in the hero. Measured on the rendered page with all content hidden. Each glow was checked at the start, middle and end of its drift, using the brightest point after a 2px blur, which averages out single grain specks.
 
-The photos are hidden in high-contrast mode.
+| Section | Glow strength | Grey text (4.5) | Cream text | Small orange text (4.5) | Borders (3) |
+|---|---|---|---|---|---|
+| Hero (+ grid lines at 4%) | 14% | 5.93 | 13.36 | 4.73 | 3.35 |
+| How it works | 10% | 5.72 | 12.90 | 4.57 | 3.24 |
+| Contact (two glows, 10% + 6%) | 10% / 6% | 5.68 | 12.79 | 4.53 | 3.21 |
+
+The same values hold in Hebrew and English at 1440px and 390px. The glows don't move under reduced motion, freeze when "Stop animations" is on, and are hidden in high-contrast mode, along with the grain.

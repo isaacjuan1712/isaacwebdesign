@@ -177,7 +177,7 @@ html {
   scrollbar-color: var(--color-line) var(--color-ink);
 }
 
-/* Static film-grain overlay gives the dark background a printed, tactile feel */
+/* Static film-grain overlay over the whole page: a fine, printed, tactile texture */
 body::before {
   content: "";
   position: fixed;
@@ -185,7 +185,7 @@ body::before {
   z-index: 100;
   pointer-events: none;
   opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
@@ -362,7 +362,51 @@ html[data-font="readable"] .legal h2 {
   line-height: 1.05;
 }
 
-/* Decorative section photos are removed in high-contrast mode */
-html[data-contrast="high"] .section-photo {
+/* ── Depth without photos: soft orange glows and a faint grid (CSS only) ──────────
+   Each section that uses them holds a .depth layer behind its content. The glows are
+   radial gradients (no images, no blur filter) that drift very slowly with transform
+   only; they freeze with "stop animations" (the global pause rule) and reduced motion.
+   Peak glow strength is capped so all text keeps 4.5:1 (see AUDIT.md). */
+.depth {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.glow {
+  position: absolute;
+  width: min(80vw, 56rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(255 77 28 / var(--glow-strength, 0.12)), rgb(255 77 28 / 0));
+  translate: -50% -50%;
+  animation: glow-drift var(--glow-speed, 28s) ease-in-out infinite alternate;
+}
+@keyframes glow-drift {
+  from {
+    transform: translate(-6%, -4%) scale(1);
+  }
+  to {
+    transform: translate(6%, 5%) scale(1.1);
+  }
+}
+/* Thin grid lines in the hero, fading out toward the bottom */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgb(242 236 225 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 236 225 / 0.04) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  background-position: center top;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 85%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
+}
+html[data-contrast="high"] .depth {
   display: none;
 }
