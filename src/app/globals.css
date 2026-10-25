@@ -444,7 +444,7 @@ html[data-contrast="high"] .depth {
   display: none;
 }
 
-/* Ticker band: the track holds two copies of the text and slides by one copy (50%),
+/* Ticker band: the track holds two identical halves and slides by one half (50%),
    toward the end of the reading direction, then repeats seamlessly. The duration is set
    from JS (--ticker-duration = one copy's width / 55px per second). */
 @keyframes ticker-rtl {
