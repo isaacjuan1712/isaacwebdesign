@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 0 92 120" role="img" aria-label="Isaac Juan">
+  <title>Isaac Juan</title>
+  <defs><filter id="ink" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="11" result="wobble"/>
+    <feDisplacementMap in="SourceGraphic" in2="wobble" scale="0.55" xChannelSelector="R" yChannelSelector="G" result="edged"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="fine"/>
+    <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="fineA"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="9" result="patches"/>
+    <feColorMatrix in="patches" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="patchesA"/>
+    <feComposite in="fineA" in2="patchesA" operator="arithmetic" k2="0.5" k3="0.5" result="mix"/>
+    <feColorMatrix in="mix" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -40 26.1" result="specks"/>
+    <feComposite in="edged" in2="specks" operator="in"/>
+  </filter></defs>
+  <g filter="url(#ink)"><g transform="rotate(-7 60 60)">
+    <g fill="#141210" stroke="#FF4D1C"><rect x="25" y="9" width="70" height="102" rx="13" stroke-width="5"/></g>
+    <g transform="translate(5.75 -4.25)" fill="none" stroke-width="14" stroke-linecap="butt">
+    <path d="M44 49V84" stroke="#F2EDE4"/>
+    <path d="M66 30V82A14 14 0 0 1 52 96" stroke="#F2EDE4"/>
+    <circle cx="44" cy="34" r="8.5" fill="#FF4D1C" stroke="none"/>
+  </g>
+  </g></g>
+</svg>

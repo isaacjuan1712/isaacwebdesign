@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useI18n } from "@/i18n/client";
@@ -71,11 +72,12 @@ export default function Header({ path = "/" }: { path?: string }) {
       href={home}
       dir={dir}
       aria-label={format(t.site.homeLabel, { name: t.site.name })}
-      className="col-start-3 row-start-1 flex min-h-[44px] items-center justify-self-end font-display text-[clamp(1.5rem,7vw,1.875rem)] leading-none font-bold"
+      className="col-start-3 row-start-1 flex min-h-[44px] items-center gap-3 justify-self-end font-display text-[clamp(1.5rem,7vw,1.875rem)] leading-none font-bold"
       onClick={() => setOpen(false)}
     >
+      {/* The iJ stamp (brand/logo-full.svg); the link's aria-label names it */}
+      <Image src="/logo.svg" alt="" width={34} height={44} />
       {t.site.name}
-      <span className="text-flare">.</span>
     </Link>
   );
 

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iJ logo – final set</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141210; --bone: #F2EDE4; --flare: #FF4D1C;
+    --page: #1d1b19; --panel: #262320; --line: #3a3632; --dust: #a39d94;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--bone); font: 16px/1.5 Assistant, system-ui, sans-serif; }
+  main { max-width: 1280px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1 { font: 400 clamp(40px, 6vw, 72px)/1 Anton, sans-serif; margin: 0 0 8px; letter-spacing: .01em; }
+  h1 span { color: var(--flare); }
+  h2 { font: 400 28px/1.1 Anton, sans-serif; margin: 64px 0 6px; letter-spacing: .02em; }
+  h2 small { font: 600 13px Assistant, sans-serif; color: var(--dust); letter-spacing: .08em; text-transform: uppercase; margin-inline-start: 10px; vertical-align: middle; }
+  p.lead { color: var(--dust); max-width: 70ch; margin: 0 0 20px; }
+  .swatches { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0 0; }
+  .sw { display: flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; }
+  .sw i { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #0006; }
+
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .stage { border-radius: 16px; display: grid; place-items: center; padding: 40px 24px; position: relative; min-height: 340px; }
+  .stage.dark { background: var(--ink); border: 1px solid var(--line); }
+  .stage.light { background: var(--bone); color: var(--ink); }
+  .stage .tag { position: absolute; top: 12px; inset-inline-start: 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+  .stage img.hero { height: 280px; }
+
+  .ladder { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; padding: 28px 24px 22px; border-radius: 16px; }
+  .ladder.dark { background: var(--ink); border: 1px solid var(--line); }
+  .ladder.light { background: var(--bone); color: var(--ink); }
+  .ladder figure { margin: 0; display: grid; justify-items: center; gap: 8px; }
+  .ladder figcaption, .cap { font-size: 12px; opacity: .8; font-variant-numeric: tabular-nums; }
+  .ladder + .ladder { margin-top: 12px; }
+  .label-row { font-size: 13px; font-weight: 600; color: var(--dust); margin: 18px 0 8px; }
+
+  .header-mock { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-radius: 14px; background: var(--ink); border: 1px solid var(--line); margin-top: 12px; }
+  .header-mock nav { display: flex; gap: 22px; color: var(--dust); font-size: 15px; }
+  .header-mock .brand { display: flex; align-items: center; gap: 12px; font: 400 26px/1 Anton, sans-serif; }
+  .header-mock.light { background: var(--bone); color: var(--ink); border-color: transparent; }
+  .header-mock.light nav { color: #5c564e; }
+
+  .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+  .icon-card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 14px; justify-items: center; }
+  .icon-card .zoom { image-rendering: pixelated; width: 128px; height: 128px; background: repeating-conic-gradient(#ffffff10 0 25%, transparent 0 50%) 0 0 / 16px 16px; }
+  .icon-card .actual { display: flex; gap: 10px; align-items: center; }
+  .icon-card .actual span { display: grid; place-items: center; padding: 8px; border-radius: 8px; }
+  .icon-card b { font-size: 14px; }
+
+  .tabs { display: grid; gap: 12px; }
+  .tabbar { display: flex; align-items: flex-end; gap: 2px; padding: 8px 10px 0; border-radius: 12px 12px 0 0; }
+  .tabbar.chrome-light { background: #dfe1e5; color: #202124; }
+  .tabbar.chrome-dark { background: #202124; color: #e8eaed; }
+  .tabbar { min-width: 0; overflow: hidden; }
+  .tab { display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; flex: 0 1 230px; min-width: 0; font: 12px system-ui, sans-serif; border-radius: 8px 8px 0 0; white-space: nowrap; overflow: hidden; }
+  .chrome-light .tab.on { background: #fff; }
+  .chrome-dark .tab.on { background: #35363a; }
+  .tab img { width: 16px; height: 16px; flex: none; }
+  .tab span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .chrome-light .tab.off { color: #3c4043; }
+  .chrome-dark .tab.off { color: #bdc1c6; }
+
+  .app-row { display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-end; padding: 28px; border-radius: 16px; background: linear-gradient(160deg, #4a5d73, #22303f); }
+  .app-row figure { margin: 0; display: grid; justify-items: center; gap: 8px; color: #fff; }
+  .squircle { border-radius: 22.4%; box-shadow: 0 6px 18px #0005; }
+  .round { border-radius: 50%; box-shadow: 0 6px 18px #0005; }
+
+  .og { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  .og figure { margin: 0; }
+  .og img { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--line); }
+  .og figcaption { font-size: 13px; color: var(--dust); margin-top: 6px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  td, th { text-align: start; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--dust); font-weight: 600; }
+  code { font: 13px ui-monospace, Consolas, monospace; color: var(--bone); }
+  .notes li { margin-bottom: 6px; color: var(--dust); }
+  .notes b { color: var(--bone); }
+
+  @media (max-width: 520px) {
+    .og { grid-template-columns: 1fr; }
+    .stage img.hero { height: 220px; }
+    .header-mock nav { display: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>iJ logo<span>.</span> Final set</h1>
+  <p class="lead">Original SVG geometry: one 14-unit stroke for both letters, a lowercase i (x-height 35) and a capital J (cap height 54) whose hook drops below the i's baseline. The stamp is a 70 × 102 rounded rectangle tilted 7°. Nothing on the site uses these yet.</p>
+  <div class="swatches">
+    <span class="sw"><i style="background:#F2EDE4"></i>Bone #F2EDE4</span>
+    <span class="sw"><i style="background:#FF4D1C"></i>Vermilion #FF4D1C</span>
+    <span class="sw"><i style="background:#141210"></i>Near-black #141210</span>
+  </div>
+
+  <h2>1 · Full <small>ink-stamp texture · header &amp; share image</small></h2>
+  <div class="pair">
+    <div class="stage dark"><span class="tag">logo-full.svg</span><img class="hero" src="logo-full.svg" alt="iJ logo, textured, on dark"></div>
+    <div class="stage light"><span class="tag">logo-full-light.svg</span><img class="hero" src="logo-full-light.svg" alt="iJ logo, textured, on light"></div>
+  </div>
+
+  <h2>2 · Clean <small>no texture · small sizes</small></h2>
+  <div class="pair">
+    <div class="stage dark"><span class="tag">logo-clean.svg</span><img class="hero" src="logo-clean.svg" alt="iJ logo, clean, on dark"></div>
+    <div class="stage light"><span class="tag">logo-clean-light.svg</span><img class="hero" src="logo-clean-light.svg" alt="iJ logo, clean, on light"></div>
+  </div>
+
+  <h2>3 · Large to tiny <small>height in CSS pixels</small></h2>
+  <div class="label-row">Full</div>
+  <div class="ladder dark">
+    <figure><img src="logo-full.svg" style="height:160px" alt=""><figcaption>160</figcaption></figure>
+    <figure><img src="logo-full.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+    <figure><img src="logo-full.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+    <figure><img src="logo-full.svg" style="height:44px" alt=""><figcaption>44</figcaption></figure>
+    <figure><img src="logo-full.svg" style="height:32px" alt=""><figcaption>32</figcaption></figure>
+  </div>
+  <div class="ladder light">
+    <figure><img src="logo-full-light.svg" style="height:160px" alt=""><figcaption>160</figcaption></figure>
+    <figure><img src="logo-full-light.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+    <figure><img src="logo-full-light.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+    <figure><img src="logo-full-light.svg" style="height:44px" alt=""><figcaption>44</figcaption></figure>
+    <figure><img src="logo-full-light.svg" style="height:32px" alt=""><figcaption>32</figcaption></figure>
+  </div>
+  <div class="label-row">Clean, down to favicon sizes (16 and 32 use the dedicated untilted drawings)</div>
+  <div class="ladder dark">
+    <figure><img src="logo-clean.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+    <figure><img src="logo-clean.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+    <figure><img src="logo-clean.svg" style="height:44px" alt=""><figcaption>44</figcaption></figure>
+    <figure><img src="logo-clean.svg" style="height:32px" alt=""><figcaption>32 tilted</figcaption></figure>
+    <figure><img src="favicon-32.svg" style="height:32px" alt=""><figcaption>32 favicon</figcaption></figure>
+    <figure><img src="logo-clean.svg" style="height:20px" alt=""><figcaption>20 tilted</figcaption></figure>
+    <figure><img src="favicon-16.svg" style="height:16px" alt=""><figcaption>16 favicon</figcaption></figure>
+  </div>
+  <div class="ladder light">
+    <figure><img src="logo-clean-light.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+    <figure><img src="logo-clean-light.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+    <figure><img src="logo-clean-light.svg" style="height:44px" alt=""><figcaption>44</figcaption></figure>
+    <figure><img src="logo-clean-light.svg" style="height:32px" alt=""><figcaption>32 tilted</figcaption></figure>
+    <figure><img src="favicon-32.svg" style="height:32px" alt=""><figcaption>32 favicon</figcaption></figure>
+    <figure><img src="logo-clean-light.svg" style="height:20px" alt=""><figcaption>20 tilted</figcaption></figure>
+    <figure><img src="favicon-16.svg" style="height:16px" alt=""><figcaption>16 favicon</figcaption></figure>
+  </div>
+
+  <div class="label-row">In a header (44px, the site's tap-target height)</div>
+  <div class="header-mock" dir="rtl">
+    <span class="brand"><img src="logo-full.svg" style="height:44px" alt="">יצחק</span>
+    <nav><span>עליי</span><span>תהליך</span><span>מה כלול</span><span>שאלות</span><span>צור קשר</span></nav>
+  </div>
+  <div class="header-mock light">
+    <span class="brand"><img src="logo-full-light.svg" style="height:44px" alt="">Isaac</span>
+    <nav><span>About</span><span>Process</span><span>What's included</span><span>FAQ</span><span>Contact</span></nav>
+  </div>
+
+  <h2>4 · Favicons <small>8× zoom, pixels as rendered · then actual size</small></h2>
+  <div class="icons">
+    <div class="icon-card"><b>favicon-16.png</b><img class="zoom" src="favicon-16.png" alt=""><div class="actual"><span style="background:#fff"><img src="favicon-16.png" width="16" alt=""></span><span style="background:#202124"><img src="favicon-16.png" width="16" alt=""></span></div><span class="cap">untilted · 1.5px outline · 2px letters</span></div>
+    <div class="icon-card"><b>favicon-32.png</b><img class="zoom" src="favicon-32.png" alt=""><div class="actual"><span style="background:#fff"><img src="favicon-32.png" width="32" alt=""></span><span style="background:#202124"><img src="favicon-32.png" width="32" alt=""></span></div><span class="cap">untilted · 3px outline · 4px letters</span></div>
+    <div class="icon-card"><b>favicon-48.png</b><img class="zoom" src="favicon-48.png" alt=""><div class="actual"><span style="background:#fff"><img src="favicon-48.png" width="48" alt=""></span><span style="background:#202124"><img src="favicon-48.png" width="48" alt=""></span></div><span class="cap">clean, tilted</span></div>
+    <div class="icon-card"><b>favicon-96.png</b><img class="zoom" src="favicon-96.png" alt="" style="image-rendering:auto"><div class="actual"><span style="background:#fff"><img src="favicon-96.png" width="96" alt=""></span></div><span class="cap">clean, tilted</span></div>
+    <div class="icon-card"><b>icon-192.png</b><img src="icon-192.png" width="128" alt=""><span class="cap">Android / manifest</span></div>
+    <div class="icon-card"><b>icon-512.png</b><img src="icon-512.png" width="128" alt=""><span class="cap">Android splash / manifest</span></div>
+  </div>
+
+  <div class="label-row">Browser tabs at real size (16px favicon)</div>
+  <div class="tabs">
+    <div class="tabbar chrome-light"><div class="tab on"><img src="favicon-16.png" alt=""><span>יצחק · מפתח אתרים לעסקים</span></div><div class="tab off"><img src="favicon-16.png" alt="" style="filter:grayscale(1);opacity:.4"><span>New Tab</span></div></div>
+    <div class="tabbar chrome-dark"><div class="tab on"><img src="favicon-16.png" alt=""><span>Isaac · Web developer</span></div><div class="tab off"><img src="favicon-16.png" alt="" style="filter:grayscale(1);opacity:.4"><span>New Tab</span></div></div>
+  </div>
+
+  <h2>5 · Home screen <small>apple-touch-icon 180 · Android 192</small></h2>
+  <div class="app-row">
+    <figure><img class="squircle" src="apple-touch-icon.png" width="120" alt=""><figcaption class="cap">iPhone (180px, shown 120)</figcaption></figure>
+    <figure><img class="squircle" src="apple-touch-icon.png" width="60" alt=""><figcaption class="cap">60</figcaption></figure>
+    <figure><img class="round" src="icon-192.png" width="96" alt=""><figcaption class="cap">Android round mask</figcaption></figure>
+    <figure><img class="squircle" src="icon-192.png" width="96" alt=""><figcaption class="cap">Android squircle</figcaption></figure>
+  </div>
+
+  <h2>6 · Share images <small>Open Graph · 1200 × 630</small></h2>
+  <div class="og">
+    <figure><img src="og-he-dark.png" alt=""><figcaption>og-he-dark.png</figcaption></figure>
+    <figure><img src="og-en-dark.png" alt=""><figcaption>og-en-dark.png</figcaption></figure>
+    <figure><img src="og-he-light.png" alt=""><figcaption>og-he-light.png</figcaption></figure>
+    <figure><img src="og-en-light.png" alt=""><figcaption>og-en-light.png</figcaption></figure>
+  </div>
+
+  <h2>7 · Files</h2>
+  <table>
+    <tr><th>File</th><th>Use</th></tr>
+    <tr><td><code>logo-full.svg</code> · <code>logo-full-light.svg</code></td><td>Header, share images, large use. Texture is an SVG filter, so it stays vector.</td></tr>
+    <tr><td><code>logo-clean.svg</code> · <code>logo-clean-light.svg</code></td><td>Small sizes, print, anywhere filters aren't supported.</td></tr>
+    <tr><td><code>favicon-16.svg</code> · <code>favicon-32.svg</code></td><td>Pixel-grid sources for the two smallest favicons.</td></tr>
+    <tr><td><code>icon-tilted.svg</code> · <code>icon-square.svg</code></td><td>Sources for 48/96 (transparent) and 180/192/512 (solid square).</td></tr>
+    <tr><td><code>favicon.ico</code></td><td>16 + 32 + 48 in one file, for browsers that ask for /favicon.ico.</td></tr>
+    <tr><td><code>favicon-16/32/48/96.png</code> · <code>icon-192/512.png</code> · <code>apple-touch-icon.png</code></td><td>Rendered icons.</td></tr>
+    <tr><td><code>og-{he,en}-{dark,light}.png</code></td><td>Share images per language, two themes.</td></tr>
+  </table>
+
+  <h2>Notes</h2>
+  <ul class="notes">
+    <li><b>Proportion locked.</b> Every version uses the same ratios: i x-height ≈ 65% of the J's cap height, hook drop ≈ 35% of the cap height. The 16 and 32 drawings keep that ratio on whole pixels.</li>
+    <li><b>Orange on bone</b> is about 2.8:1. Fine for a logo (logos are exempt from contrast rules), but don't use that orange for small text on the light background.</li>
+    <li><b>Texture</b> is subtle on purpose: at header size it's nearly invisible, it shows at share-image size and above.</li>
+  </ul>
+</main>
+</body>
+</html>
