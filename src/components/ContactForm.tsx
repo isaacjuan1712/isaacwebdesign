@@ -145,7 +145,8 @@ export default function ContactForm() {
     }
 
     setStatus("sending");
-    // Send trimmed values only. Nothing is stored on this site: Web3Forms emails it to the owner.
+    // Send trimmed values only, cut to MAX in case maxLength was removed in devtools.
+    // Nothing is stored on this site: Web3Forms emails it to the owner.
     const payload = new FormData();
     payload.append("access_key", accessKey);
     // Fixed subject and sender name per language, so inquiries are easy to filter in Gmail
@@ -153,7 +154,7 @@ export default function ContactForm() {
     payload.append("from_name", f.fromName);
     payload.append("botcheck", String(data.get("botcheck") ?? ""));
     for (const name of ["name", "phone", "email", "message"] as const) {
-      payload.append(name, String(data.get(name) ?? "").trim());
+      payload.append(name, String(data.get(name) ?? "").trim().slice(0, MAX[name]));
     }
 
     try {
