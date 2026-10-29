@@ -102,8 +102,8 @@ export default function A11yMenu() {
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="a11y-menu"
-        style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
-        className="fixed start-5 z-40 flex size-12 cursor-pointer items-center justify-center rounded-full border-2 border-ink bg-bone text-ink shadow-lg shadow-black/40 transition-transform duration-150 ease-out hover:scale-105 active:scale-95"
+        style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
+        className="fixed start-4 z-40 flex size-12 sm:start-5 cursor-pointer items-center justify-center rounded-full border-2 border-ink bg-bone text-ink shadow-lg shadow-black/40 transition-transform duration-150 ease-out hover:scale-105 active:scale-95"
       >
         <AccessibilityIcon />
       </button>

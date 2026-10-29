@@ -57,8 +57,6 @@ export default function Hero() {
   // Never below 0.9: over the hero's orange glow and grid, the orange accent word needs
   // 0.85 to keep 3:1 (measured; see AUDIT.md), the cream lines far less
   const fade = useTransform(scrollYProgress, [0.15, 0.85], [1, 0.9]);
-  const stampTurn = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const stampLift = useTransform(scrollYProgress, [0, 1], ["0%", "-35%"]);
 
   // Everything below the headline waits until the last line is printed
   const reduce = !moving;
@@ -115,36 +113,20 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* The rotating stamp: spins on its own, and turns faster as you scroll past.
-              Centered under the buttons; on wide screens it sits at the end side instead. */}
+          {/* A plain orange arrow to the contact form, at the end side on wide screens only:
+              on smaller screens the two buttons above already say the same thing */}
           <motion.a
             href="#contact"
             variants={{
-              hidden: { opacity: 0, scale: 0.7, rotate: -40 },
-              show: { opacity: 1, scale: 1, rotate: 0, transition: { type: "spring", duration: 0.8, bounce: 0.25 } },
+              hidden: { opacity: 0, scale: 0.7 },
+              show: { opacity: 1, scale: 1, transition: { type: "spring", duration: 0.8, bounce: 0.25 } },
             }}
-            className="group relative size-36 sm:size-44 lg:absolute lg:end-6 lg:bottom-20"
+            className="group absolute end-6 bottom-20 hidden size-20 items-center justify-center rounded-full bg-flare text-ink lg:flex"
           >
-            {/* The ring text is decorative (aria-hidden); this is the link's name */}
             <span className="sr-only">{t.hero.stampLabel}</span>
-            <motion.span className="block size-full" style={moving ? { rotate: stampTurn, y: stampLift } : undefined}>
-              <svg viewBox="0 0 200 200" aria-hidden="true" className="size-full animate-spin-slow">
-                <defs>
-                  <path id="stamp-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
-                </defs>
-                {/* textLength makes the ring text fill the circle exactly, whatever its length */}
-                <text className="fill-bone font-sans text-[17px] font-bold tracking-[0.12em]">
-                  <textPath href="#stamp-circle" textLength={484} lengthAdjust="spacingAndGlyphs">
-                    {t.hero.stampRing}
-                  </textPath>
-                </text>
-              </svg>
-            </motion.span>
-            <span className="absolute inset-0 m-auto flex size-16 items-center justify-center rounded-full bg-flare text-ink transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95 sm:size-20">
-              <svg viewBox="0 0 24 24" className="size-7 rotate-[135deg] ltr:rotate-[225deg]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
-                <path d="M12 5v14M5 12l7-7 7 7" />
-              </svg>
-            </span>
+            <svg viewBox="0 0 24 24" className="size-7 rotate-[135deg] transition-transform duration-300 ease-out group-hover:scale-110 group-active:scale-95 ltr:rotate-[225deg]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <path d="M12 5v14M5 12l7-7 7 7" />
+            </svg>
           </motion.a>
         </motion.div>
       </div>

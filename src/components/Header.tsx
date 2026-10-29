@@ -146,7 +146,7 @@ export default function Header({ path = "/" }: { path?: string }) {
   );
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 border-b border-line bg-ink/95">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-line bg-ink/[0.97] backdrop-blur-md">
       {/* Three fixed columns, identical in both languages: controls on the left, the nav
           exactly centered, the logo on the right. The row is forced to LTR so nothing
           mirrors when the language changes; only the DOM order follows the language, so

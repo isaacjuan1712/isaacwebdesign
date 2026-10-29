@@ -22,7 +22,6 @@
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 
-  --animate-spin-slow: spin 18s linear infinite;
   --animate-ping-soft: ping-soft 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
 
   --animate-feed: feed 9s var(--ease-in-out-strong) infinite;
@@ -138,7 +137,7 @@ html[data-motion="paused"] .rise-in {
   animation: none;
 }
 
-/* "Stop animations" freezes every looping CSS animation where it is (ticker, stamp,
+/* "Stop animations" freezes every looping CSS animation where it is (ticker,
    glows, phone loops) */
 /* (The one-off hero entrances are excluded: freezing them could leave text hidden.) */
 html[data-motion="paused"] *:not(.ink-roller, .rise-in),
@@ -194,6 +193,12 @@ html[data-motion="paused"] .fade-in {
 
 section[id] {
   scroll-margin-top: 4.5rem;
+}
+
+/* Keyboard focus and anchor jumps stop short of the floating WhatsApp and accessibility
+   buttons in the bottom corners, so they never hide what was just focused */
+html {
+  scroll-padding-bottom: 5rem;
 }
 
 body {

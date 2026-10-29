@@ -90,8 +90,10 @@ function FastVisual() {
         rotateY.set(0);
       }}
     >
-      <motion.div style={{ rotateX, rotateY, transformPerspective: 700 }}>
-        <Phone className="w-44">
+      {/* The phone takes the card's height (minus the padding) and its width follows the
+          aspect ratio, so it always fits whole; capped at its design size on tall cards */}
+      <motion.div className="h-full max-h-[22.5rem]" style={{ rotateX, rotateY, transformPerspective: 700 }}>
+        <Phone className="h-full w-auto">
           <div className="animate-feed space-y-2.5 p-3 pt-9">
             {[0, 1].map((copy) => (
               <div key={copy} className="space-y-2.5">

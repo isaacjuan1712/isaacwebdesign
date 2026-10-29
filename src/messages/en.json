@@ -49,7 +49,6 @@
     "lead": "Fast, mobile-friendly websites for local businesses. With a WhatsApp button, a contact form, and a design that doesn't look like every other site.",
     "ctaWhatsapp": "Message me on WhatsApp",
     "ctaProcess": "How it works",
-    "stampRing": "OPEN FOR NEW WORK • OPEN FOR NEW WORK •",
     "stampLabel": "Open for new projects, go to the contact form"
   },
   "marquee": [
@@ -400,7 +399,7 @@
           "A heading and landmark structure (header, navigation, main content, footer) that screen readers recognize.",
           "Color contrast of at least 4.5:1 for regular text and 3:1 for large text, form fields and icons.",
           "The mobile menu moves focus inside, closes with Esc, and returns focus to the button that opened it.",
-          "A \"Stop animations\" option in the accessibility menu on every page, which stops all motion that plays on its own: the moving band, the spinning stamp, the phone animations and every other loop. Your choice is saved for your next visit, and animations stop automatically if your system is set to reduce motion.",
+          "A \"Stop animations\" option in the accessibility menu on every page, which stops all motion that plays on its own: the moving band, the phone animations and every other loop. Your choice is saved for your next visit, and animations stop automatically if your system is set to reduce motion.",
           "Respect for your system's \"reduce motion\" setting: movement is replaced with gentle fades.",
           "In the contact form: a visible label for every field, \"(required)\" written out in words, and clear error messages that screen readers announce.",
           "Frequently asked questions in an accessible accordion that opens and closes with the keyboard.",
