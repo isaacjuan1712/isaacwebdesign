@@ -10,12 +10,14 @@ import { useMotionPause } from "./Providers";
 // Floating button that stays on screen while scrolling.
 // `end-5` = the "end" side: bottom-left in Hebrew (RTL), bottom-right in English (LTR).
 // The bottom offset respects the iPhone home-indicator safe area.
+// Wrapped in a labelled <aside> so it sits inside a landmark like the rest of the page.
 // It pops in once the hero headline has finished printing, so it doesn't compete with it.
 export default function WhatsAppButton() {
   const { paused: reduce } = useMotionPause();
   const { t } = useI18n();
   return (
-    <motion.div
+    <motion.aside
+      aria-label="WhatsApp"
       style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
       className="fixed end-5 z-40"
       initial={{ opacity: 0, scale: 0.6 }}
@@ -34,6 +36,6 @@ export default function WhatsAppButton() {
           <WhatsAppIcon className="relative size-8 transition-transform duration-300 group-hover:-rotate-12" />
         </a>
       </Magnetic>
-    </motion.div>
+    </motion.aside>
   );
 }

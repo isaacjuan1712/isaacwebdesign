@@ -34,16 +34,17 @@ Other scripts:
 | Variable | Required | What it's for |
 |---|---|---|
 | `NEXT_PUBLIC_WEB3FORMS_KEY` | Yes | Delivers the contact form to your email through [Web3Forms](https://web3forms.com). Public by design. |
-| `NEXT_PUBLIC_SITE_URL` | Once you have a domain | The site's public address, for canonical links, `sitemap.xml`, `robots.txt` and share previews. On Vercel it falls back to the production URL automatically. |
 
 `.env*` files are git-ignored, except `.env.example`.
+
+The site's public address (`https://isaacwebdesign.vercel.app`) is not an environment variable: it's `siteUrl` in `src/lib/site.ts`, the one value behind canonical links, hreflang, `sitemap.xml`, `robots.txt`, share previews and structured data.
 
 ## Deploy on Vercel
 
 1. Push the repository to GitHub.
 2. On [vercel.com](https://vercel.com), choose **Add New → Project** and import the repository. Vercel detects Next.js; keep the default settings.
-3. Under **Settings → Environment Variables**, add `NEXT_PUBLIC_WEB3FORMS_KEY`, and `NEXT_PUBLIC_SITE_URL` once you have a domain.
-4. Deploy. After connecting your own domain, set `NEXT_PUBLIC_SITE_URL` to it and redeploy so the sitemap and canonical links use it.
+3. Under **Settings → Environment Variables**, add `NEXT_PUBLIC_WEB3FORMS_KEY`.
+4. Deploy. If you later connect your own domain, change `siteUrl` in `src/lib/site.ts` to it and redeploy so the sitemap and canonical links use it.
 
 Security headers (CSP, `X-Frame-Options`, `Referrer-Policy` and more) are set in `next.config.ts` and apply on Vercel automatically. If you ever add a new outside service (analytics, maps, embeds), add its domain to the CSP there, or the browser will block it.
 

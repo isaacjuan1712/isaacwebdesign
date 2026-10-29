@@ -1,6 +1,6 @@
 # Licenses and sources
 
-Everything this site ships or depends on, with where it comes from and its license. Last checked: 2026-10-24.
+Everything this site ships or depends on, with where it comes from and its license. Last checked: 2026-10-29.
 
 ## Fonts
 
@@ -16,8 +16,9 @@ No "free for personal use" fonts are used.
 
 | Asset | Source | License |
 |---|---|---|
-| `src/app/icon.png`, `src/app/apple-icon.png` | Made for this site (the letters "יצ" set in Karantina) | Owner's own work |
-| `public/og-he.png`, `public/og-en.png` (share images) | Made for this site (headline set in Karantina / Anton and Assistant) | Owner's own work |
+| iJ stamp logo (`public/logo.svg`, source files in `brand/`) | Designed for this site by the owner, drawn as SVG paths | Owner's own work |
+| `src/app/icon.png`, `src/app/apple-icon.png`, `src/app/favicon.ico` | Rendered from the iJ stamp logo | Owner's own work |
+| `public/og-he.png`, `public/og-en.png` and `brand/og-*.png` (share images) | The iJ stamp logo with the name and role set in Karantina / Anton and Assistant | Owner's own work |
 | Phone mock-ups, mini websites, street map, calendar, chat bubbles | Drawn in code (HTML/CSS/SVG) for this site | Owner's own work |
 | Film-grain texture (`globals.css`) | Generated in code by an SVG `feTurbulence` filter | Owner's own work |
 

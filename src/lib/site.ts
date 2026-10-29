@@ -8,15 +8,10 @@ export const site = {
   email: "isaacjuan1712@gmail.com",
 };
 
-// The public address of the site, for canonical links, the sitemap and share previews.
-// Set NEXT_PUBLIC_SITE_URL once you have a domain. On Vercel the production URL is
-// filled in automatically until then.
-export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000")
-).replace(/\/$/, "");
+// The public address of the site, without a trailing slash. The single source for
+// canonical links, hreflang, sitemap.xml, robots.txt, Open Graph URLs and images, and
+// structured data. If you buy a domain, change it here and redeploy.
+export const siteUrl = "https://isaacwebdesign.vercel.app";
 
 // Opens WhatsApp with a ready-made message in the visitor's language
 export const whatsappLink = (message: string) =>

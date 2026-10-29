@@ -26,7 +26,7 @@ export default async function Home() {
     email: site.email,
     areaServed: { "@type": "Country", name: "Israel" },
     inLanguage: locale,
-    founder: { "@type": "Person", name: t.site.name, jobTitle: t.site.role },
+    founder: { "@type": "Person", name: t.site.fullName, jobTitle: t.site.role },
   };
 
   // The FAQ as structured data, so search engines can show the questions and answers

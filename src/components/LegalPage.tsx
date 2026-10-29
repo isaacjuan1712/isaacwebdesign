@@ -17,7 +17,7 @@ export default async function LegalPage({ page }: { page: "privacy" | "accessibi
 
   // What {name}, {email} and {phone} turn into inside the texts
   const values = {
-    name: t.site.name,
+    name: t.site.fullName,
     email: (
       <a href={`mailto:${site.email}`} dir="ltr">
         {site.email}

@@ -48,7 +48,7 @@ export default async function Footer() {
 
           <div className="mt-6 flex flex-col gap-2 border-t border-line pt-6 text-sm text-dust md:flex-row md:items-center md:justify-between">
             <p>
-              © <CurrentYear /> {t.site.name}
+              © <CurrentYear /> {t.site.fullName}
             </p>
             <nav aria-label={t.nav.legalLabel} className="flex flex-wrap gap-x-6">
               {legalPages.map((page) => (

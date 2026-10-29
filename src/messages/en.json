@@ -9,6 +9,7 @@
   },
   "site": {
     "name": "Isaac",
+    "fullName": "Isaac Juan",
     "role": "Web developer for local businesses",
     "serviceName": "Isaac, websites for local businesses",
     "whatsappMessage": "Hi Isaac, I saw your website and I'd love to hear about building a site for my business",
@@ -284,7 +285,7 @@
   "privacy": {
     "title": "Privacy policy",
     "description": "What information Isaac's website collects, why, where it goes, and how to see, correct or delete it.",
-    "updated": "Last updated: October 24, 2026",
+    "updated": "Last updated: October 29, 2026",
     "blocks": [
       {
         "p": "Your privacy matters to me. This page explains, in plain language, what information is collected when you contact me through this site, what I do with it, and what your rights are."
@@ -337,7 +338,7 @@
         "p": "The site <b>doesn't use analytics tools or tracking pixels</b>, and doesn't load content from third-party sites while you browse. Fonts are served from this site."
       },
       {
-        "p": "The site saves only two preferences in your browser so they stick for your next visit: the language you picked (in a cookie called locale) and whether you paused animations (in localStorage). They're never sent to me and aren't used for tracking."
+        "p": "The site saves only display preferences in your browser so they stick for your next visit: the language you picked (in a cookie called locale) and the settings you chose in the accessibility menu, such as text size, contrast and stopping animations (in localStorage). They're never sent to me and aren't used for tracking."
       },
       {
         "p": "Like any website, the hosting provider (Vercel) may log basic technical data, such as your IP address and browser type, for security and to run the server."
@@ -375,7 +376,7 @@
   "accessibility": {
     "title": "Accessibility statement",
     "description": "The accessibility statement for Isaac's website: the standard it follows, what was made accessible, known limitations, and how to report an accessibility issue.",
-    "updated": "Last checked: October 24, 2026",
+    "updated": "Last checked: October 29, 2026",
     "blocks": [
       {
         "p": "I want everyone to be able to use this site, including people with disabilities. Accessibility was planned in from the start and is built into the code itself, with no add-on or \"accessibility widget\"."
