@@ -16,7 +16,7 @@ No "free for personal use" fonts are used.
 
 | Asset | Source | License |
 |---|---|---|
-| iJ stamp logo (`public/logo.svg`, source files in `brand/`) | Designed for this site by the owner, drawn as SVG paths | Owner's own work |
+| iJ stamp logo (`public/logo.svg`, source files in `brand/`) | The owner's own concept: an "ij" monogram in a stamp, in the site's brand colors. The owner made a reference image (`logo-reference.png.png`, not part of the site) with an AI image generator from their own prompt; it isn't based on any existing logo. The shipped logo is an original SVG redrawn by hand from that reference, not a trace or copy of the generated image | Owner's own work |
 | `src/app/icon.png`, `src/app/apple-icon.png`, `src/app/favicon.ico` | Rendered from the iJ stamp logo | Owner's own work |
 | `public/og-he.png`, `public/og-en.png` and `brand/og-*.png` (share images) | The iJ stamp logo with the name and role set in Karantina / Anton and Assistant | Owner's own work |
 | Phone mock-ups, mini websites, street map, calendar, chat bubbles | Drawn in code (HTML/CSS/SVG) for this site | Owner's own work |
