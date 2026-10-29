@@ -211,9 +211,7 @@
   "contact": {
     "title": "Let's build",
     "titleAccent": "something.",
-    "intro": "Tell me about your business and I'll get back to you soon, usually the same day. The intro call is free, no strings attached.",
-    "whatsapp": "WhatsApp",
-    "whatsappValue": "Send a message",
+    "intro": "Free intro call, no strings attached. I'll get back to you within 24 hours.",
     "phone": "Phone",
     "email": "Email",
     "ctaBefore": "Interested?",

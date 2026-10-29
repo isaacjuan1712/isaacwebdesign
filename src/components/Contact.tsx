@@ -15,10 +15,10 @@ export default function Contact() {
   const ref = useRef<HTMLElement>(null);
   const moving = useMotionAllowed();
   const { t, sign } = useI18n();
+  // WhatsApp is offered above the form, so the details row under it is phone and email only
   const channels = [
-    { href: whatsappLink(t.site.whatsappMessage), label: t.contact.whatsapp, value: t.contact.whatsappValue, icon: WhatsAppIcon, external: true },
-    { href: site.phoneHref, label: t.contact.phone, value: site.phoneDisplay, icon: PhoneIcon, ltr: true },
-    { href: `mailto:${site.email}`, label: t.contact.email, value: site.email, icon: MailIcon, ltr: true },
+    { href: site.phoneHref, label: t.contact.phone, value: site.phoneDisplay, icon: PhoneIcon },
+    { href: `mailto:${site.email}`, label: t.contact.email, value: site.email, icon: MailIcon },
   ];
   // The headline slides in from the side, tied to how far the section has entered the screen
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.55"] });
@@ -63,50 +63,23 @@ export default function Contact() {
               <span className="sr-only"> {t.a11y.newWindow}</span>
             </a>
           </p>
+          <p className="mt-2 text-dust">{t.contact.intro}</p>
         </motion.div>
 
-        <div className="mt-14 grid gap-16 md:grid-cols-[1fr_1.4fr]">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-          >
-            <motion.p
-              className="text-lg leading-relaxed text-dust"
-              variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.6 } } }}
-            >
-              {t.contact.intro}
-            </motion.p>
-            <ul className="mt-8 border-t border-line">
-              {channels.map(({ href, label, value, icon: Icon, external, ltr }) => (
-                <motion.li
-                  key={label}
-                  className="border-b border-line"
-                  variants={{ hidden: { opacity: 0, x: 48 * sign }, show: { opacity: 1, x: 0, transition: { duration: 0.6, ease } } }}
-                >
-                  <a
-                    href={href}
-                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                    className="group flex items-center gap-4 py-5"
-                  >
-                    <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-line transition-[background-color,border-color,color,scale] duration-200 group-hover:border-flare group-hover:bg-flare group-hover:text-ink group-active:scale-95">
-                      <Icon />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-sm text-dust">{label}</span>
-                      <span dir={ltr ? "ltr" : undefined} className="block text-lg font-semibold break-all transition-colors duration-200 group-hover:text-flare">
-                        {value}
-                      </span>
-                      {external && <span className="sr-only"> {t.a11y.newWindow}</span>}
-                    </span>
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
+        {/* One column: the form is the main action, with a quiet row of direct details under it */}
+        <div className="mx-auto mt-14 max-w-[640px]">
           <ContactForm />
+          <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-8 border-t border-line pt-4 text-dust">
+            {channels.map(({ href, label, value, icon: Icon }) => (
+              <li key={label}>
+                <a href={href} className="inline-flex min-h-11 items-center gap-2 transition-colors duration-200 hover:text-bone">
+                  <Icon className="size-4 shrink-0" />
+                  <span className="sr-only">{label}: </span>
+                  <span dir="ltr">{value}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
