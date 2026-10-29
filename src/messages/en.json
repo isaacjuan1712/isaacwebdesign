@@ -215,7 +215,12 @@
     "whatsapp": "WhatsApp",
     "whatsappValue": "Send a message",
     "phone": "Phone",
-    "email": "Email"
+    "email": "Email",
+    "ctaBefore": "Interested?",
+    "ctaAccent": "Leave your details",
+    "ctaAfter": "and I'll show you my work",
+    "ctaWhatsapp": "or message me on WhatsApp",
+    "ctaWhatsappMessage": "Hi Isaac, I saw your website and I'd love to see some of your work"
   },
   "form": {
     "label": "Contact form",

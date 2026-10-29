@@ -40,6 +40,31 @@ export default function Contact() {
           </motion.span>
         </h2>
 
+        {/* Call to action: points at the form below, with WhatsApp as the lighter alternative */}
+        <motion.div
+          className="mx-auto mt-16 max-w-4xl text-center md:mt-24"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease }}
+        >
+          <h3 className="font-display text-5xl leading-[0.95] font-bold text-balance sm:text-7xl md:text-8xl">
+            {t.contact.ctaBefore} <span className="whitespace-nowrap text-flare">{t.contact.ctaAccent}</span> {t.contact.ctaAfter}
+          </h3>
+          <p className="mt-5 flex justify-center">
+            <a
+              href={whatsappLink(t.contact.ctaWhatsappMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex min-h-11 items-center gap-2 text-lg text-dust underline underline-offset-4 transition-colors duration-200 hover:text-bone"
+            >
+              <WhatsAppIcon className="size-5 shrink-0 text-whatsapp transition-transform duration-300 group-hover:-rotate-12" />
+              {t.contact.ctaWhatsapp}
+              <span className="sr-only"> {t.a11y.newWindow}</span>
+            </a>
+          </p>
+        </motion.div>
+
         <div className="mt-14 grid gap-16 md:grid-cols-[1fr_1.4fr]">
           <motion.div
             initial="hidden"
