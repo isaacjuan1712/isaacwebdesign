@@ -6,7 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { useI18n } from "@/i18n/client";
 import { format } from "@/i18n/config";
-import { sections, whatsappLink } from "@/lib/site";
+import { sections, whatsappLink, logoPlaceholder } from "@/lib/site";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Magnetic from "./Magnetic";
 import { getLenis } from "./Providers";
@@ -76,7 +76,7 @@ export default function Header({ path = "/" }: { path?: string }) {
       onClick={() => setOpen(false)}
     >
       {/* The iJ stamp (brand/logo-full.svg); the link's aria-label names it */}
-      <Image src="/logo.svg" alt="" width={34} height={44} />
+      <Image src="/logo.svg" alt="" width={34} height={44} placeholder={logoPlaceholder} />
       {t.site.name}
     </Link>
   );

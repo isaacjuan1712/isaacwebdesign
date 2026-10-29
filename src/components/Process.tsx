@@ -112,13 +112,12 @@ export default function Process() {
           <div className="hidden md:block">
             <div className="sticky top-[calc(50vh-17rem)]">
               <Phone className="w-full">
-                {wide && (
-                  <LazyMount>
-                    <AnimatePresence mode="wait" initial={false}>
-                      <StepScreen key={active} step={active} />
-                    </AnimatePresence>
-                  </LazyMount>
-                )}
+                {/* Skeleton until the screen is known to be wide (only after JavaScript runs) */}
+                <LazyMount ready={wide}>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <StepScreen key={active} step={active} />
+                  </AnimatePresence>
+                </LazyMount>
               </Phone>
               <p className="mt-5 text-center text-sm font-semibold text-dust">
                 {format(t.process.stepOf, { n: active + 1, total: steps.length, title: steps[active].title })}

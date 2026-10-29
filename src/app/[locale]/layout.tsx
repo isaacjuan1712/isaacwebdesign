@@ -9,11 +9,18 @@ import { getDictionary } from "@/i18n/server";
 import { prePaintScript } from "@/lib/a11y";
 import "../globals.css";
 
+// Text is visible immediately in a fallback font (display: swap). next/font generates that
+// fallback from Arial with size-adjust and ascent/descent overrides matched to each font,
+// so lines keep their length and height when the real font arrives. Both are the
+// defaults; they are spelled out on each font because the no-jump loading depends on them.
+
 // Karantina: tall condensed Hebrew poster face for headlines. Only the bold weight is used.
 const karantina = Karantina({
   variable: "--font-karantina",
   weight: "700",
   subsets: ["hebrew", "latin"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 // Anton: the English headline face, with the same heavy, condensed poster feel as Karantina.
@@ -22,12 +29,16 @@ const anton = Anton({
   variable: "--font-anton",
   weight: "400",
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 // Assistant: clean, readable sans for body text, in both Hebrew and English.
 const assistant = Assistant({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
+  display: "swap",
+  adjustFontFallback: true,
 });
 
 // Both languages are generated at build time: /, /en, /privacy, /en/privacy, ...

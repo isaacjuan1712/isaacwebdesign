@@ -147,6 +147,45 @@ html[data-motion="paused"] *::after {
   animation-play-state: paused !important;
 }
 
+/* Skeletons stand in only for parts that arrive after the HTML: the lazy-mounted demos
+   and a page that's still on its way. Soft blocks in the surface colors, with a slow
+   sweep of warm light that disappears when motion is paused (menu or OS setting). */
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 77 28 / 0.07) 50%, transparent 70%);
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+html[data-motion="paused"] .skeleton::after {
+  display: none;
+}
+
+/* The real content fades in over its skeleton's place; with motion paused it just appears */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.fade-in {
+  animation: fade-in 0.4s var(--ease-out-strong) both;
+}
+html[data-motion="paused"] .fade-in {
+  animation: none;
+}
+
 /* Loops inside the "what you get" demos only run while their tile is on screen */
 [data-playing="false"] .animate-feed,
 [data-playing="false"] .animate-typing {

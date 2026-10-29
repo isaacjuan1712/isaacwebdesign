@@ -21,3 +21,8 @@ export const whatsappLink = (message: string) =>
 export const sections = ["about", "process", "included", "faq", "contact"] as const;
 
 export const legalPages = ["accessibility", "privacy"] as const;
+
+// Shown in the logo's reserved box until /logo.svg arrives (next/image drops it on load):
+// a soft rounded block in the divider color, the same footprint as the stamp.
+export const logoPlaceholder =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 44'%3E%3Crect x='2' y='2' width='30' height='40' rx='6' fill='%232e2924'/%3E%3C/svg%3E";

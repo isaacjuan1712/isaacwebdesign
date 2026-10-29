@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { format, localizePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/server";
-import { legalPages, sections } from "@/lib/site";
+import { legalPages, sections, logoPlaceholder } from "@/lib/site";
 import FooterReveal from "./FooterReveal";
 import Depth from "./Depth";
 
@@ -34,7 +34,7 @@ export default async function Footer() {
               aria-label={format(t.site.homeLabel, { name: t.site.name })}
               className="flex min-h-11 items-center gap-4 self-start font-display text-4xl font-bold md:self-auto"
             >
-              <Image src="/logo.svg" alt="" width={43} height={56} />
+              <Image src="/logo.svg" alt="" width={43} height={56} placeholder={logoPlaceholder} />
               {t.site.name}
             </Link>
             <nav aria-label={t.nav.footerLabel} className="flex flex-wrap gap-x-6 text-dust">

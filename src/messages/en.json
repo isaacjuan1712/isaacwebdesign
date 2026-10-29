@@ -17,7 +17,8 @@
   },
   "a11y": {
     "skipLink": "Skip to content",
-    "newWindow": "(opens in a new window)"
+    "newWindow": "(opens in a new window)",
+    "loading": "Loading the page…"
   },
   "nav": {
     "about": "About",
